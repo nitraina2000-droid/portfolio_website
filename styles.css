@@ -228,105 +228,22 @@ a:focus-visible,button:focus-visible{
   color:#4a4640;
 }
 
-/* WORK — title sits above; the fold proper starts at the tab bar */
+/* WORK — plain, calm section matching the rest of the site (no full-viewport
+   fold, no dark flip, no drifting tint/ghost word — simplified per feedback) */
 .work{
-  padding:120px 0 0;
+  padding:120px 0;
 }
 .work-inner{
-  position:relative;
-  z-index:1;
   max-width:1100px;
   width:100%;
   margin:0 auto;
   padding:0 24px;
 }
 .work .section-header{margin-bottom:40px}
-/* work header: one line, kicker earns the right-hand space */
-.work-header{align-items:baseline}
 .work-header .section-title{
   font-size:clamp(38px,7.2vw,92px);
   line-height:.9;
-  white-space:nowrap;
 }
-
-/* the fold: full viewport from the category nav down, themed per tab,
-   goes dark when it owns the screen */
-.work-fold{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:40px 0 80px;
-  overflow:clip;
-  transition:background .5s ease;
-}
-.work-fold .work-controls{margin-bottom:40px}
-.work-fold.fold-dark{background:#16140f}
-/* two soft radial washes in the active tab's hue, slowly drifting;
-   swap this layer for a muted <video> later if wanted */
-.work-fold::before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  z-index:0;
-  background:
-    radial-gradient(55% 65% at 22% 24%, var(--work-tint-a), transparent 70%),
-    radial-gradient(48% 60% at 78% 72%, var(--work-tint-b), transparent 70%);
-  animation:workDrift 22s ease-in-out infinite alternate;
-  transition:opacity .45s ease;
-}
-.work-fold.theme-switching::before{opacity:0}
-@keyframes workDrift{
-  from{transform:translate3d(-3%,-2%,0) rotate(-2deg) scale(1)}
-  to{transform:translate3d(3%,2%,0) rotate(2deg) scale(1.08)}
-}
-/* giant ghosted category word — the tab's name IS the backdrop */
-.work-fold::after{
-  content:var(--work-word);
-  position:absolute;
-  left:-0.02em;
-  bottom:-0.18em;
-  z-index:0;
-  font-family:'Archivo',sans-serif;
-  font-weight:900;
-  font-size:clamp(100px,19vw,300px);
-  letter-spacing:-0.03em;
-  line-height:1;
-  white-space:nowrap;
-  color:transparent;
-  -webkit-text-stroke:1.5px var(--work-word-ink);
-  opacity:1;
-  pointer-events:none;
-  user-select:none;
-  animation:wordSway 26s ease-in-out infinite alternate;
-  transition:opacity .45s ease;
-}
-.work-fold.theme-switching::after{opacity:0}
-@keyframes wordSway{
-  from{transform:translateX(-1%)}
-  to{transform:translateX(1.5%)}
-}
-@media (prefers-reduced-motion:reduce){
-  .work-fold::before,.work-fold::after{animation:none}
-}
-.work--marketing{--work-tint-a:rgba(232,87,74,.20);--work-tint-b:rgba(200,64,47,.13);--work-word:"MARKETING";--work-word-ink:rgba(200,64,47,.26)}
-.work--uiux{--work-tint-a:rgba(74,70,64,.17);--work-tint-b:rgba(22,20,15,.12);--work-word:"UI/UX";--work-word-ink:rgba(22,20,15,.22)}
-.work--content{--work-tint-a:rgba(138,64,48,.18);--work-tint-b:rgba(92,61,51,.13);--work-word:"CONTENT";--work-word-ink:rgba(92,61,51,.26)}
-/* dark fold: light-on-ink variants of everything inside it */
-.fold-dark.work--uiux{--work-tint-a:rgba(245,243,239,.10);--work-tint-b:rgba(182,174,203,.08)}
-.fold-dark::after{-webkit-text-stroke:1.5px var(--work-word-ink-dark,rgba(245,243,239,.2))}
-.fold-dark .tab-btn{color:rgba(245,243,239,.5);border-color:transparent}
-.fold-dark .tab-btn:hover{color:#f5f3ef}
-.fold-dark .tab-btn.active{color:#f5f3ef}
-.fold-dark .tab-count{color:#f2a196}
-.fold-dark .view-toggle{border-color:rgba(245,243,239,.5)}
-.fold-dark .view-btn{color:#f5f3ef}
-.fold-dark .view-btn.active,.fold-dark .view-btn:hover{background:#f5f3ef;color:#16140f}
-.fold-dark .project-meta h3{color:#f5f3ef}
-.fold-dark .project-caption{color:rgba(245,243,239,.72)}
-.fold-dark .project-metric{color:#f2a196}
-.fold-dark .project:hover .project-img{box-shadow:0 24px 48px rgba(0,0,0,.45)}
 .tabs{display:flex;gap:28px;flex-wrap:wrap}
 .tab-btn{
   font:800 clamp(17px,2vw,22px)/1 'Archivo',sans-serif;
@@ -376,6 +293,7 @@ a:focus-visible,button:focus-visible{
   align-items:center;
   gap:18px;
   flex-wrap:wrap;
+  margin-bottom:40px;
 }
 .view-toggle{
   display:flex;
@@ -409,16 +327,14 @@ a:focus-visible,button:focus-visible{
   gap:44px 28px;
 }
 .grid-view .project{margin-bottom:0}
-/* taller covers so two cards + header genuinely fill the fold */
 .grid-view .project-img{aspect-ratio:4/3}
-.grid-view .project-meta h3{font-size:18px}
-.grid-view .project-caption{font-size:14px}
-.grid-view .img-overlay{padding:16px}
-.grid-view .ov-pill{font-size:13px;padding:10px 16px}
 @media (max-width:640px){
   #projects.grid-view{grid-template-columns:1fr}
 }
 
+/* one simple card everywhere: cover image, then a clean vertical stack —
+   small mono metric label, title, caption, link. Always visible, no
+   hover-only content, same layout in list and grid view. */
 .project{margin-bottom:64px}
 .project-img{
   aspect-ratio:16/9;
@@ -444,123 +360,42 @@ a:focus-visible,button:focus-visible{
   object-fit:cover;
   display:block;
 }
-.img-overlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:flex-end;
-  padding:24px;
-  background:rgba(22,20,15,.18);
-  opacity:0;
-  transition:opacity .3s ease;
-}
-.project-link:hover .img-overlay,
-.project-link:focus-visible .img-overlay{
-  opacity:1;
-}
-.ov-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:#f5f3ef;
-  color:#16140f;
-  font:700 14px 'Archivo',sans-serif;
-  padding:12px 20px;
-  border-radius:999px;
-  transform:translateY(8px);
-  transition:transform .3s cubic-bezier(.22,1,.36,1);
-}
-.project-link:hover .ov-pill{transform:none}
-.ov-pill .arrow{font-size:15px;color:#e8574a}
-
-/* LIST VIEW: single-fold cards — details live ON the cover, meta below is hidden.
-   Overlay text hard-resets the mono/uppercase styles set on .project-img. */
-.ov-details{display:none}
-#projects:not(.grid-view) .has-cover .project-meta,
-#projects:not(.grid-view) .has-cover .project-caption{display:none}
-#projects:not(.grid-view) .has-cover .img-overlay{
-  align-items:flex-end;
-  padding:28px;
-  background:linear-gradient(to top,rgba(22,20,15,.85) 0%,rgba(22,20,15,.55) 50%,rgba(22,20,15,.25) 100%);
-}
-#projects:not(.grid-view) .has-cover .ov-pill{display:none}
-#projects:not(.grid-view) .has-cover .ov-details{
+.project-body{margin-top:20px}
+.project-metric{
   display:block;
-  max-width:640px;
-  text-align:left;
-  transform:translateY(10px);
-  transition:transform .4s cubic-bezier(.22,1,.36,1);
-}
-#projects:not(.grid-view) .project-link:hover .ov-details,
-#projects:not(.grid-view) .project-link:focus-visible .ov-details{transform:none}
-.ov-metric{
-  display:block;
-  font:600 13px/1 ui-monospace,monospace;
-  letter-spacing:.1em;
+  font:600 12px/1 ui-monospace,monospace;
+  letter-spacing:.08em;
   text-transform:uppercase;
-  color:#f2a196;
-  margin-bottom:10px;
+  color:#c8402f;
+  margin-bottom:8px;
 }
-.ov-title{
+.project-title{
   font-family:'Archivo',sans-serif;
   font-weight:800;
-  font-size:clamp(22px,3vw,32px);
-  line-height:1.1;
+  font-size:24px;
+  line-height:1.15;
   letter-spacing:-0.01em;
-  text-transform:none;
-  color:#f5f3ef;
   margin:0 0 8px;
 }
-.ov-caption{
-  font-family:Helvetica,Arial,sans-serif;
+.grid-view .project-title{font-size:19px}
+.project-caption{
   font-size:15px;
-  font-weight:400;
-  line-height:1.5;
-  letter-spacing:normal;
-  text-transform:none;
-  color:rgba(245,243,239,.8);
-  margin:0 0 14px;
+  line-height:1.55;
+  color:#4a4640;
+  margin:0;
+  max-width:640px;
 }
-.ov-read{
+.grid-view .project-caption{font-size:14px}
+.project-cta{
   display:inline-flex;
   align-items:center;
   gap:8px;
+  margin-top:12px;
   font:700 14px 'Archivo',sans-serif;
-  letter-spacing:normal;
-  text-transform:none;
-  color:#f5f3ef;
-}
-.ov-read .arrow{font-size:15px;color:#f2a196}
-/* touch devices: no hover — keep the meta block below the cover in list view */
-@media (hover:none){
-  #projects:not(.grid-view) .has-cover .project-meta{display:flex}
-  #projects:not(.grid-view) .has-cover .project-caption{display:block}
-  #projects:not(.grid-view) .has-cover .img-overlay{display:none}
-}
-.project-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:18px;
-}
-.project-meta h3{
-  font-family:'Archivo',sans-serif;
-  font-weight:800;
-  font-size:22px;
-  margin:0;
-}
-.project-metric{
-  font:600 13px ui-monospace,monospace;
   color:#c8402f;
 }
-.project-caption{
-  font-size:15px;
-  color:#4a4640;
-  margin:6px 0 0;
-  max-width:640px;
-}
+.project-cta .arrow{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.project-link:hover .project-cta .arrow{transform:translateX(4px)}
 .project-link{
   display:block;
   color:inherit;

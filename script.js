@@ -25,17 +25,6 @@
   const tabDefs = [
     { key: "uiux", label: "UI/UX" },
   ];
-  // each tab tints the whole work fold; new tabs added to projectData just
-  // need a matching .work--<key> rule in the CSS
-  const workSection = document.getElementById("work-fold");
-  function applyWorkTheme(key) {
-    workSection.classList.add("theme-switching");
-    setTimeout(() => {
-      tabDefs.forEach((t) => workSection.classList.remove("work--" + t.key));
-      workSection.classList.add("work--" + key);
-      workSection.classList.remove("theme-switching");
-    }, 450);
-  }
 
   const storySource = [
     { year: "BTech", title: "Computer Science Engineering", text: "C, C++, Java, Python, MERN — web dev, blockchain, AI. But I was always more drawn to the strategy behind what to build than the building itself." },
@@ -192,20 +181,10 @@
     }, { passive: true });
   }
 
-  // ---- site nav: hide while scrolling, return after 500ms of stillness;
-  // stays hidden while the work fold owns the viewport ----
+  // ---- site nav: hide while scrolling, return after 500ms of stillness ----
   const siteNav = document.querySelector(".site-nav");
   let navIdleTimer = null;
   let lastNavY = window.scrollY;
-  let workInFold = false;
-  // dark exactly when the fold's top edge reaches the top of the screen —
-  // whether the user scrolled there or a tab click brought them
-  function updateFoldState() {
-    const rect = workSection.getBoundingClientRect();
-    workInFold = rect.top <= 8 && rect.bottom > 120;
-    workSection.classList.toggle("fold-dark", workInFold);
-    if (workInFold) siteNav.classList.add("nav-hidden");
-  }
   // living brand: "N." picks up the current section's name as a suffix
   const navSec = document.getElementById("nav-sec");
   const navSecDefs = ["work", "about", "contact"]
@@ -225,9 +204,7 @@
   }
   updateNavSection();
 
-  updateFoldState();
   window.addEventListener("scroll", () => {
-    updateFoldState();
     updateNavSection();
     const y = window.scrollY;
     const atTop = y < 10;
@@ -245,9 +222,7 @@
     lastNavY = y;
     siteNav.classList.add("nav-hidden");
     clearTimeout(navIdleTimer);
-    navIdleTimer = setTimeout(() => {
-      if (!workInFold) siteNav.classList.remove("nav-hidden");
-    }, 500);
+    navIdleTimer = setTimeout(() => siteNav.classList.remove("nav-hidden"), 500);
   }, { passive: true });
 
   // ---- work tabs ----
@@ -316,10 +291,6 @@
         renderTabs();
         renderProjects();
         positionTabIndicator();
-        applyWorkTheme(t.key);
-        // snap the fold to the viewport — it goes dark the moment its top
-        // docks at the top of the screen (updateFoldState watches position)
-        workSection.scrollIntoView({ behavior: "smooth", block: "start" });
       });
       tabsEl.appendChild(btn);
     });
@@ -330,7 +301,7 @@
     projectData[activeTab].forEach((p) => {
       // linked projects render as an <a> so the whole card is clickable
       const wrap = document.createElement(p.href ? "a" : "div");
-      wrap.className = "project" + (p.href ? " project-link" : "") + (p.img ? " has-cover" : "");
+      wrap.className = "project" + (p.href ? " project-link" : "");
       if (p.href) {
         wrap.href = p.href;
         wrap.addEventListener("click", () => {
@@ -342,29 +313,20 @@
           if (img) img.style.viewTransitionName = "case-cover";
         });
       }
-      // list view shows project details ON the cover (hover); grid view keeps
-      // the minimal pill — CSS decides which of the two blocks is visible
+      // one simple, always-visible layout: cover, then metric → title →
+      // caption → link, stacked cleanly — no hover-only content, no
+      // list/grid content branching
       const cover = p.img
-        ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` +
-          (p.href
-            ? `<div class="img-overlay">` +
-              `<div class="ov-details">` +
-              `<span class="ov-metric">${p.metric}</span>` +
-              `<h3 class="ov-title">${p.title}</h3>` +
-              `<p class="ov-caption">${p.caption}</p>` +
-              `<span class="ov-read">Read case study <span class="arrow">→</span></span>` +
-              `</div>` +
-              `<span class="ov-pill">Read case study <span class="arrow">→</span></span>` +
-              `</div>`
-            : "")
+        ? `<img src="${p.img}" alt="${p.title}" loading="lazy">`
         : `case study coming soon`;
       wrap.innerHTML = `
         <div class="project-img"${p.img ? "" : ` style="${stripeStyle(p.hue)}"`}>${cover}</div>
-        <div class="project-meta">
-          <h3>${p.title}</h3>
+        <div class="project-body">
           <span class="project-metric">${p.metric}</span>
+          <h3 class="project-title">${p.title}</h3>
+          <p class="project-caption">${p.caption}</p>
+          ${p.href ? `<span class="project-cta">Read case study <span class="arrow">→</span></span>` : ""}
         </div>
-        <p class="project-caption">${p.caption}</p>
       `;
       projectsEl.appendChild(wrap);
     });
@@ -407,9 +369,6 @@
   // initial paint: indicator appears already under the active tab, no
   // animate-in from 0 (also covers the "restored tab differs" case)
   positionTabIndicator(true);
-  // sync the fold tint with the (possibly restored) active tab, no fade
-  tabDefs.forEach((t) => workSection.classList.remove("work--" + t.key));
-  workSection.classList.add("work--" + activeTab);
 
   // finish the return trip: jump back to where the user left off
   // (layout is already stable here — cards render synchronously above)
