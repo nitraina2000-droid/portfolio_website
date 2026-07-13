@@ -579,14 +579,11 @@ a:focus-visible,button:focus-visible{
 }
 .headshot{
   border:1.5px solid #16140f;
-  width:180px;
-  aspect-ratio:4/5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font:12px ui-monospace,monospace;
-  color:#8a857c;
-  letter-spacing:.05em;
+  width:min(320px,70vw);
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:center 20%;
+  display:block;
 }
 .intro-para{
   font-size:18px;
