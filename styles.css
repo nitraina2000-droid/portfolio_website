@@ -248,7 +248,6 @@ a:focus-visible,button:focus-visible{
   line-height:.9;
   white-space:nowrap;
 }
-.work-header .section-kicker{margin-top:0}
 
 /* the fold: full viewport from the category nav down, themed per tab,
    goes dark when it owns the screen */
