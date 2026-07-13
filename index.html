@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nitin — Marketing · UX Design · Content</title>
+<meta name="description" content="Nitin Raina — drawn to the space between technology, design and business. Marketing, UX design and content portfolio.">
+<meta property="og:title" content="Nitin — Marketing · UX Design · Content">
+<meta property="og:description" content="Drawn to the space between technology, design and business.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e8574a'/><text x='50' y='72' font-size='64' font-family='Arial' font-weight='900' fill='%23f5f3ef' text-anchor='middle'>N</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#f5f3ef">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- SITE NAV -->
+<header class="site-nav">
+  <a href="#" class="nav-brand" aria-label="Nitin — back to top">N.<span class="nav-sec" id="nav-sec" aria-hidden="true"></span></a>
+  <nav class="nav-links" aria-label="Site sections">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-name">Nitin Raina</h1>
+  <p class="hero-sub">I study what makes <span id="rotating-word" class="accent">products</span> matter.</p>
+</section>
+
+<!-- PUNCH LINE FOLD -->
+<section class="statement" id="statement">
+  <div class="statement-inner">
+    <h2>Drawn to the space between<br><span class="accent">technology, design &amp; business.</span></h2>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-inner">
+    <div class="section-header work-header">
+      <h2 class="section-title">SELECTED <span class="accent">WORK</span></h2>
+      <div class="section-kicker">
+        <span>Projects I'm proud of</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="work-fold work--marketing" id="work-fold">
+    <div class="work-inner">
+      <div class="work-controls">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="view-toggle" id="view-toggle" role="group" aria-label="Layout"></div>
+      </div>
+      <div id="projects"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / SKILLS / TIMELINE -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">MORE ABOUT<br><span class="accent">ME</span></h2>
+        <div class="section-kicker">
+          <span>The story so far</span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="headshot-wrap">
+      <div class="headshot">headshot</div>
+    </div>
+    <p class="intro-para">
+      I got obsessed with how certain brands make buying feel like upgrading your life — the psychology behind why you trust one name over another even when the product is identical. That curiosity is the thread through everything below.
+    </p>
+
+    <div class="story-timeline" id="story-timeline"></div>
+
+    <p class="closing-line">
+      I want to help brands build connection that goes beyond the transaction, <span class="accent">the kind that makes a customer feel something.</span>
+    </p>
+
+  </div>
+
+  <!-- skills + interests ticker: full-bleed, opposite directions -->
+  <div class="ticker-zone">
+    <div class="block-label ticker-label">Toolkit &amp; obsessions</div>
+    <div class="ticker" aria-label="Skills">
+      <div class="ticker-track" id="skills-ticker"></div>
+    </div>
+    <div class="ticker ticker-reverse" aria-label="Interests">
+      <div class="ticker-track" id="interests-ticker"></div>
+    </div>
+    <div class="ticker-proof" id="ticker-proof" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- SUGGESTIONS -->
+<section class="suggest">
+  <div class="suggest-inner">
+    <div class="suggest-main" id="suggest-main">
+      <div class="block-label suggest-label">Feedback loop</div>
+      <h2 class="suggest-title">Got some suggestions for improvements?</h2>
+      <form class="suggest-form" id="suggest-form">
+        <input type="text" id="suggest-input" maxlength="200" placeholder="Tell me in one line…" aria-label="Your feedback" required>
+        <button type="submit" class="suggest-send">Send</button>
+      </form>
+      <p class="suggest-note">No sign-ups, no tracking.</p>
+    </div>
+
+    <div class="suggest-thanks" id="suggest-thanks" role="status" hidden>
+      <div class="thanks-heart" aria-hidden="true">♥</div>
+      <h2 class="thanks-title">Thank you.</h2>
+      <p class="thanks-text">Genuinely — every note here gets read. Thanks for taking the time.</p>
+      <button type="button" class="thanks-again" id="suggest-again">Have more to say?</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME + CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-kicker">Over to you</div>
+  <h2 class="contact-title">Enough about me.<br><span class="accent italic">What are you building?</span></h2>
+  <div class="cta-row">
+    <a href="mailto:nitraina2000@gmail.com" class="say-hello">Say Hello</a>
+    <a href="Nitin_Raina_Resume.pdf" download="Nitin_Raina_Resume.pdf" class="resume-btn">My Resume</a>
+  </div>
+  <div class="social-row">
+    <a href="https://www.linkedin.com/in/nitinraina00/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:nitraina2000@gmail.com">Gmail</a>
+    <a href="https://www.instagram.com/nitraina/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <p class="local-time" id="local-time"></p>
+  <p class="footnote">© 2026 Nitin Raina</p>
+  <p class="overscroll-note" id="overscroll-note" aria-hidden="true">that's all. now say hello ↑</p>
+</section>
+
+<!-- magnetic cursor accent (index.html only; see script.js) -->
+<div class="magnetic-cursor" id="magnetic-cursor" aria-hidden="true"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
