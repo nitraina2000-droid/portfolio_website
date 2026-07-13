@@ -19,10 +19,11 @@
     ],
   };
 
+  // Marketing and Content are on pause until there's real work to show —
+  // data stays in projectData so re-enabling them later is just adding
+  // their entries back here.
   const tabDefs = [
-    { key: "marketing", label: "Marketing" },
     { key: "uiux", label: "UI/UX" },
-    { key: "content", label: "Content" },
   ];
   // each tab tints the whole work fold; new tabs added to projectData just
   // need a matching .work--<key> rule in the CSS
@@ -250,7 +251,7 @@
   }, { passive: true });
 
   // ---- work tabs ----
-  let activeTab = "marketing";
+  let activeTab = "uiux";
   const tabsEl = document.getElementById("tabs");
   const projectsEl = document.getElementById("projects");
 
@@ -294,7 +295,7 @@
     savedReturn = JSON.parse(sessionStorage.getItem(RETURN_KEY));
     sessionStorage.removeItem(RETURN_KEY);
   } catch (e) { /* ignore */ }
-  if (savedReturn && projectData[savedReturn.tab]) {
+  if (savedReturn && tabDefs.some((t) => t.key === savedReturn.tab)) {
     activeTab = savedReturn.tab;
   }
 
@@ -565,6 +566,17 @@
       // which fought the imperative pause()/play() calls used for dragging)
       ticker.addEventListener("mouseenter", () => { hovering = true; if (!dragging) pauseAmbient(); });
       ticker.addEventListener("mouseleave", () => { hovering = false; if (!dragging) playAmbient(); });
+      // safety net: mouseenter/mouseleave never fire when the ticker scrolls
+      // *under* a stationary cursor (no real pointer movement happens), so a
+      // paused ticker could stay stuck paused indefinitely after a scroll.
+      // Reconcile on every scroll against the element's real :hover state.
+      window.addEventListener("scroll", () => {
+        const reallyHovering = ticker.matches(":hover");
+        if (reallyHovering === hovering) return;
+        hovering = reallyHovering;
+        if (dragging) return;
+        if (hovering) pauseAmbient(); else playAmbient();
+      }, { passive: true });
 
       function cancelMomentum() {
         if (momentumRaf) { cancelAnimationFrame(momentumRaf); momentumRaf = null; }
@@ -616,6 +628,7 @@
       }
       ticker.addEventListener("pointerup", endDrag);
       ticker.addEventListener("pointercancel", endDrag);
+      window.addEventListener("blur", (e) => { if (dragging) endDrag(e); });
     });
   })();
 
@@ -1222,33 +1235,6 @@
     });
   }
 
-  // ---- easter egg #5: overscroll wink ----
-  // trying to scroll past the very bottom of the page (wheel deltaY>0 at
-  // max scroll, or a touch pull past it) reveals a small line under the
-  // footnote. Appears once per page load and then just stays.
-  const overscrollNote = document.getElementById("overscroll-note");
-  if (overscrollNote) {
-    let winkShown = false;
-    const atBottom = () =>
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-    function showWink() {
-      if (winkShown) return;
-      winkShown = true;
-      overscrollNote.classList.add("on");
-    }
-    window.addEventListener("wheel", (e) => {
-      if (!winkShown && e.deltaY > 0 && atBottom()) showWink();
-    }, { passive: true });
-    let touchStartY = null;
-    window.addEventListener("touchstart", (e) => {
-      touchStartY = e.touches && e.touches.length ? e.touches[0].clientY : null;
-    }, { passive: true });
-    window.addEventListener("touchmove", (e) => {
-      if (winkShown || touchStartY === null || !atBottom()) return;
-      const y = e.touches && e.touches.length ? e.touches[0].clientY : touchStartY;
-      if (touchStartY - y > 0) showWink(); // finger dragging up = pulling past the bottom
-    }, { passive: true });
-  }
 
   // ---- easter egg #6: console note ----
   try {
