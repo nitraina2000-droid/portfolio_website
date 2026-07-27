@@ -15,16 +15,51 @@
     --text:#f4f2ea; --muted:#aeabbb;
     --accent:#ff4d3d; --accent2:#6b5cff;
     --ease:cubic-bezier(.22,1,.36,1);
+    --ticker-stroke:rgba(244,242,234,.85);
+    --ticker-fill:rgba(244,242,234,.14);
+    --on-accent:#0a0a0a;
+    --text-soft:#d8d5e6;
+    --line:rgba(244,242,234,.14);
+    --line-strong:rgba(244,242,234,.35);
+    --shadow:rgba(0,0,0,.9);
+    --surface:rgba(15,15,22,.7);
+    --accent-soft:rgba(255,77,61,.08);
+    --accent2-soft:rgba(107,92,255,.1);
+    --aurora3:#12324d;
+    --card-grad-a:rgba(244,242,234,.05);
+    --card-grad-b:rgba(244,242,234,.015);
+    --aurora-opacity:.5;
   }
+  html[data-theme="light"]{
+    --bg:#f4f2ea; --bg2:#e9e6db;
+    --text:#16140f; --muted:#5b5868;
+    --accent:#e03d2e; /* darker coral: #ff4d3d fails contrast for small text on cream */
+    --accent2:#5443e6;
+    --on-accent:#fdfcf9;
+    --text-soft:#3c3a44;
+    --line:rgba(22,20,15,.14); --line-strong:rgba(22,20,15,.4);
+    --shadow:rgba(244,242,234,.6); /* near-invisible glow instead of dark shadow */
+    --surface:rgba(233,230,219,.8);
+    --accent-soft:rgba(224,61,46,.08); --accent2-soft:rgba(84,67,230,.1);
+    --aurora3:#a8c4dd;
+    --card-grad-a:rgba(22,20,15,.045); --card-grad-b:rgba(22,20,15,.015);
+    --ticker-stroke:rgba(22,20,15,.75); --ticker-fill:rgba(22,20,15,.08);
+    --aurora-opacity:.3; /* aurora blobs are much louder on cream */
+  }
+  html[data-theme="light"] body::before{background:radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(22,20,15,.12))}
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{background:var(--bg);color:var(--text)}
+  /* theme-change smoothness — deliberately NOT a universal *{transition},
+     which would jank the GSAP transforms */
+  html{transition:background .3s ease}
+  body{transition:background .3s ease,color .3s ease}
   html{overscroll-behavior:none}
   body{
     font-family:'Space Grotesk',system-ui,sans-serif;
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
   }
-  ::selection{background:var(--accent);color:#000}
+  ::selection{background:var(--accent);color:var(--on-accent)}
   a{color:inherit;text-decoration:none}
   h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:.92;letter-spacing:-.02em}
 
@@ -39,7 +74,7 @@
   section[id]{scroll-margin-top:96px}
   .skip-link{
     position:absolute;left:16px;top:-60px;z-index:100;padding:12px 20px;border-radius:100px;
-    background:var(--accent);color:#0a0a0a;font:600 13px 'Space Grotesk';letter-spacing:.08em;
+    background:var(--accent);color:var(--on-accent);font:600 13px 'Space Grotesk';letter-spacing:.08em;
     text-transform:uppercase;transition:top .2s var(--ease);
   }
   .skip-link:focus{top:16px}
@@ -64,16 +99,26 @@
   }
 
   .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;filter:blur(60px)}
-  .aurora span{position:absolute;border-radius:50%;opacity:.5;will-change:transform}
+  .aurora span{position:absolute;border-radius:50%;opacity:var(--aurora-opacity);will-change:transform}
   .aurora .a1{width:52vw;height:52vw;left:-10vw;top:-8vw;background:radial-gradient(circle,var(--accent),transparent 62%)}
   .aurora .a2{width:46vw;height:46vw;right:-10vw;top:20vh;background:radial-gradient(circle,var(--accent2),transparent 62%)}
-  .aurora .a3{width:40vw;height:40vw;left:22vw;bottom:-14vw;background:radial-gradient(circle,#12324d,transparent 62%)}
+  .aurora .a3{width:40vw;height:40vw;left:22vw;bottom:-14vw;background:radial-gradient(circle,var(--aurora3),transparent 62%)}
 
-  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:70;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
-  .cursor-dot{width:7px;height:7px;background:var(--accent)}
-  .cursor-ring{width:38px;height:38px;border:1.5px solid rgba(244,242,234,.5);transition:width .25s var(--ease),height .25s var(--ease),border-color .25s,background .25s}
-  .cursor-ring.hot{width:64px;height:64px;border-color:var(--accent);background:rgba(255,77,61,.08)}
-  .cursor-ring.drag{width:80px;height:80px;border-color:var(--accent2);background:rgba(107,92,255,.1)}
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:70;pointer-events:none;border-radius:100px;transform:translate(-50%,-50%);will-change:transform}
+  .cursor-dot{width:7px;height:7px;background:var(--accent);transition:opacity .2s ease}
+  .cursor-ring{
+    width:38px;height:38px;border:1.5px solid var(--line-strong);display:flex;align-items:center;justify-content:center;
+    transition:width .3s var(--ease),height .3s var(--ease),border-color .25s,background .25s;
+  }
+  .cursor-ring.hot{width:64px;height:64px;border-color:var(--accent);background:var(--accent-soft)}
+  .cursor-ring.drag{width:80px;height:80px;border-color:var(--accent2);background:var(--accent2-soft)}
+  /* the ring morphs into a pill and shows what the hover DOES — "read" over
+     case-study links, "say it" over the feedback/contact inputs — rather
+     than staying a mute circle over every interactive element alike */
+  .cursor-label{font:700 12px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--text);white-space:nowrap;opacity:0;transition:opacity .15s ease}
+  .cursor-ring.read,.cursor-ring.say{width:auto;height:auto;padding:14px 22px;border-color:var(--accent);background:var(--accent)}
+  .cursor-ring.read .cursor-label,.cursor-ring.say .cursor-label{opacity:1;color:var(--on-accent)}
+  .cursor-ring.read ~ .cursor-dot,.cursor-ring.say ~ .cursor-dot{opacity:0}
   @media (hover:none){.cursor-dot,.cursor-ring{display:none}}
 
   .intro{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -88,10 +133,10 @@
      over a big pale heading it turned dark and fused with the text). A
      scrim + text-shadow keeps the nav readable over ANY backdrop without
      ever inverting into the content behind it. */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:22px 34px;text-shadow:0 2px 16px rgba(0,0,0,.9)}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:22px 34px;text-shadow:0 2px 16px var(--shadow)}
   .nav::before{
     content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(8,8,12,.92),rgba(8,8,12,.55) 60%,transparent);
+    background:linear-gradient(180deg,color-mix(in srgb, var(--bg) 92%, transparent),color-mix(in srgb, var(--bg) 55%, transparent) 60%,transparent);
   }
   .nav .brand{font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;letter-spacing:-.03em}
   .nav .links{display:flex;gap:26px;font:500 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase}
@@ -100,6 +145,16 @@
   .nav .links a{position:relative;display:inline-block;padding:8px 0}
   .nav .links a::after{content:"";position:absolute;left:0;bottom:4px;width:100%;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease)}
   .nav .links a:hover::after{transform:scaleX(1);transform-origin:left}
+  .nav .links a.active{color:var(--accent)}
+  .nav .links a.active::after{transform:scaleX(1);transform-origin:left}
+
+  /* light/dark toggle — a simple filled dot that recolors with the theme */
+  .theme-toggle{
+    width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line-strong);
+    background:none;cursor:pointer;display:grid;place-items:center;
+  }
+  .tt-icon{width:14px;height:14px;border-radius:50%;background:var(--text);transition:all .3s var(--ease)}
+  html[data-theme="light"] .tt-icon{box-shadow:0 0 0 3px var(--accent-soft)}
 
   /* progress rail */
   /* the visible dot stays 8px, but the BUTTON is 26px so the tap/click
@@ -107,8 +162,8 @@
      effectively unusable on touch and hostile with a trackpad */
   .rail{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:6px;align-items:center}
   .rail button{width:26px;height:26px;display:grid;place-items:center;background:none;border:none;cursor:pointer;padding:0;position:relative;border-radius:50%}
-  .rail button::after{content:"";width:8px;height:8px;border-radius:50%;background:rgba(244,242,234,.38);transition:transform .35s var(--ease),background .35s var(--ease)}
-  .rail button::before{content:attr(data-label);position:absolute;right:26px;top:50%;transform:translateY(-50%);font:600 10px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--text);white-space:nowrap;opacity:0;transition:opacity .25s ease;pointer-events:none;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+  .rail button::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--line-strong);transition:transform .35s var(--ease),background .35s var(--ease)}
+  .rail button::before{content:attr(data-label);position:absolute;right:26px;top:50%;transform:translateY(-50%);font:600 10px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--text);white-space:nowrap;opacity:0;transition:opacity .25s ease;pointer-events:none;text-shadow:0 2px 10px var(--shadow)}
   .rail button:hover::before,.rail button:focus-visible::before{opacity:1}
   .rail button.active::after{background:var(--accent);transform:scale(1.9)}
   @media (max-width:820px){.rail{display:none}}
@@ -117,7 +172,13 @@
      matter the viewport height (previously the eyebrow could land right
      under/behind "Nitin." on shorter screens) */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:130px 34px 80px;position:relative}
-  .hero .eyebrow{font:500 13px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;overflow:hidden;text-shadow:0 2px 16px rgba(0,0,0,.85)}
+  /* time-of-day greeting: a warm, lowercase aside between the name and
+     the hero-sub — it opens the sentence that hero-sub continues, so it
+     stays a separate element (not folded into the eyebrow text) and reads as
+     its own small human touch rather than competing with the tagline */
+  .hero .greeting{font:400 16px 'Space Grotesk';font-style:italic;letter-spacing:normal;text-transform:none;color:var(--muted);margin:28px 0 10px;overflow:hidden;min-height:1em}
+  .hero .greeting span{display:inline-block}
+  .hero .eyebrow{font:500 13px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;overflow:hidden;text-shadow:0 2px 16px var(--shadow)}
   .hero .eyebrow span{display:inline-block}
   .hero-name{font-size:clamp(58px,15.5vw,260px);font-weight:800;perspective:800px}
   .hero-name .line{display:block;overflow:hidden}
@@ -126,10 +187,10 @@
   /* text-shadow guarantees legibility regardless of what the aurora glow
      is doing behind it at any given scroll position — color alone wasn't
      enough since the warm red glow can sit right under this text */
-  .hero-sub{margin-top:34px;max-width:520px;font-size:clamp(16px,2vw,21px);color:#d8d5e6;line-height:1.5;overflow:hidden;text-shadow:0 2px 20px rgba(0,0,0,.85)}
+  .hero-sub{margin-top:8px;max-width:520px;font-size:clamp(16px,2vw,21px);color:var(--text-soft);line-height:1.5;overflow:hidden;text-shadow:0 2px 20px var(--shadow)}
   .hero-sub b{color:var(--text);font-weight:600}
-  .scroll-cue{position:absolute;bottom:30px;left:34px;font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:10px;text-shadow:0 2px 14px rgba(0,0,0,.85);animation:cuePulse 2s ease-in-out infinite}
-  .scroll-cue .bar{width:44px;height:2px;background:rgba(244,242,234,.35);position:relative;overflow:hidden}
+  .scroll-cue{position:absolute;bottom:30px;left:34px;font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:10px;text-shadow:0 2px 14px var(--shadow);animation:cuePulse 2s ease-in-out infinite}
+  .scroll-cue .bar{width:44px;height:2px;background:var(--line-strong);position:relative;overflow:hidden}
   .scroll-cue .bar::after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);animation:cue 2s var(--ease) infinite}
   @keyframes cue{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
   @keyframes cuePulse{0%,100%{opacity:1}50%{opacity:.55}}
@@ -160,11 +221,11 @@
   /* no backdrop-filter here: .project already paints an opaque background
      so there is nothing behind to blur, and it was costing a real
      compositing hit on every frame of the 3D sticky card transition */
-  .card{width:100%;display:flex;align-items:center;gap:44px;padding:52px 56px;border-radius:22px;background:linear-gradient(160deg,rgba(244,242,234,.05),rgba(244,242,234,.015));border:1px solid rgba(244,242,234,.12)}
+  .card{width:100%;display:flex;align-items:center;gap:44px;padding:52px 56px;border-radius:22px;background:linear-gradient(160deg,var(--card-grad-a),var(--card-grad-b));border:1px solid var(--line)}
   .card-info{flex:1.35;min-width:0}
   .card-num{display:block;font:600 13px 'Space Grotesk';letter-spacing:.15em;color:var(--accent);margin-bottom:16px}
   .card-title{font-size:clamp(30px,4vw,50px);margin-bottom:16px}
-  .card-desc{color:rgba(244,242,234,.82);font-size:17px;line-height:1.65;margin-bottom:26px}
+  .card-desc{color:var(--text-soft);font-size:17px;line-height:1.65;margin-bottom:26px}
   .card-cta{display:inline-flex;align-items:center;gap:10px;padding:7px 0;font:600 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--text)}
   .card-cta .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transition:transform .3s var(--ease)}
   .card:hover .card-cta .dot{transform:scale(2.2)}
@@ -181,7 +242,7 @@
 
   /* ============ MANIFESTO — single scrubbed line ============ */
   .manifesto{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:100px 40px}
-  .manifesto .inner{max-width:1150px;text-align:center;font-size:clamp(26px,5.2vw,68px);font-weight:700;line-height:1.25}
+  .manifesto .inner{max-width:1150px;text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,5.2vw,68px);font-weight:800;letter-spacing:-.02em;line-height:1.12}
   .manifesto .w{display:inline-block;opacity:.12;margin-right:.22em}
   .manifesto .accent{color:var(--accent)}
 
@@ -200,7 +261,7 @@
   .timeline-area{flex:none;position:relative}
   /* dot is 14px tall so its centre is 7px down; the 2px line sits at 6px
      to land dead-centre on it — derived from the dot's own size, not guessed */
-  .rail-line{position:absolute;left:0;right:0;top:6px;height:2px;background:rgba(244,242,234,.12);z-index:2}
+  .rail-line{position:absolute;left:0;right:0;top:6px;height:2px;background:var(--line);z-index:2}
   .rail-line-fill{width:0%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
   /* NOTE: trailing space is a real .tl-spacer ELEMENT, never padding-right.
      Chromium excludes a scrollable flex container's end-side padding from
@@ -215,49 +276,95 @@
   .tl-title{font-size:clamp(20px,2.4vw,32px);margin-bottom:12px}
   .tl-text{color:var(--muted);font-size:15px;line-height:1.6;max-width:100%}
 
-  /* ============ SKILLS — draggable cluster ============ */
-  .skills{min-height:100svh;padding:140px 34px 100px;position:relative;display:flex;flex-direction:column}
-  .skills-head{margin-bottom:20px}
-  .skills-head .k{display:block;font:500 13px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-  .skills-head h2{font-size:clamp(32px,6vw,84px)}
-  .skills-head p{color:var(--muted);margin-top:16px;font-size:15px}
-  .cluster{position:relative;flex:1;min-height:52vh;max-width:1200px;width:100%;margin:20px auto 0;list-style:none}
-  .chip{
-    position:absolute;top:0;left:0;padding:15px 26px;border:1.5px solid rgba(244,242,234,.28);
-    border-radius:100px;font:600 15px 'Space Grotesk';white-space:nowrap;cursor:grab;
-    background:rgba(15,15,22,.55);backdrop-filter:blur(8px);user-select:none;will-change:transform;
+  /* ============ SKILLS — draggable marquee ticker, ported from the live
+     brutalist site's proven skills/interests bands (user explicitly asked
+     for this representation back over the chip-cluster experiment). Two
+     full-bleed rows crawl in opposite directions; either can be grabbed
+     and flung, hovering pauses the crawl, and scroll velocity nudges the
+     playback rate. Re-themed dark but the mechanic is unchanged. ============ */
+  .skills{padding:140px 0 120px;position:relative}
+  .skills-head{max-width:1200px;margin:0 auto 48px;padding:0 34px;text-align:center}
+  .skills-head .k{display:block;font:500 13px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .ticker-zone{width:100%;overflow:hidden}
+  .ticker{
+    overflow:hidden;border-top:1px solid var(--line);padding:22px 0;
+    white-space:nowrap;cursor:grab;touch-action:pan-y;
   }
-  .chip:active{cursor:grabbing}
-  .chip.tone-a{border-color:rgba(255,77,61,.5);color:#ffb3ab}
-  .chip.tone-b{border-color:rgba(107,92,255,.5);color:#c7c1ff}
-  /* --glow (0-1) is set from live drag speed in JS — the faster you fling
-     a chip, the hotter its glow gets, so throwing them actually feels
-     like it does something rather than a flat drag-and-drop */
-  /* deliberately NOT opacity:0 here — the reveal is a gsap.from(), so if the
-     scroll trigger or GSAP itself ever fails, the chips stay visible instead
-     of the content disappearing permanently */
-  .chip{--glow:0}
-  .chip.dragging{
-    border-color:var(--text);z-index:5;
-    box-shadow:0 0 calc(var(--glow) * 34px) calc(var(--glow) * 6px) rgba(255,77,61,calc(var(--glow) * .8));
+  .ticker:last-child{border-bottom:1px solid var(--line)}
+  .ticker.dragging{cursor:grabbing}
+  .ticker-drag-wrap{display:inline-block;will-change:transform}
+  .ticker-track{display:inline-flex;align-items:baseline;animation:tickerScroll 28s linear infinite;will-change:transform}
+  .ticker-reverse .ticker-track{animation-direction:reverse;animation-duration:34s}
+  @keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .ticker-item{
+    font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(22px,3.4vw,40px);
+    letter-spacing:-.01em;text-transform:uppercase;color:var(--text);padding-right:20px;
   }
-  /* release payoff: a burst of particles fired from the drop point —
-     the actual "reward" moment the drag was missing before */
-  .burst-particle{position:absolute;top:0;left:0;width:7px;height:7px;border-radius:50%;pointer-events:none;z-index:6;will-change:transform,opacity}
-  /* release payoff #2: a ring shockwave, only fired on a genuinely fast
-     fling, so the biggest throws get the biggest reward */
-  .burst-ring{position:absolute;top:0;left:0;width:20px;height:20px;margin:-10px;border-radius:50%;border:1.5px solid var(--accent);pointer-events:none;z-index:6;will-change:transform,opacity}
+  .ticker-sep{color:var(--accent);font-size:clamp(16px,2.4vw,28px);padding-right:20px}
+  .ticker-reverse .ticker-item{
+    font-weight:700;font-style:italic;color:var(--ticker-fill);
+    -webkit-text-stroke:2px var(--ticker-stroke);text-transform:none;
+  }
+  @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+  /* skills with real receipts get a citation-style dot marker + a proof line below */
+  .ticker-item.has-proof::after{
+    content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);margin-left:6px;vertical-align:super;
+  }
+  @media (hover:hover){
+    .ticker-item.has-proof{cursor:help;transition:color .2s ease}
+    .ticker-item.has-proof:hover{color:var(--accent)}
+  }
+  .ticker-proof{min-height:24px;margin-top:20px;text-align:center;font:600 13px 'Space Grotesk';letter-spacing:.04em;color:var(--muted);opacity:0;transition:opacity .25s ease}
+  .ticker-proof.on{opacity:1}
+  @media (max-width:600px){.ticker-item{font-size:20px}}
+
+  /* SUGGESTIONS — ported from the live site's feedback loop */
+  .suggest{padding:140px 34px;text-align:center}
+  .suggest-inner{max-width:640px;margin:0 auto}
+  .suggest .k{display:block;font:500 13px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .suggest-title{font-size:clamp(26px,3.8vw,42px);line-height:1.2;margin-bottom:34px}
+  .suggest-form{display:flex;gap:0}
+  .suggest-form input{
+    flex:1;min-width:0;border:1.5px solid var(--line-strong);border-right:none;
+    background:transparent;color:var(--text);font:400 16px 'Space Grotesk';padding:16px 20px;outline-offset:-2px;
+  }
+  .suggest-form input::placeholder{color:var(--muted)}
+  .suggest-send{
+    border:1.5px solid var(--accent);background:var(--accent);color:var(--on-accent);
+    font:700 15px 'Space Grotesk';padding:16px 30px;cursor:pointer;transition:background .15s,border-color .15s;
+  }
+  .suggest-send:hover{background:var(--accent2);border-color:var(--accent2)}
+  .suggest-note{font:500 12.5px 'Space Grotesk';letter-spacing:.04em;color:var(--muted);margin-top:16px}
+  .suggest-main{transition:opacity .35s ease,transform .35s ease}
+  .suggest-main.fading{opacity:0;transform:translateY(-10px)}
+  .suggest-main[hidden],.suggest-thanks[hidden]{display:none}
+  .suggest-thanks{animation:thanksIn .6s var(--ease) both}
+  @keyframes thanksIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+  .thanks-heart{font-size:46px;line-height:1;color:var(--accent);margin-bottom:18px;animation:heartBeat 1.8s ease-in-out .6s infinite}
+  @keyframes heartBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.16)}24%{transform:scale(1)}36%{transform:scale(1.1)}48%{transform:scale(1)}}
+  .thanks-title{font-size:clamp(28px,4.2vw,44px);margin-bottom:14px}
+  .thanks-text{font-size:16px;line-height:1.6;color:var(--muted);max-width:440px;margin:0 auto 26px}
+  .thanks-again{background:none;border:none;cursor:pointer;font:600 13px 'Space Grotesk';letter-spacing:.08em;color:var(--muted);padding:4px 2px;border-bottom:1.5px solid var(--line);transition:color .2s,border-color .2s}
+  .thanks-again:hover{color:var(--accent);border-color:var(--accent)}
+  @media (prefers-reduced-motion:reduce){.suggest-thanks{animation:none}.suggest-main{transition:none}.thanks-heart{animation:none}}
+  @media (max-width:480px){.suggest-form{flex-direction:column;gap:10px}.suggest-form input{border-right:1.5px solid var(--line-strong)}.suggest-send{width:100%}}
 
   /* CONTACT */
   .contact{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 34px 100px;position:relative}
   .contact .k{font:500 13px 'Space Grotesk';letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
   .contact h2{font-size:clamp(48px,11vw,180px);margin-bottom:50px}
   .contact h2 .accent{color:var(--accent);font-style:italic}
+  .social-row{display:flex;gap:26px;margin-top:44px}
+  .social-row a{position:relative;font:600 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .25s var(--ease)}
+  .social-row a:hover{color:var(--text)}
+  .social-row a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease)}
+  .social-row a:hover::after{transform:scaleX(1);transform-origin:left}
   /* explicit color swap instead of mix-blend-mode:difference — the blend
      mode produced a muddy cyan on top of the coral fill (white minus
      coral), which read as low-contrast/off-brand; a solid near-black on
      coral gives guaranteed, deliberate contrast on hover */
-  .magnetic{display:inline-block;position:relative;padding:24px 60px;border:1.5px solid rgba(244,242,234,.3);border-radius:100px;font:600 16px 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;overflow:hidden;will-change:transform}
+  .magnetic{display:inline-block;position:relative;padding:24px 60px;border:1.5px solid var(--line-strong);border-radius:100px;font:600 16px 'Space Grotesk';letter-spacing:.06em;text-transform:uppercase;overflow:hidden;will-change:transform}
   .magnetic span{position:relative;z-index:2;color:var(--text);transition:color .3s var(--ease)}
   .magnetic:hover span{color:var(--bg)}
   .magnetic::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .45s var(--ease);z-index:1}
@@ -266,7 +373,7 @@
 
   /* moved off bottom-LEFT: it sat directly on top of the hero's "Scroll"
      cue (both were bottom-left), covering it on load */
-  .badge{position:fixed;bottom:16px;right:16px;z-index:50;font:500 11px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(15,15,22,.7);border:1px solid rgba(255,255,255,.08);padding:7px 12px;border-radius:100px;backdrop-filter:blur(8px)}
+  .badge{position:fixed;bottom:16px;right:16px;z-index:50;font:500 11px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:7px 12px;border-radius:100px;backdrop-filter:blur(8px)}
   @media (max-width:820px){.badge{bottom:12px;right:12px}}
 
   @media (prefers-reduced-motion:reduce){
@@ -285,6 +392,7 @@
     .about-head{margin-bottom:32px}
   }
 </style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -292,7 +400,7 @@
 
 <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
 
-<div class="cursor-ring" id="ring" aria-hidden="true"></div>
+<div class="cursor-ring" id="ring" aria-hidden="true"><span class="cursor-label" id="cursorLabel"></span></div>
 <div class="cursor-dot" id="dot" aria-hidden="true"></div>
 
 <div class="intro" id="intro" aria-hidden="true">
@@ -306,6 +414,7 @@
     <a href="#work" data-hover>Work</a>
     <a href="#about" data-hover>About</a>
     <a href="#contact" data-hover>Contact</a>
+    <button class="theme-toggle" id="themeToggle" data-hover aria-label="Switch to light theme"><span class="tt-icon" aria-hidden="true"></span></button>
   </div>
 </nav>
 
@@ -317,6 +426,7 @@
       <span class="line" data-line>Nitin</span>
       <span class="line" data-line><span class="accent">Raina</span></span>
     </h1>
+    <div class="greeting" id="greeting" aria-hidden="true"></div>
     <p class="hero-sub" id="heroSub">I study what makes <b>products</b> matter — the psychology, the flow, the small decisions that make people care.</p>
     <div class="scroll-cue"><span class="bar"></span> Scroll</div>
   </section>
@@ -338,11 +448,11 @@
           <span class="card-num" aria-hidden="true">01 · Health · Product Design</span>
           <h3 class="card-title" id="proj1-title">Tracto</h3>
           <p class="card-desc">A health companion designed with and for older adults — walks, pills, and doctor visits without the maze. Book a doctor in 3 taps.</p>
-          <a class="card-cta" data-hover href="https://nitraina.netlify.app/work/tracto.html" target="_blank" rel="noopener" aria-label="View case study — Tracto (opens in a new tab)"><span class="dot" aria-hidden="true"></span> View case</a>
+          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/tracto.html" aria-label="View case study — Tracto"><span class="dot" aria-hidden="true"></span> View case</a>
         </div>
         <!-- same destination as the CTA above: hidden from assistive tech and
              removed from tab order so each card exposes ONE link, not two -->
-        <a class="card-visual" data-hover tabindex="-1" aria-hidden="true" href="https://nitraina.netlify.app/work/tracto.html" target="_blank" rel="noopener">
+        <a class="card-visual" data-hover data-cursor-read tabindex="-1" aria-hidden="true" href="https://nitraina.netlify.app/work/tracto.html">
           <img src="https://nitraina.netlify.app/work/tracto-cover.jpg" alt="" loading="lazy" decoding="async">
         </a>
       </div>
@@ -358,9 +468,9 @@
           <span class="card-num" aria-hidden="true">02 · E-commerce · UX</span>
           <h3 class="card-title" id="proj2-title">Lens Checkout</h3>
           <p class="card-desc">Rebuilt Specscart's lens checkout into a prescription-first flow — decision fatigue out, structural error-proofing in. Zero incompatible selections possible.</p>
-          <a class="card-cta" data-hover href="https://nitraina.netlify.app/work/lens-checkout.html" target="_blank" rel="noopener" aria-label="View case study — Lens Checkout (opens in a new tab)"><span class="dot" aria-hidden="true"></span> View case</a>
+          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/lens-checkout.html" aria-label="View case study — Lens Checkout"><span class="dot" aria-hidden="true"></span> View case</a>
         </div>
-        <a class="card-visual" data-hover tabindex="-1" aria-hidden="true" href="https://nitraina.netlify.app/work/lens-checkout.html" target="_blank" rel="noopener">
+        <a class="card-visual" data-hover data-cursor-read tabindex="-1" aria-hidden="true" href="https://nitraina.netlify.app/work/lens-checkout.html">
           <img src="https://nitraina.netlify.app/work/lens-checkout-cover.jpg" alt="" loading="lazy" decoding="async">
         </a>
       </div>
@@ -419,33 +529,48 @@
   <section class="skills" id="skills" data-section="Skills">
     <div class="skills-head">
       <span class="k">Toolkit &amp; obsessions</span>
-      <h2>Drag them<br>around.</h2>
-      <p>Not a list. A pile of things I actually use — drag them around, or just read them.</p>
     </div>
-    <!-- dragging is a mouse/touch-only flourish, so the chips are exposed as
-         a plain labelled list: the information is fully available without it -->
-    <ul class="cluster" id="cluster" aria-label="Skills and tools">
-      <li class="chip tone-a" data-chip data-hover>Figma</li>
-      <li class="chip" data-chip data-hover>User Research</li>
-      <li class="chip tone-b" data-chip data-hover>SEO</li>
-      <li class="chip" data-chip data-hover>Google Analytics</li>
-      <li class="chip tone-a" data-chip data-hover>Content Strategy</li>
-      <li class="chip tone-b" data-chip data-hover>Claude</li>
-      <li class="chip" data-chip data-hover>AI Workflows</li>
-      <li class="chip tone-a" data-chip data-hover>Python</li>
-      <li class="chip" data-chip data-hover>HTML/CSS</li>
-      <li class="chip tone-b" data-chip data-hover>Canva</li>
-      <li class="chip" data-chip data-hover>A/B Testing</li>
-      <li class="chip tone-a" data-chip data-hover>Brand Storytelling</li>
-      <li class="chip" data-chip data-hover>Typography</li>
-      <li class="chip tone-b" data-chip data-hover>Sketching</li>
-    </ul>
+    <div class="ticker-zone">
+      <div class="ticker" aria-label="Skills">
+        <div class="ticker-track" id="skills-ticker"></div>
+      </div>
+      <div class="ticker ticker-reverse" aria-label="Interests">
+        <div class="ticker-track" id="interests-ticker"></div>
+      </div>
+      <div class="ticker-proof" id="ticker-proof" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- SUGGESTIONS: ported from the live site's feedback loop, re-themed dark -->
+  <section class="suggest" id="suggest" data-section="Feedback">
+    <div class="suggest-inner">
+      <div class="suggest-main" id="suggest-main">
+        <span class="k">Feedback loop</span>
+        <h2 class="suggest-title">Got some suggestions for improvements?</h2>
+        <form class="suggest-form" id="suggest-form">
+          <input type="text" id="suggest-input" data-hover data-cursor-say maxlength="200" placeholder="Tell me in one line…" aria-label="Your feedback" required>
+          <button type="submit" class="suggest-send" data-hover data-cursor-say>Send</button>
+        </form>
+        <p class="suggest-note">No sign-ups, no tracking.</p>
+      </div>
+      <div class="suggest-thanks" id="suggest-thanks" role="status" hidden>
+        <div class="thanks-heart" aria-hidden="true">♥</div>
+        <h2 class="thanks-title">Thank you.</h2>
+        <p class="thanks-text">Genuinely — every note here gets read. Thanks for taking the time.</p>
+        <button type="button" class="thanks-again" data-hover id="suggest-again">Have more to say?</button>
+      </div>
+    </div>
   </section>
 
   <section class="contact" id="contact" data-section="Contact">
     <div class="k">Over to you</div>
     <h2>What are<br>you <span class="accent">building?</span></h2>
     <a class="magnetic" id="magnetic" data-hover href="mailto:nitraina2000@gmail.com"><span>Say Hello</span></a>
+    <div class="social-row">
+      <a data-hover href="https://www.linkedin.com/in/nitinraina00/" target="_blank" rel="noopener">LinkedIn</a>
+      <a data-hover href="mailto:nitraina2000@gmail.com">Gmail</a>
+      <a data-hover href="https://www.instagram.com/nitraina/" target="_blank" rel="noopener">Instagram</a>
+    </div>
     <div class="foot">© 2026 Nitin Raina · Built in motion</div>
   </section>
 
@@ -459,7 +584,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script>
 (function(){
@@ -467,8 +591,29 @@
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
   if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
-  const hasDraggable = !!(window.gsap && window.Draggable);
-  if (hasDraggable) gsap.registerPlugin(Draggable);
+
+  /* ---------- light/dark theme toggle ----------
+     the initial data-theme is set by the tiny inline <head> script (before
+     first paint, so no flash); this just wires the button + persistence */
+  (function initTheme(){
+    const btn = document.getElementById('themeToggle');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const BG = { dark: '#08080c', light: '#f4f2ea' };
+    function apply(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+      btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      if (meta) meta.setAttribute('content', BG[theme]);
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+    }
+    // sync the button label/meta with whatever the head script decided
+    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    btn.setAttribute('aria-label', current === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    if (meta) meta.setAttribute('content', BG[current]);
+    btn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+    });
+  })();
 
   /* ---------- smooth scroll (Lenis) hooked into GSAP ---------- */
   let lenis = null;
@@ -487,6 +632,42 @@
     if (lenis) lenis.scrollTo(el, { duration: 1.1 });
     else el.scrollIntoView({ behavior: 'smooth' });
   }
+
+  /* ---------- scroll restoration when returning from a case study ----------
+     Save scrollY when leaving via a work-card link; on return (browser back
+     without bfcache) skip the intro and restore the position after
+     ScrollTrigger has refreshed. bfcache restores handle scroll natively. */
+  const RETURN_KEY = 'immersive-return';
+  let savedReturn = null;
+  try {
+    const raw = sessionStorage.getItem(RETURN_KEY);
+    if (raw) {
+      sessionStorage.removeItem(RETURN_KEY);
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.y === 'number') savedReturn = parsed;
+    }
+  } catch (e) { savedReturn = null; }
+  if (savedReturn && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+  document.querySelectorAll('a[href*="nitraina.netlify.app/work/"]').forEach(link => {
+    link.addEventListener('click', () => {
+      try { sessionStorage.setItem(RETURN_KEY, JSON.stringify({ y: window.scrollY })); } catch (e) {}
+    });
+  });
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) { try { sessionStorage.removeItem(RETURN_KEY); } catch (err) {} }
+  });
+
+  /* ---------- time-of-day greeting, based on the VISITOR's local clock ---------- */
+  (function initGreeting(){
+    const el = document.getElementById('greeting');
+    const hour = new Date().getHours();
+    let text;
+    if (hour >= 5 && hour < 12) text = 'Good morning — glad you\'re here.';
+    else if (hour >= 12 && hour < 17) text = 'Good afternoon — glad you\'re here.';
+    else if (hour >= 17 && hour < 22) text = 'Good evening — glad you\'re here.';
+    else text = 'Up late? Same.';
+    el.innerHTML = `<span>${text}</span>`;
+  })();
 
   /* ---------- split hero name into characters ---------- */
   document.querySelectorAll('#heroName [data-line]').forEach(line => {
@@ -516,14 +697,16 @@
       .to('#introBars i', { scaleY:0, transformOrigin:'top', duration:.7, stagger:.06, ease:'power3.inOut' }, '-=.2')
       .to('#introCount', { yPercent:-120, opacity:0, duration:.5, ease:'power3.in' }, '<')
       .set('#intro', { display:'none' })
-      .from('.hero .eyebrow span', { yPercent:110, duration:.7, ease:'power3.out' }, '-=.1')
+      .from('.hero .eyebrow span', { yPercent:110, duration:.7, ease:'power3.out' }, '-=.2')
       .from(chars, { yPercent:120, rotateX:-70, opacity:0, duration:.9, stagger:.04, ease:'power4.out' }, '-=.4')
-      .from('#heroSub', { y:24, opacity:0, duration:.8, ease:'power3.out' }, '-=.5')
+      .from('.hero .greeting span', { yPercent:110, duration:.6, ease:'power3.out' }, '-=.5')
+      .from('#heroSub', { y:24, opacity:0, duration:.8, ease:'power3.out' }, '-=.4')
       .from('.scroll-cue', { opacity:0, duration:.6 }, '-=.3');
   }
   let heroStarted = false;
   function startHeroOnce(){ if (heroStarted) return; heroStarted = true; startHero(); }
-  if (reduce || !hasGSAP){ document.getElementById('intro').style.display='none'; }
+  if (savedReturn){ document.getElementById('intro').style.display='none'; heroStarted = true; }
+  else if (reduce || !hasGSAP){ document.getElementById('intro').style.display='none'; }
   else { window.addEventListener('load', startHeroOnce); setTimeout(startHeroOnce, 1400); }
 
   /* ---------- hero cursor parallax + scroll-out dive ---------- */
@@ -632,6 +815,68 @@
     }
   })();
 
+  /* ---------- SUGGESTIONS form: same Web3Forms endpoint as the live root
+     site (this is the same person's inbox); falls back to a mailto if the
+     request ever fails, so a suggestion is never silently lost ---------- */
+  (function initSuggestForm(){
+    const WEB3FORMS_KEY = '441f4007-c90d-4b1b-8158-1f708925aec5';
+    const form = document.getElementById('suggest-form');
+    const btn = form.querySelector('.suggest-send');
+    const main = document.getElementById('suggest-main');
+    const thanks = document.getElementById('suggest-thanks');
+
+    function showThanks(){
+      main.classList.add('fading');
+      setTimeout(() => {
+        main.hidden = true;
+        main.classList.remove('fading');
+        thanks.hidden = false;
+      }, 350);
+    }
+    document.getElementById('suggest-again').addEventListener('click', () => {
+      thanks.hidden = true;
+      main.hidden = false;
+      const input = document.getElementById('suggest-input');
+      input.value = '';
+      input.focus();
+    });
+
+    function mailFallback(text){
+      location.href = 'mailto:nitraina2000@gmail.com'
+        + '?subject=' + encodeURIComponent('Feedback from your portfolio')
+        + '&body=' + encodeURIComponent(text);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('suggest-input');
+      const text = input.value.trim();
+      if (!text) return;
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Feedback from your portfolio (immersive)',
+            from_name: 'Portfolio feedback loop',
+            message: text,
+          }),
+        });
+        if (!res.ok) throw new Error('send failed');
+        showThanks();
+      } catch (err) {
+        mailFallback(text);
+        showThanks();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send';
+      }
+    });
+  })();
+
   /* ---------- ABOUT horizontal timeline + rail fill ---------- */
   const railFill = document.getElementById('railFill');
   horizontalPin('#about', '#timelineTrack', {
@@ -643,143 +888,190 @@
     railFill.style.width = '100%';
   }
 
-  /* ---------- reveals: contact ---------- */
+  /* ---------- reveals: contact, suggest ---------- */
   if (hasGSAP && !reduce){
     gsap.from('.contact > *', { y:50, opacity:0, duration:.9, stagger:.12, ease:'power3.out',
       scrollTrigger:{ trigger:'.contact', start:'top 70%' } });
     gsap.from('.skills-head > *', { y:40, opacity:0, duration:.9, stagger:.1, ease:'power3.out',
       scrollTrigger:{ trigger:'.skills-head', start:'top 85%' } });
+    gsap.from('.suggest-main > *', { y:40, opacity:0, duration:.9, stagger:.1, ease:'power3.out',
+      scrollTrigger:{ trigger:'.suggest', start:'top 75%' } });
   }
 
-  /* ---------- SKILLS: scattered draggable cluster ---------- */
-  (function initCluster(){
-    const cluster = document.getElementById('cluster');
-    const chips = Array.from(document.querySelectorAll('.chip'));
-    function scatter(){
-      const cw = cluster.clientWidth, ch = cluster.clientHeight;
-      const cols = Math.ceil(Math.sqrt(chips.length * (cw / Math.max(ch,1))));
-      const rows = Math.ceil(chips.length / cols);
-      const cellW = cw / cols, cellH = ch / rows;
-      chips.forEach((chip, i) => {
-        const col = i % cols, row = Math.floor(i / cols);
-        const jitterX = (Math.random() - .5) * cellW * .5;
-        const jitterY = (Math.random() - .5) * cellH * .5;
-        const w = chip.offsetWidth || 120, h = chip.offsetHeight || 44;
-        let x = col * cellW + (cellW - w) / 2 + jitterX;
-        let y = row * cellH + (cellH - h) / 2 + jitterY;
-        x = Math.max(4, Math.min(cw - w - 4, x));
-        y = Math.max(4, Math.min(ch - h - 4, y));
-        gsap.set(chip, { x, y, rotate: (Math.random()-.5)*10 });
-      });
-    }
-    if (hasGSAP) {
-      // if `load` already fired (bfcache / warm cache) the listener would never
-      // run and every chip would stay stacked at 0,0
-      if (document.readyState === 'complete') scatter();
-      else window.addEventListener('load', scatter);
-      let resizeT;
-      window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(scatter, 200); });
-    }
-
-    // reveal: chips pop in staggered/randomized rather than just being
-    // there — the cluster's first appearance should already feel alive.
-    // gsap.from (not .to from a CSS opacity:0) so the resting state is
-    // "visible" and a missed trigger can never hide the content.
-    if (hasGSAP && !reduce) {
-      gsap.from(chips, {
-        opacity: 0, scale: .7, duration: .6, ease: 'back.out(2)',
-        stagger: { each: .05, from: 'random' },
-        scrollTrigger: { trigger: '.skills', start: 'top 75%', once: true },
-        onComplete(){
-          // idle life: a slow, tiny perpetual wobble so the pile reads as
-          // "alive" even before anyone touches it
-          chips.forEach(chip => {
-            gsap.to(chip, { rotate: '+=4', duration: 2.2 + Math.random()*1.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-          });
-        }
-      });
-    }
-
-    // release payoff: particles + a shockwave ring on fast flings — this
-    // is the actual "reward" the drag was missing; scale/rotation alone
-    // read as inert no matter how bouncy the easing was
-    function burst(x, y, color, count){
-      for (let i = 0; i < count; i++){
-        const p = document.createElement('span');
-        p.className = 'burst-particle';
-        p.style.background = color;
-        cluster.appendChild(p);
-        gsap.set(p, { x, y, opacity: 1 });
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 40 + Math.random() * 70;
-        gsap.to(p, {
-          x: x + Math.cos(angle) * dist, y: y + Math.sin(angle) * dist,
-          opacity: 0, scale: .3, duration: .55 + Math.random()*.3, ease: 'power2.out',
-          onComplete(){ p.remove(); }
+  /* ---------- SKILLS: draggable marquee ticker (ported from the live
+     brutalist site — same mechanic, re-themed dark) ---------- */
+  (function initTickers(){
+    const skills = ['Figma','User Research','SEO','Google Analytics','Content Strategy','Claude','AI Workflows','Python','HTML/CSS','Canva','A/B Testing'];
+    const interests = ['Brand storytelling','Typography','Sketching','Why people buy what they buy'];
+    const skillProofs = {
+      'Figma': 'Tracto & Lens Checkout — designed end-to-end',
+      'User Research': 'Tracto — contextual inquiry with older adults',
+      'Claude': 'this site — built in conversation with it',
+      'AI Workflows': 'how this site got made',
+      'HTML/CSS': "you're looking at it",
+    };
+    // content is doubled so the -50% translate loops seamlessly
+    function fillTicker(id, items, proofs){
+      const track = document.getElementById(id);
+      const frag = document.createDocumentFragment();
+      for (let pass = 0; pass < 2; pass++){
+        items.forEach(s => {
+          const item = document.createElement('span');
+          item.className = 'ticker-item';
+          item.textContent = s;
+          if (proofs && proofs[s]){ item.classList.add('has-proof'); item.dataset.proof = proofs[s]; }
+          if (pass === 1) item.setAttribute('aria-hidden', 'true');
+          frag.appendChild(item);
+          const sep = document.createElement('span');
+          sep.className = 'ticker-sep';
+          sep.textContent = '✦';
+          sep.setAttribute('aria-hidden', 'true');
+          frag.appendChild(sep);
         });
       }
+      track.appendChild(frag);
     }
-    function shockwave(x, y){
-      const r = document.createElement('span');
-      r.className = 'burst-ring';
-      cluster.appendChild(r);
-      gsap.set(r, { x, y, opacity: 1, scale: .3 });
-      gsap.to(r, { scale: 4, opacity: 0, duration: .6, ease: 'power2.out', onComplete(){ r.remove(); } });
-    }
+    fillTicker('skills-ticker', skills, skillProofs);
+    fillTicker('interests-ticker', interests);
 
-    // dopamine pass: grab pulse, velocity-reactive glow while dragging,
-    // an elastic "landing" snap, and a release-time burst so throwing a
-    // chip actually pays off instead of just stopping dead
-    if (hasDraggable && !reduce) {
-      Draggable.create('.chip', {
-        type: 'x,y',
-        bounds: cluster,
-        edgeResistance: 0.6,
-        onPress(){
-          this.target.classList.add('dragging');
-          document.getElementById('ring').classList.add('drag');
-          gsap.to(this.target, { scale: 1.12, rotate: '+=6', duration: .25, ease: 'back.out(3)' });
-        },
-        onDrag(){
-          // velocity glow: the faster you're moving it, the hotter it looks
-          const speed = Math.min(1, (Math.abs(this.deltaX) + Math.abs(this.deltaY)) / 40);
-          gsap.set(this.target, { '--glow': speed });
-        },
-        onRelease(){
-          this.target.classList.remove('dragging');
-          document.getElementById('ring').classList.remove('drag');
-          gsap.set(this.target, { '--glow': 0 });
-          const speed = Math.hypot(this.deltaX, this.deltaY);
-          const color = this.target.classList.contains('tone-a') ? '#ff4d3d'
-            : this.target.classList.contains('tone-b') ? '#6b5cff' : '#f4f2ea';
-          const cx = this.x + this.target.offsetWidth / 2, cy = this.y + this.target.offsetHeight / 2;
-          if (speed > 2) burst(cx, cy, color, Math.round(gsap.utils.clamp(4, 16, speed)));
-          if (speed > 9) shockwave(cx, cy);
-          // settle: scale/rotation spring back with an elastic overshoot —
-          // a fast throw gets a bigger, snappier wobble than a gentle drop.
-          // (Position itself is left exactly where Draggable's own inertia-
-          // free bounds already put it — tweening x/y further here would
-          // bypass `bounds` and could fling chips off-screen.)
-          gsap.to(this.target, {
-            scale: 1, rotate: (Math.random() - .5) * 10,
-            duration: .6, ease: speed > 6 ? 'elastic.out(1,0.4)' : 'back.out(2)'
-          });
-        }
+    // proof line lives outside the ticker's overflow so nothing gets clipped
+    const proofEl = document.getElementById('ticker-proof');
+    const skillsTrack = document.getElementById('skills-ticker');
+    skillsTrack.addEventListener('mouseover', (e) => {
+      const item = e.target.closest('.ticker-item.has-proof');
+      if (!item) return;
+      proofEl.textContent = item.textContent + ' → ' + item.dataset.proof;
+      proofEl.classList.add('on');
+    });
+    skillsTrack.addEventListener('mouseout', (e) => {
+      if (e.target.closest('.ticker-item.has-proof')) proofEl.classList.remove('on');
+    });
+
+    // grab either band and fling it; the CSS ambient crawl is paused for the
+    // interaction and a separate wrap div carries the manual drag/momentum
+    // offset so the two transforms never fight over the same element
+    Array.from(document.querySelectorAll('.ticker')).forEach(ticker => {
+      const track = ticker.querySelector('.ticker-track');
+      if (!track) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'ticker-drag-wrap';
+      track.parentNode.insertBefore(wrap, track);
+      wrap.appendChild(track);
+
+      let halfWidth = track.scrollWidth / 2 || 1;
+      const remeasure = () => { halfWidth = track.scrollWidth / 2 || 1; };
+      window.addEventListener('resize', remeasure);
+
+      let offset = 0, dragging = false, hovering = false;
+      let lastX = 0, lastT = 0, velocity = 0, momentumRaf = null;
+
+      const getAmbientAnim = () => track.getAnimations().find(a => a.animationName === 'tickerScroll') || track.getAnimations()[0];
+      function applyOffset(){ wrap.style.transform = `translateX(${offset}px)`; }
+      function pauseAmbient(){ const a = getAmbientAnim(); if (a) a.pause(); }
+      function playAmbient(){ if (dragging) return; const a = getAmbientAnim(); if (a) a.play(); }
+
+      ticker.addEventListener('mouseenter', () => { hovering = true; if (!dragging) pauseAmbient(); });
+      ticker.addEventListener('mouseleave', () => { hovering = false; if (!dragging) playAmbient(); });
+
+      function cancelMomentum(){ if (momentumRaf){ cancelAnimationFrame(momentumRaf); momentumRaf = null; } }
+      function startMomentum(){
+        let v = velocity * 16;
+        const step = () => {
+          if (Math.abs(v) < 0.05){ momentumRaf = null; if (!hovering) playAmbient(); return; }
+          offset = (offset + v) % halfWidth;
+          applyOffset();
+          v *= 0.95;
+          momentumRaf = requestAnimationFrame(step);
+        };
+        if (Math.abs(v) < 0.05){ if (!hovering) playAmbient(); return; }
+        momentumRaf = requestAnimationFrame(step);
+      }
+
+      ticker.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragging = true;
+        cancelMomentum();
+        pauseAmbient();
+        ticker.classList.add('dragging');
+        try { ticker.setPointerCapture(e.pointerId); } catch (err) {}
+        lastX = e.clientX; lastT = performance.now(); velocity = 0;
       });
+      ticker.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const now = performance.now();
+        const dx = e.clientX - lastX;
+        const dt = Math.max(now - lastT, 1);
+        velocity = dx / dt;
+        offset = (offset + dx) % halfWidth;
+        applyOffset();
+        lastX = e.clientX; lastT = now;
+      });
+      function endDrag(e){
+        if (!dragging) return;
+        dragging = false;
+        ticker.classList.remove('dragging');
+        try { ticker.releasePointerCapture(e.pointerId); } catch (err) {}
+        startMomentum();
+      }
+      ticker.addEventListener('pointerup', endDrag);
+      ticker.addEventListener('pointercancel', endDrag);
+      window.addEventListener('blur', (e) => { if (dragging) endDrag(e); });
+    });
+
+    // scroll velocity nudges playback rate (never touches duration, so the
+    // looped position is preserved), decaying back to 1x
+    if (!reduce && window.Element && 'getAnimations' in Element.prototype){
+      const tickerAnims = Array.from(document.querySelectorAll('.ticker-track'))
+        .map(el => el.getAnimations().find(a => a.animationName === 'tickerScroll') || el.getAnimations()[0])
+        .filter(Boolean);
+      if (tickerAnims.length){
+        let lastY = window.scrollY, lastT = performance.now();
+        let targetRate = 1, curRate = 1, tickerRaf = null;
+        const decayTick = () => {
+          curRate += (targetRate - curRate) * 0.3;
+          tickerAnims.forEach(a => { a.playbackRate = curRate; });
+          targetRate = 1 + (targetRate - 1) * 0.94;
+          if (Math.abs(curRate - 1) > 0.01 || Math.abs(targetRate - 1) > 0.01){
+            tickerRaf = requestAnimationFrame(decayTick);
+          } else {
+            curRate = 1; targetRate = 1;
+            tickerAnims.forEach(a => { a.playbackRate = 1; });
+            tickerRaf = null;
+          }
+        };
+        window.addEventListener('scroll', () => {
+          const now = performance.now();
+          const dt = Math.max(now - lastT, 1);
+          const dy = Math.abs(window.scrollY - lastY);
+          targetRate = Math.min(4, 1 + (dy / dt) * 18);
+          lastY = window.scrollY; lastT = now;
+          if (!tickerRaf) tickerRaf = requestAnimationFrame(decayTick);
+        }, { passive: true });
+      }
     }
   })();
 
   /* ---------- custom cursor ---------- */
   if (fine){
-    const dot = document.getElementById('dot'), ring = document.getElementById('ring');
+    const dot = document.getElementById('dot'), ring = document.getElementById('ring'), label = document.getElementById('cursorLabel');
     let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
     window.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY; dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`; });
     (function loop(){ rx+=(mx-rx)*.18; ry+=(my-ry)*.18; ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(loop); })();
+
+    // the ring says what the hover DOES, not just that something's hoverable —
+    // "READ" over case studies, "SAY IT" over the feedback/contact inputs
+    const READ_SEL = '[data-cursor-read]';
+    const SAY_SEL = '[data-cursor-say]';
+    const HOVER_SEL = '[data-hover]';
     document.body.addEventListener('mouseover', (e) => {
-      if (e.target.closest('[data-hover]')) ring.classList.add('hot');
+      if (e.target.closest(READ_SEL)){ ring.classList.add('read'); label.textContent = 'Read'; }
+      else if (e.target.closest(SAY_SEL)){ ring.classList.add('say'); label.textContent = 'Say it'; }
+      else if (e.target.closest(HOVER_SEL)){ ring.classList.add('hot'); }
     });
     document.body.addEventListener('mouseout', (e) => {
-      if (e.target.closest('[data-hover]') && !e.relatedTarget?.closest('[data-hover]')) ring.classList.remove('hot');
+      const leaving = e.target.closest(`${READ_SEL}, ${SAY_SEL}, ${HOVER_SEL}`);
+      const entering = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(`${READ_SEL}, ${SAY_SEL}, ${HOVER_SEL}`);
+      if (leaving && !entering){ ring.classList.remove('hot','read','say'); label.textContent = ''; }
     });
   }
 
@@ -833,6 +1125,28 @@
     sections.forEach(s => io.observe(s));
   })();
 
+  /* ---------- active-section highlight in the top nav ----------
+     same observer geometry as the rail, but separate: the nav only has
+     links for 3 of the 7 sections, so sections without a link must
+     CLEAR every highlight rather than leave a stale one lit */
+  (function initNavActive(){
+    const links = Array.from(document.querySelectorAll('.nav .links a[href^="#"]'));
+    const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const sections = Array.from(document.querySelectorAll('[data-section]'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        links.forEach(a => {
+          const on = byId.get(id) === a;
+          a.classList.toggle('active', on);
+          a.setAttribute('aria-current', on ? 'true' : 'false');
+        });
+      });
+    }, { threshold: 0, rootMargin: '-45% 0px -45% 0px' });
+    sections.forEach(s => io.observe(s));
+  })();
+
   /* ---------- in-page anchors go through the smooth scroller ----------
      otherwise the nav links do a native jump that lands the target tucked
      under the fixed nav, and fights Lenis's own scroll position */
@@ -845,7 +1159,13 @@
     });
   });
 
-  window.addEventListener('load', () => { if (hasGSAP) ScrollTrigger.refresh(); });
+  window.addEventListener('load', () => {
+    if (hasGSAP) ScrollTrigger.refresh();
+    if (savedReturn) {
+      if (lenis) lenis.scrollTo(savedReturn.y, { immediate: true });
+      else window.scrollTo(0, savedReturn.y);
+    }
+  });
 })();
 </script>
 </body>
