@@ -15,8 +15,6 @@
     --text:#f4f2ea; --muted:#aeabbb;
     --accent:#ff4d3d; --accent2:#6b5cff;
     --ease:cubic-bezier(.22,1,.36,1);
-    --ticker-stroke:rgba(244,242,234,.85);
-    --ticker-fill:rgba(244,242,234,.14);
     --on-accent:#0a0a0a;
     --text-soft:#d8d5e6;
     --line:rgba(244,242,234,.14);
@@ -43,7 +41,6 @@
     --accent-soft:rgba(224,61,46,.08); --accent2-soft:rgba(84,67,230,.1);
     --aurora3:#a8c4dd;
     --card-grad-a:rgba(22,20,15,.045); --card-grad-b:rgba(22,20,15,.015);
-    --ticker-stroke:rgba(22,20,15,.75); --ticker-fill:rgba(22,20,15,.08);
     --aurora-opacity:.3; /* aurora blobs are much louder on cream */
   }
   html[data-theme="light"] body::before{background:radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(22,20,15,.12))}
@@ -207,13 +204,14 @@
      full-page layer, so any section without its own background shows it
      bleeding through underneath; this band needs to read as its OWN dark
      section starting clean after the hero, not as hero's tail end */
-  /* anchored toward the bottom of its band (not dead-centered) so it
-     sits with a consistent, deliberate gap right above the first card,
-     and shares the card's own max-width so both left-edges line up */
-  .work-intro{background:var(--bg);position:relative;z-index:1;min-height:40svh;width:100%;display:flex;align-items:flex-end;justify-content:center;padding-bottom:64px}
-  .work-intro .inner{width:100%;max-width:900px;padding:0 34px;display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  .work-intro h2{font-size:clamp(32px,5.6vw,64px)}
-  .work-intro .count{font:600 13px 'Space Grotesk';letter-spacing:.15em;color:var(--muted)}
+  /* left-aligned with a kicker line, mirroring the About head ("The story
+     so far / My Journey") so every section heading follows one pattern —
+     a lone centered "Work" read as misplaced next to the others */
+  .work-intro{background:var(--bg);position:relative;z-index:1;min-height:40svh;width:100%;display:flex;align-items:flex-end;padding:0 34px 64px}
+  .work-intro .inner{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .work-intro .k{display:block;font:500 13px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .work-intro h2{font-size:clamp(32px,5.4vw,80px)}
+  .work-intro .count{font:600 13px 'Space Grotesk';letter-spacing:.15em;color:var(--muted);padding-bottom:8px}
   .project-wrap{position:relative;height:150vh}
   .project-wrap:last-child{height:100vh}
   .project{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:34px;perspective:1600px}
@@ -255,9 +253,18 @@
      which is why the line cut straight through "Journey". Nothing here can
      overlap now: the line is positioned against the TRACK, not the pin. */
   .about-pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:118px 0 56px}
-  .about-head{flex:none;padding:0 34px;margin-bottom:clamp(38px,6vh,74px)}
+  .about-head{flex:none;padding:0 34px;margin-bottom:clamp(38px,6vh,74px);display:flex;align-items:flex-end;gap:clamp(30px,6vw,90px)}
   .about-head .k{display:block;font:500 13px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
   .about-head h2{font-size:clamp(32px,5.4vw,80px)}
+  /* the human touch: a small tilted portrait beside the story heading —
+     like a photo laid on the timeline. Straightens on hover. */
+  .about-photo{
+    width:clamp(104px,13vw,168px);aspect-ratio:4/5;object-fit:cover;flex:none;
+    border-radius:14px;border:1px solid var(--line);transform:rotate(3.5deg);
+    box-shadow:0 18px 44px rgba(0,0,0,.35);transition:transform .45s var(--ease);
+  }
+  .about-photo:hover{transform:rotate(0deg) scale(1.03)}
+  @media (max-width:720px){.about-photo{width:96px;border-radius:10px}}
   .timeline-area{flex:none;position:relative}
   /* dot is 14px tall so its centre is 7px down; the 2px line sits at 6px
      to land dead-centre on it — derived from the dot's own size, not guessed */
@@ -271,7 +278,11 @@
   .timeline-track{display:flex;align-items:flex-start;gap:120px;padding-left:10vw;will-change:transform;position:relative;z-index:1;list-style:none}
   .tl-spacer{flex:none;width:min(12vw,150px)}
   .tl-node{flex:none;width:min(64vw,380px);max-width:380px;position:relative;overflow-wrap:break-word}
-  .tl-dot{display:block;width:14px;height:14px;margin-bottom:22px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+  /* dots start hollow and FILL as the progress bar sweeps past them —
+     .filled is toggled from the pin's onUpdate by comparing each dot's
+     viewport position against the fill bar's leading edge */
+  .tl-dot{display:block;width:14px;height:14px;margin-bottom:22px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);transition:background .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .tl-dot.filled{background:var(--accent);transform:scale(1.25);box-shadow:0 0 14px var(--accent-soft),0 0 4px var(--accent)}
   .tl-year{display:block;font:600 13px 'Space Grotesk';letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
   .tl-title{font-size:clamp(20px,2.4vw,32px);margin-bottom:12px}
   .tl-text{color:var(--muted);font-size:15px;line-height:1.6;max-width:100%}
@@ -301,19 +312,32 @@
     letter-spacing:-.01em;text-transform:uppercase;color:var(--text);padding-right:20px;
   }
   .ticker-sep{color:var(--accent);font-size:clamp(16px,2.4vw,28px);padding-right:20px}
+  /* solid muted italic — the hollow text-stroke outline (inherited from
+     the light-bg live site) read as broken/gappy lettering on this page
+     in both themes, so the outline treatment is gone entirely */
   .ticker-reverse .ticker-item{
-    font-weight:700;font-style:italic;color:var(--ticker-fill);
-    -webkit-text-stroke:2px var(--ticker-stroke);text-transform:none;
+    font-weight:600;font-style:italic;color:var(--muted);text-transform:none;letter-spacing:0;
   }
   @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
-  /* skills with real receipts get a citation-style dot marker + a proof line below */
+  /* skills with real receipts get a citation-style marker + a proof line
+     below. INDIGO, not the accent red — the ✦ separators are already red,
+     so a red dot vanished among them; the second accent color is used
+     nowhere else in this row, which is what makes it read as "special".
+     The pulse ring says "alive, hover me" without being a decoration. */
   .ticker-item.has-proof::after{
-    content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
-    background:var(--accent);margin-left:6px;vertical-align:super;
+    content:'';display:inline-block;width:9px;height:9px;border-radius:50%;
+    background:var(--accent2);margin-left:8px;vertical-align:super;
+    box-shadow:0 0 0 0 var(--accent2);animation:proofPulse 2.4s ease-out infinite;
   }
+  @keyframes proofPulse{
+    0%{box-shadow:0 0 0 0 var(--accent2-soft),0 0 0 0 var(--accent2)}
+    55%{box-shadow:0 0 0 9px transparent,0 0 6px 1px var(--accent2)}
+    100%{box-shadow:0 0 0 0 transparent,0 0 0 0 transparent}
+  }
+  @media (prefers-reduced-motion:reduce){.ticker-item.has-proof::after{animation:none;box-shadow:0 0 6px 1px var(--accent2)}}
   @media (hover:hover){
     .ticker-item.has-proof{cursor:help;transition:color .2s ease}
-    .ticker-item.has-proof:hover{color:var(--accent)}
+    .ticker-item.has-proof:hover{color:var(--accent2)}
   }
   .ticker-proof{min-height:24px;margin-top:20px;text-align:center;font:600 13px 'Space Grotesk';letter-spacing:.04em;color:var(--muted);opacity:0;transition:opacity .25s ease}
   .ticker-proof.on{opacity:1}
@@ -435,7 +459,10 @@
   <section class="work" id="work" data-section="Work">
     <div class="work-intro">
       <div class="inner">
-        <h2>Work</h2>
+        <div>
+          <span class="k">Things I've shipped</span>
+          <h2>Work</h2>
+        </div>
         <span class="count" aria-hidden="true">01 — 02</span>
       </div>
     </div>
@@ -488,8 +515,11 @@
   <section class="about-reel" id="about" data-section="About" aria-labelledby="about-title">
     <div class="about-pin">
       <div class="about-head">
-        <span class="k">The story so far</span>
-        <h2 id="about-title">My<br>Journey</h2>
+        <div>
+          <span class="k">The story so far</span>
+          <h2 id="about-title">My<br>Journey</h2>
+        </div>
+        <img class="about-photo" src="headshot.jpg" alt="Nitin Raina">
       </div>
       <div class="timeline-area">
       <div class="rail-line" aria-hidden="true"><div class="rail-line-fill" id="railFill"></div></div>
@@ -806,9 +836,15 @@
     stmt.innerHTML = stmt.textContent.split(' ').map(w =>
       `<span class="w${accentWords.includes(w) ? ' accent' : ''}">${w}</span>`).join(' ');
     if (hasGSAP && !reduce){
+      // pin:true holds the sentence dead-centre while the scroll "fills"
+      // the words in — previously it only scrubbed opacity as the section
+      // scrolled past, so the line drifted up mid-reveal
       gsap.to(stmt.querySelectorAll('.w'), {
         opacity: 1, stagger: .5, ease: 'none',
-        scrollTrigger: { trigger: '.manifesto', start: 'top 65%', end: 'bottom 65%', scrub: .6 }
+        scrollTrigger: {
+          trigger: '.manifesto', start: 'top top', end: '+=120%',
+          scrub: .6, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        }
       });
     } else {
       stmt.querySelectorAll('.w').forEach(w => w.style.opacity = 1);
@@ -879,8 +915,20 @@
 
   /* ---------- ABOUT horizontal timeline + rail fill ---------- */
   const railFill = document.getElementById('railFill');
+  const tlDots = Array.from(document.querySelectorAll('.tl-dot'));
   horizontalPin('#about', '#timelineTrack', {
-    onUpdate(p){ gsap.set(railFill, { width: (p*100)+'%' }); }
+    onUpdate(p){
+      gsap.set(railFill, { width: (p*100)+'%' });
+      // fill each dot the moment the bar's leading edge sweeps past its
+      // centre (measured live — the dots travel with the track while the
+      // bar is stationary, so this can't be precomputed)
+      const fillEdge = railFill.parentElement.getBoundingClientRect().left
+        + railFill.getBoundingClientRect().width;
+      tlDots.forEach(dot => {
+        const r = dot.getBoundingClientRect();
+        dot.classList.toggle('filled', r.left + r.width/2 <= fillEdge);
+      });
+    }
   });
   if (!hasGSAP || reduce){
     document.getElementById('timelineTrack').style.overflowX = 'auto';
@@ -972,6 +1020,18 @@
 
       ticker.addEventListener('mouseenter', () => { hovering = true; if (!dragging) pauseAmbient(); });
       ticker.addEventListener('mouseleave', () => { hovering = false; if (!dragging) playAmbient(); });
+      // safety net: mouseenter/mouseleave never fire when the ticker scrolls
+      // under (or away from) a STATIONARY cursor — no pointer movement, no
+      // event — so a paused ticker could stay stuck paused after a scroll.
+      // Reconcile the hover flag against the element's real :hover state on
+      // every scroll tick.
+      window.addEventListener('scroll', () => {
+        const reallyHovering = ticker.matches(':hover');
+        if (reallyHovering === hovering) return;
+        hovering = reallyHovering;
+        if (dragging) return;
+        if (hovering) pauseAmbient(); else playAmbient();
+      }, { passive: true });
 
       function cancelMomentum(){ if (momentumRaf){ cancelAnimationFrame(momentumRaf); momentumRaf = null; } }
       function startMomentum(){
