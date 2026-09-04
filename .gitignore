@@ -1,2 +1,16 @@
 graphify-out/
 .claude/
+.superpowers/
+node_modules/
+.netlify/
+
+# This repo publishes its own root on Netlify, so anything committed here is
+# public. Personal and client work stays out of it.
+SADHANA-PLAN.md
+astro-guru/
+pph-research/
+vera-ad-creatives/
+xsav-brand-system/
+xsav-video-assets/
+d10_result.json
+dasha3.json
