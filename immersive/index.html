@@ -23,6 +23,7 @@
     --surface:rgba(15,15,22,.7);
     --accent-soft:rgba(255,77,61,.08);
     --accent2-soft:rgba(107,92,255,.1);
+    --accent2-ring:rgba(107,92,255,.45);
     --aurora3:#12324d;
     --card-grad-a:rgba(244,242,234,.05);
     --card-grad-b:rgba(244,242,234,.015);
@@ -39,6 +40,7 @@
     --shadow:rgba(244,242,234,.6); /* near-invisible glow instead of dark shadow */
     --surface:rgba(233,230,219,.8);
     --accent-soft:rgba(224,61,46,.08); --accent2-soft:rgba(84,67,230,.1);
+    --accent2-ring:rgba(84,67,230,.4);
     --aurora3:#a8c4dd;
     --card-grad-a:rgba(22,20,15,.045); --card-grad-b:rgba(22,20,15,.015);
     --aurora-opacity:.3; /* aurora blobs are much louder on cream */
@@ -101,7 +103,7 @@
   .aurora .a2{width:46vw;height:46vw;right:-10vw;top:20vh;background:radial-gradient(circle,var(--accent2),transparent 62%)}
   .aurora .a3{width:40vw;height:40vw;left:22vw;bottom:-14vw;background:radial-gradient(circle,var(--aurora3),transparent 62%)}
 
-  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:70;pointer-events:none;border-radius:100px;transform:translate(-50%,-50%);will-change:transform}
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:95;pointer-events:none;border-radius:100px;transform:translate(-50%,-50%);will-change:transform}
   .cursor-dot{width:7px;height:7px;background:var(--accent);transition:opacity .2s ease}
   .cursor-ring{
     width:38px;height:38px;border:1.5px solid var(--line-strong);display:flex;align-items:center;justify-content:center;
@@ -145,13 +147,27 @@
   .nav .links a.active{color:var(--accent)}
   .nav .links a.active::after{transform:scaleX(1);transform-origin:left}
 
-  /* light/dark toggle — a simple filled dot that recolors with the theme */
+  /* light/dark toggle — the icon shows the theme you'd GET by clicking
+     (sun while dark, moon while light), which is what the aria-label already
+     says. The previous plain dot gave no clue this button did anything. */
   .theme-toggle{
-    width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line-strong);
-    background:none;cursor:pointer;display:grid;place-items:center;
+    width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line-strong);
+    background:none;cursor:pointer;display:grid;place-items:center;color:var(--text);
+    transition:border-color .3s var(--ease),background .3s var(--ease);
   }
-  .tt-icon{width:14px;height:14px;border-radius:50%;background:var(--text);transition:all .3s var(--ease)}
-  html[data-theme="light"] .tt-icon{box-shadow:0 0 0 3px var(--accent-soft)}
+  .theme-toggle:hover,.theme-toggle:focus-visible{border-color:var(--accent);background:var(--accent-soft)}
+  /* both icons stack in one grid cell and cross-fade/rotate between states */
+  .tt-icon{display:grid;place-items:center;width:18px;height:18px}
+  .tt-icon svg{
+    grid-area:1/1;width:18px;height:18px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+    transition:opacity .35s var(--ease),transform .45s var(--ease);
+  }
+  .tt-sun{opacity:1;transform:rotate(0deg) scale(1)}
+  .tt-moon{opacity:0;transform:rotate(-70deg) scale(.4)}
+  html[data-theme="light"] .tt-sun{opacity:0;transform:rotate(70deg) scale(.4)}
+  html[data-theme="light"] .tt-moon{opacity:1;transform:rotate(0deg) scale(1)}
+  @media (prefers-reduced-motion:reduce){.tt-icon svg{transition:opacity .01s}}
 
   /* progress rail */
   /* the visible dot stays 8px, but the BUTTON is 26px so the tap/click
@@ -287,6 +303,33 @@
   .tl-title{font-size:clamp(20px,2.4vw,32px);margin-bottom:12px}
   .tl-text{color:var(--muted);font-size:15px;line-height:1.6;max-width:100%}
 
+  /* the last node is the future one: deliberately unfinished. Dashed,
+     softly pulsing dot in the secondary accent so it reads as "not yet"
+     rather than as another completed milestone. The .filled class is still
+     applied by the rail sweep, so both states are overridden here. */
+  .tl-node.is-next .tl-year{color:var(--accent2)}
+  .tl-node.is-next .tl-dot,
+  .tl-node.is-next .tl-dot.filled{
+    background:transparent;border:2px dashed var(--accent2);
+    transform:none;box-shadow:0 0 0 0 var(--accent2-ring);
+    animation:nextPulse 2.6s ease-out infinite;
+  }
+  @keyframes nextPulse{
+    0%{box-shadow:0 0 0 0 var(--accent2-ring)}
+    70%{box-shadow:0 0 0 11px transparent}
+    100%{box-shadow:0 0 0 0 transparent}
+  }
+  /* three dots that fill in turn — a tiny "still in progress" tell */
+  .tl-cook{display:inline-flex;gap:3px;margin-left:6px;vertical-align:baseline}
+  .tl-cook i{width:5px;height:5px;border-radius:50%;background:var(--accent2);opacity:.25;animation:cookDot 1.5s ease-in-out infinite}
+  .tl-cook i:nth-child(2){animation-delay:.22s}
+  .tl-cook i:nth-child(3){animation-delay:.44s}
+  @keyframes cookDot{0%,60%,100%{opacity:.25}30%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){
+    .tl-node.is-next .tl-dot,.tl-node.is-next .tl-dot.filled{animation:none}
+    .tl-cook i{animation:none;opacity:.6}
+  }
+
   /* ============ SKILLS — draggable marquee ticker, ported from the live
      brutalist site's proven skills/interests bands (user explicitly asked
      for this representation back over the chip-cluster experiment). Two
@@ -410,6 +453,84 @@
     .about-pin{padding-top:96px}
     .about-head{margin-bottom:32px}
   }
+
+  /* ============ RESUME VIEWER ============================================
+     The resume is READABLE IN PLACE, not just downloadable. It lives in an
+     overlay so it costs zero page height until someone asks for it, and
+     PDF.js paints the real PDF onto canvases — one source of truth (the
+     same file the Download button hands over), so it can never drift from
+     the document. The library is fetched on FIRST OPEN only, so visitors
+     who never open it pay nothing. ====================================== */
+  .resume-cta{
+    display:inline-flex;align-items:center;gap:9px;margin-top:38px;
+    font:600 12.5px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);border-bottom:1.5px solid var(--line-strong);padding-bottom:6px;
+    background:none;cursor:pointer;transition:color .25s var(--ease),border-color .25s var(--ease);
+  }
+  .resume-cta:hover,.resume-cta:focus-visible{color:var(--accent);border-color:var(--accent)}
+  .resume-cta svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+  .rz-overlay{
+    position:fixed;inset:0;z-index:80;display:grid;place-items:center;
+    padding:clamp(10px,3vw,40px);background:color-mix(in srgb, var(--bg) 84%, transparent);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    opacity:0;transition:opacity .3s var(--ease);
+  }
+  .rz-overlay[hidden]{display:none}
+  .rz-overlay.open{opacity:1}
+  .rz-panel{
+    position:relative;width:min(940px,100%);max-height:100%;display:flex;flex-direction:column;
+    background:var(--bg2);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 110px var(--shadow);transform:translateY(16px) scale(.985);
+    transition:transform .4s var(--ease);
+  }
+  .rz-overlay.open .rz-panel{transform:none}
+  .rz-bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px clamp(15px,3vw,26px);border-bottom:1px solid var(--line)}
+  .rz-bar .rz-k{display:block;font:500 11px 'Space Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .rz-bar h2{font-size:clamp(17px,2.2vw,23px);line-height:1.05}
+  .rz-actions{display:flex;align-items:center;gap:9px;flex:none}
+  .rz-btn{
+    font:600 11.5px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+    padding:9px 15px;border-radius:100px;border:1.5px solid var(--line-strong);color:var(--text);
+    background:none;cursor:pointer;transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
+  }
+  .rz-btn:hover,.rz-btn:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .rz-btn.solid{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  .rz-btn.solid:hover,.rz-btn.solid:focus-visible{background:var(--accent2);border-color:var(--accent2);color:var(--on-accent)}
+  .rz-close{width:34px;height:34px;flex:none;border-radius:50%;border:1.5px solid var(--line-strong);background:none;color:var(--text);cursor:pointer;display:grid;place-items:center;transition:border-color .25s var(--ease),color .25s var(--ease)}
+  .rz-close:hover,.rz-close:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .rz-close svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+  /* the scroll area is the only scroller while the overlay is up —
+     overscroll-behavior:contain stops the page behind it from chaining */
+  .rz-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:clamp(12px,2.4vw,24px);display:flex;flex-direction:column;align-items:center;gap:16px;background:var(--bg)}
+  .rz-page{width:100%;max-width:820px;height:auto;display:block;border-radius:8px;border:1px solid var(--line);background:#fff;box-shadow:0 12px 34px rgba(0,0,0,.28)}
+  .rz-status{padding:56px 20px;text-align:center;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:420px}
+  .rz-status a{color:var(--accent);border-bottom:1px solid currentColor}
+  .rz-spin{width:26px;height:26px;margin:0 auto 16px;border-radius:50%;border:2px solid var(--line-strong);border-top-color:var(--accent);animation:rzSpin .8s linear infinite}
+  @keyframes rzSpin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){
+    .rz-overlay,.rz-panel{transition:none}
+    .rz-spin{animation-duration:2s}
+  }
+  /* full-bleed sheet on phones — a floating rounded card wastes the little
+     screen there is, and the resume needs every pixel of width to be legible */
+  @media (max-width:600px){
+    .rz-overlay{padding:0}
+    .rz-panel{border-radius:0;border:none;width:100%;height:100%;max-height:100%}
+    .rz-bar{padding:13px 15px}
+    .rz-btn{padding:8px 11px;font-size:10.5px;letter-spacing:.06em}
+    .rz-body{padding:10px}
+  }
+  /* the nav carries four labels + the toggle now; without this the row
+     overflowed its own padding on a 375px screen (it was already close
+     with three) */
+  @media (max-width:620px){
+    .nav{padding:18px 20px}
+    .nav .links{gap:13px;font-size:11px;letter-spacing:.07em}
+    .nav .links a{white-space:nowrap}
+    .theme-toggle{width:30px;height:30px}
+    .tt-icon,.tt-icon svg{width:16px;height:16px}
+  }
 </style>
 <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
@@ -432,8 +553,9 @@
   <div class="links">
     <a href="#work" data-hover>Work</a>
     <a href="#about" data-hover>About</a>
+    <a href="/Nitin_Raina_Resume.pdf" data-resume data-hover>R&eacute;sum&eacute;</a>
     <a href="#contact" data-hover>Contact</a>
-    <button class="theme-toggle" id="themeToggle" data-hover aria-label="Switch to light theme"><span class="tt-icon" aria-hidden="true"></span></button>
+    <button class="theme-toggle" id="themeToggle" data-hover aria-label="Switch to light theme"><span class="tt-icon" aria-hidden="true"><svg class="tt-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg><svg class="tt-moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8z"/></svg></span></button>
   </div>
 </nav>
 
@@ -543,6 +665,12 @@
           <h3 class="tl-title">Marketing</h3>
           <p class="tl-text">Currently pursuing an MBA in Marketing to apply my user and product instincts to product strategy.</p>
         </li>
+        <li class="tl-node is-next">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-year">Next</span>
+          <h3 class="tl-title">Something&rsquo;s Cooking<span class="tl-cook" aria-hidden="true"><i></i><i></i><i></i></span></h3>
+          <p class="tl-text">There&rsquo;s something being built right now &mdash; part product, part obsession, mostly late nights. It gets its own spot on this timeline the day it stops being a draft.</p>
+        </li>
         <!-- real element, not padding-right: see .tl-spacer note in CSS -->
         <li class="tl-spacer" aria-hidden="true"></li>
       </ol>
@@ -591,6 +719,10 @@
     <div class="k">Over to you</div>
     <h2>What are<br>you <span class="accent">building?</span></h2>
     <a class="magnetic" id="magnetic" data-hover href="mailto:nitraina2000@gmail.com"><span>Say Hello</span></a>
+    <a class="resume-cta" href="/Nitin_Raina_Resume.pdf" data-resume data-hover>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+      Read my r&eacute;sum&eacute;
+    </a>
     <div class="social-row">
       <a data-hover href="https://www.linkedin.com/in/nitinraina00/" target="_blank" rel="noopener">LinkedIn</a>
       <a data-hover href="mailto:nitraina2000@gmail.com">Gmail</a>
@@ -599,6 +731,28 @@
     <div class="foot">© 2026 Nitin Raina</div>
   </section>
 
+</div>
+
+<!-- RESUME VIEWER: read-in-place overlay, see the .rz-* CSS block -->
+<div class="rz-overlay" id="resumeModal" hidden>
+  <div class="rz-panel" role="dialog" aria-modal="true" aria-labelledby="rzTitle">
+    <header class="rz-bar">
+      <div>
+        <span class="rz-k">R&eacute;sum&eacute;</span>
+        <h2 id="rzTitle">Nitin Raina</h2>
+      </div>
+      <div class="rz-actions">
+        <a class="rz-btn" href="/Nitin_Raina_Resume.pdf" target="_blank" rel="noopener">Open</a>
+        <a class="rz-btn solid" href="/Nitin_Raina_Resume.pdf" download>Download</a>
+        <button class="rz-close" id="rzClose" type="button" aria-label="Close r&eacute;sum&eacute;">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </header>
+    <div class="rz-body" id="rzBody">
+      <div class="rz-status" id="rzStatus"><div class="rz-spin" aria-hidden="true"></div>Loading r&eacute;sum&eacute;&hellip;</div>
+    </div>
+  </div>
 </div>
 
 <!-- after the content in the DOM so keyboard users reach the page itself
@@ -636,6 +790,183 @@
     btn.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       apply(next);
+    });
+  })();
+
+  /* ---------- RESUME VIEWER ------------------------------------------------
+     Opens the real PDF inside the page instead of making people download a
+     file to find out what is in it. PDF.js is pulled in lazily on the first
+     open (never on page load) and paints each page to a canvas, so what is
+     on screen is always exactly the file the Download button serves.
+     Layered degradation: PDF.js -> native <object> embed -> plain links,
+     and with JS off entirely the triggers are still ordinary links to the
+     PDF, because that is what they are in the markup. --------------------- */
+  (function initResume(){
+    const PDF_URL = '/Nitin_Raina_Resume.pdf';
+    const PDFJS  = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    const WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const modal = document.getElementById('resumeModal');
+    const triggers = Array.from(document.querySelectorAll('[data-resume]'));
+    if (!modal || !triggers.length) return;
+    const panel = modal.querySelector('.rz-panel');
+    const body = document.getElementById('rzBody');
+    const closeBtn = document.getElementById('rzClose');
+
+    let loaded = false, loading = false, lastFocus = null, renderedAt = 0;
+
+    const links = 'You can <a href="' + PDF_URL + '" target="_blank" rel="noopener">open the PDF in a new tab</a> or <a href="' + PDF_URL + '" download>download it</a>.';
+    const setStatus = function(html){ body.innerHTML = '<div class="rz-status">' + html + '</div>'; };
+
+    function loadScript(src){
+      return new Promise(function(res, rej){
+        const el = document.createElement('script');
+        el.src = src; el.async = true;
+        el.onload = res;
+        el.onerror = function(){ rej(new Error('script failed: ' + src)); };
+        document.head.appendChild(el);
+      });
+    }
+
+    /* native embed - the second chance if PDF.js cannot be reached at all
+       (offline, blocked CDN). Desktop browsers render this themselves. */
+    function embedFallback(){
+      body.innerHTML =
+        '<object class="rz-page" data="' + PDF_URL + '" type="application/pdf" style="height:78vh">' +
+          '<div class="rz-status">This browser will not show PDFs inline. ' + links + '</div>' +
+        '</object>';
+    }
+
+    async function render(){
+      const width = Math.max(320, body.clientWidth - 2);
+      // cap the raster: enough for a crisp 820px column on a 2x screen,
+      // without allocating a 40MB canvas on a phone
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const target = Math.min(width, 820) * dpr;
+      renderedAt = width;
+
+      const doc = await window.pdfjsLib.getDocument(PDF_URL).promise;
+      const frag = document.createDocumentFragment();
+      for (let i = 1; i <= doc.numPages; i++){
+        const page = await doc.getPage(i);
+        const base = page.getViewport({ scale: 1 });
+        const viewport = page.getViewport({ scale: target / base.width });
+        const canvas = document.createElement('canvas');
+        canvas.className = 'rz-page';
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        canvas.setAttribute('role', 'img');
+        canvas.setAttribute('aria-label', 'Resume page ' + i + ' of ' + doc.numPages);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+        frag.appendChild(canvas);
+      }
+      body.innerHTML = '';
+      body.appendChild(frag);
+      // a text route out of the canvases, for screen readers and for anyone
+      // who would rather just have the file
+      const note = document.createElement('p');
+      note.className = 'rz-status';
+      note.style.padding = '10px 20px 4px';
+      note.innerHTML = 'Prefer the file? ' + links;
+      body.appendChild(note);
+      loaded = true;
+    }
+
+    async function ensureRendered(){
+      if (loaded || loading) return;
+      loading = true;
+      try {
+        if (!window.pdfjsLib){
+          await loadScript(PDFJS);
+          // A worker can only be constructed from a same-origin script, so
+          // pointing workerSrc straight at the CDN throws SecurityError and
+          // drops pdf.js onto its deprecated main-thread fallback - which
+          // would parse the PDF on the same thread as the scroll animations.
+          // Fetching it once and handing over a blob: URL keeps the real
+          // worker. If that fetch fails we still set the plain URL, because
+          // the main-thread fallback is slow but functional.
+          let src = WORKER;
+          try {
+            const res = await fetch(WORKER);
+            if (res.ok) src = URL.createObjectURL(await res.blob());
+          } catch (e) { /* keep the CDN url */ }
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = src;
+        }
+        // never leave a spinner spinning: pdf.js paints pages from inside
+        // the rAF loop, so a stalled frame loop (a throttled background tab,
+        // an embedded webview) would hang the render with no way out. Time it
+        // out into the native embed rather than showing a spinner forever.
+        await Promise.race([
+          render(),
+          new Promise(function(_, rej){
+            setTimeout(function(){ rej(new Error('render timed out')); }, 15000);
+          })
+        ]);
+      } catch (err){
+        embedFallback();
+      } finally {
+        loading = false;
+      }
+    }
+
+    /* re-raster only when the panel width really changed - canvases scale
+       with CSS in between, so a resize is not a re-render by default */
+    let rt = null;
+    window.addEventListener('resize', function(){
+      if (modal.hidden || !loaded) return;
+      clearTimeout(rt);
+      rt = setTimeout(function(){
+        if (Math.abs(body.clientWidth - renderedAt) > 120){
+          loaded = false;
+          setStatus('<div class="rz-spin" aria-hidden="true"></div>Re-rendering&hellip;');
+          ensureRendered();
+        }
+      }, 320);
+    });
+
+    function openModal(e){
+      if (e) e.preventDefault();
+      // the element that opened it, NOT document.activeElement: a click does
+      // not necessarily focus its target, and restoring to something
+      // unfocusable leaves focus stranded inside the closed (hidden) dialog
+      lastFocus = (e && e.currentTarget) || document.activeElement;
+      modal.hidden = false;
+      // force a style flush so the transition has a start state to animate from.
+      // Deliberately NOT requestAnimationFrame: rAF is throttled in background
+      // tabs and in some embedded webviews, which would leave the overlay
+      // un-faded (opacity:0) but still interactive - i.e. invisibly blocking.
+      void modal.offsetWidth;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
+      closeBtn.focus();
+      ensureRendered();
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+      // move focus OUT before hiding, so it is never left in a display:none
+      // subtree; fall back to the first trigger if the opener has gone away
+      const back = (lastFocus && lastFocus.isConnected) ? lastFocus : triggers[0];
+      if (back && back.focus) back.focus();
+      if (reduce) modal.hidden = true;
+      else setTimeout(function(){ modal.hidden = true; }, 300);
+    }
+
+    triggers.forEach(function(t){ t.addEventListener('click', openModal); });
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if (!panel.contains(e.target)) closeModal(); });
+    document.addEventListener('keydown', function(e){
+      if (modal.hidden) return;
+      if (e.key === 'Escape'){ closeModal(); return; }
+      if (e.key !== 'Tab') return;
+      // focus trap: the overlay is modal, so Tab must not walk the page behind it
+      const f = panel.querySelectorAll('a[href],button:not([disabled])');
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     });
   })();
 
