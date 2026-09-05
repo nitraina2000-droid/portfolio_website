@@ -657,13 +657,19 @@
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-year">Switch</span>
           <h3 class="tl-title">UX Design</h3>
-          <p class="tl-text">Learned it from scratch — and came out with a deep understanding of both the product and the person using it.</p>
+          <p class="tl-text">Learned it from scratch, then applied the knowledge as a UX designer, and came out with a deep understanding of both the product and the person using it.</p>
         </li>
         <li class="tl-node">
           <span class="tl-dot" aria-hidden="true"></span>
           <span class="tl-year">MBA</span>
           <h3 class="tl-title">Marketing</h3>
           <p class="tl-text">Currently pursuing an MBA in Marketing to apply my user and product instincts to product strategy.</p>
+        </li>
+        <li class="tl-node">
+          <span class="tl-dot" aria-hidden="true"></span>
+          <span class="tl-year">XSAV Lab</span>
+          <h3 class="tl-title">Marketing Intern</h3>
+          <p class="tl-text">Currently leading research and GTM strategy for a D2C luxury launch, and building the brand system end to end — from positioning to a 15-document brand guide.</p>
         </li>
         <li class="tl-node is-next">
           <span class="tl-dot" aria-hidden="true"></span>
@@ -1140,10 +1146,17 @@
       const proj = wrap.querySelector('.project');
       const inner = proj.querySelector('.project-inner');
 
-      // first card just settles in normally on initial scroll-into-view
+      // first card: scrub its entrance off the non-sticky wrap, same as
+      // every other card — was previously a time-based gsap.from() keyed
+      // off `proj` itself (position:sticky), which left it sitting at
+      // opacity:0 for a long stretch of scroll before the tween fired
+      // (verified: opacity 0 from 100px-500px into the section on the
+      // live site). Scrubbing off `wrap` ties reveal directly to scroll
+      // position instead of a fragile sticky-trigger + wall-clock timer.
       if (i === 0){
-        gsap.from(inner, { y:60, opacity:0, rotateX:20, duration:1, ease:'power3.out',
-          scrollTrigger:{ trigger:proj, start:'top 75%' } });
+        gsap.fromTo(inner, { y:60, opacity:0, rotateX:20 },
+                            { y:0, opacity:1, rotateX:0, ease:'none',
+          scrollTrigger:{ trigger:wrap, start:'top bottom', end:'top 60%', scrub:.6 } });
       } else {
         const prevInner = wraps[i-1].querySelector('.project-inner');
         gsap.timeline({ scrollTrigger:{ trigger:wrap, start:'top bottom', end:'top top', scrub:.6 } })
