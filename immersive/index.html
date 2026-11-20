@@ -580,7 +580,7 @@
           <span class="k">Things I've shipped</span>
           <h2>Work</h2>
         </div>
-        <span class="count" aria-hidden="true">01 — 02</span>
+        <span class="count" aria-hidden="true">01 / 02</span>
       </div>
     </div>
 
@@ -592,7 +592,7 @@
           <span class="card-num" aria-hidden="true">01 · Health · Product Design</span>
           <h3 class="card-title" id="proj1-title">Tracto</h3>
           <p class="card-desc">A health companion designed with and for older adults — walks, pills, and doctor visits without the maze. Book a doctor in 3 taps.</p>
-          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/tracto.html" aria-label="View case study — Tracto"><span class="dot" aria-hidden="true"></span> View case</a>
+          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/tracto.html" aria-label="View case study: Tracto"><span class="dot" aria-hidden="true"></span> View case</a>
         </div>
         <!-- same destination as the CTA above: hidden from assistive tech and
              removed from tab order so each card exposes ONE link, not two -->
@@ -612,7 +612,7 @@
           <span class="card-num" aria-hidden="true">02 · E-commerce · UX</span>
           <h3 class="card-title" id="proj2-title">Lens Checkout</h3>
           <p class="card-desc">Rebuilt Specscart's lens checkout into a prescription-first flow — decision fatigue out, structural error-proofing in. Zero incompatible selections possible.</p>
-          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/lens-checkout.html" aria-label="View case study — Lens Checkout"><span class="dot" aria-hidden="true"></span> View case</a>
+          <a class="card-cta" data-hover data-cursor-read href="https://nitraina.netlify.app/work/lens-checkout.html" aria-label="View case study: Lens Checkout"><span class="dot" aria-hidden="true"></span> View case</a>
         </div>
         <a class="card-visual" data-hover data-cursor-read tabindex="-1" aria-hidden="true" href="https://nitraina.netlify.app/work/lens-checkout.html">
           <img src="https://nitraina.netlify.app/work/lens-checkout-cover.jpg" alt="" loading="lazy" decoding="async">
@@ -721,7 +721,7 @@
       <div class="suggest-thanks" id="suggest-thanks" role="status" hidden>
         <div class="thanks-heart" aria-hidden="true">♥</div>
         <h2 class="thanks-title">Thank you.</h2>
-        <p class="thanks-text">Genuinely — every note here gets read. Thanks for taking the time.</p>
+        <p class="thanks-text">Genuinely, every note here gets read. Thanks for taking the time.</p>
         <button type="button" class="thanks-again" data-hover id="suggest-again">Have more to say?</button>
       </div>
     </div>
@@ -1029,9 +1029,9 @@
     const el = document.getElementById('greeting');
     const hour = new Date().getHours();
     let text;
-    if (hour >= 5 && hour < 12) text = 'Good morning — glad you\'re here.';
-    else if (hour >= 12 && hour < 17) text = 'Good afternoon — glad you\'re here.';
-    else if (hour >= 17 && hour < 22) text = 'Good evening — glad you\'re here.';
+    if (hour >= 5 && hour < 12) text = 'Good morning, glad you\'re here.';
+    else if (hour >= 12 && hour < 17) text = 'Good afternoon, glad you\'re here.';
+    else if (hour >= 17 && hour < 22) text = 'Good evening, glad you\'re here.';
     else text = 'Up late? Same.';
     el.innerHTML = `<span>${text}</span>`;
   })();
@@ -1296,9 +1296,9 @@
     const skills = ['Figma','User Research','SEO','Google Analytics','Content Strategy','Claude','AI Workflows','Python','HTML/CSS','Canva','A/B Testing'];
     const interests = ['Brand storytelling','Typography','Sketching','Why people buy what they buy'];
     const skillProofs = {
-      'Figma': 'Tracto & Lens Checkout — designed end-to-end',
-      'User Research': 'Tracto — contextual inquiry with older adults',
-      'Claude': 'this site — built in conversation with it',
+      'Figma': 'Tracto & Lens Checkout, designed end-to-end',
+      'User Research': 'Tracto; contextual inquiry with older adults',
+      'Claude': 'this site, built in conversation with it',
       'AI Workflows': 'how this site got made',
       'HTML/CSS': "you're looking at it",
     };
