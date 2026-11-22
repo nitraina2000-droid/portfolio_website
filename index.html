@@ -1311,14 +1311,19 @@
   /* ---------- SKILLS: draggable marquee ticker (ported from the live
      brutalist site — same mechanic, re-themed dark) ---------- */
   (function initTickers(){
-    const skills = ['Positioning & Messaging','Go-to-Market Planning','Competitive Analysis','User Research','Figma','Google Analytics','A/B Testing','Python','HTML/CSS','Claude','AI Workflows','Content Strategy'];
-    const interests = ['Brand storytelling','Typography','Sketching','Why people buy what they buy'];
+    const skills = ['Brand Strategy','Positioning & Messaging','Brand Guidelines','Copywriting','Go-to-Market Planning','Content Strategy','Market Research','Competitive Analysis','User Research','Figma','Canva','Google Analytics','Claude','AI Workflows'];
+    const interests = ['Brand breakdowns','Typography','Why people buy what they buy','D2C & fashion brands','Luxury branding'];
     const skillProofs = {
-      'Figma': 'Tracto & Lens Checkout, designed end-to-end',
+      'Brand Strategy': 'XSAV Lab: one clear message, approved by the CEO',
+      'Positioning & Messaging': "XSAV's one line covering all four services",
+      'Brand Guidelines': "XSAV's 10-page brand guide",
+      'Copywriting': "XSAV's tagline, now on its website and all 8 sales decks",
+      'Go-to-Market Planning': "VERA, the launch plan for XSAV's own D2C brand",
+      'Content Strategy': 'LinkedIn carousels and videos for XSAV',
       'User Research': 'Tracto; contextual inquiry with older adults',
+      'Figma': 'Tracto & Lens Checkout, designed end-to-end',
       'Claude': 'this site, built in conversation with it',
-      'AI Workflows': 'how this site got made',
-      'HTML/CSS': "you're looking at it",
+      'AI Workflows': "this site, plus XSAV's carousels and videos",
     };
     // content is doubled so the -50% translate loops seamlessly
     function fillTicker(id, items, proofs){
