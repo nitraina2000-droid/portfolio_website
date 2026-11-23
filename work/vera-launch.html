@@ -3,247 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A go-to-market plan for VERA · Nitin Raina</title>
-<meta name="description" content="A product marketing case study: segmentation, targeting, positioning, the marketing mix, a funnel-mapped ad set and a test-and-learn launch roadmap for VERA by Kamakshi, a luxury bag brand.">
+<title>Launching VERA through the eyes of one customer · Nitin Raina</title>
+<meta name="description" content="A go-to-market case study for VERA by Kamakshi, a new luxury bag label: segmentation, positioning, pricing, channels, a funnel-mapped ad set and a test-and-learn roadmap, told through one customer's journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A go-to-market plan for VERA · Nitin Raina">
-<meta property="og:description" content="STP, the marketing mix, a funnel-mapped ad set and a test-and-learn roadmap for a new luxury bag brand, approved by its CEO.">
+<meta property="og:title" content="Launching VERA through the eyes of one customer · Nitin Raina">
+<meta property="og:description" content="A go-to-market plan for a new luxury bag label with no sales, no reviews and no data yet.">
 <meta property="og:url" content="https://nitraina.netlify.app/work/vera-launch.html">
 <meta property="og:image" content="https://nitraina.netlify.app/work/vera/concept-corridor.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ivory:#F5F1EA;
-  --ivory-2:#EAE3D8;
-  --ink:#1A1513;
-  --ink-2:#4B433E;
-  --muted:#857A71;
-  --line:#DCD3C6;
-  --wine:#3A0F19;
-  --wine-2:#4D1622;
-  --wine-3:#61202E;
-  --gold:#C6A26B;
-  --gold-soft:#E7D3AE;
-  --on-wine:#F3E7DA;
-  --on-wine-2:#C9B2A3;
+  --ivory:#F5F1EA; --ivory-2:#EBE4D9; --paper:#FBF8F3;
+  --ink:#1A1513; --ink-2:#463E39; --muted:#655A52; --line:#DCD3C6;
+  --wine:#3A0F19; --wine-2:#4D1622; --wine-3:#6E2433;
+  --gold:#C6A26B; --gold-soft:#E7D3AE; --on-wine:#F3E7DA; --on-wine-2:#D2BEB0;
   --serif:'Bodoni Moda','Didot','Times New Roman',serif;
   --sans:'Jost',system-ui,sans-serif;
-  --max:1160px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
-p + p{margin-top:14px}
-b{font-weight:500}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 figure{margin:0}
-.caps{font-weight:400;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+b{font-weight:500}
+p + p{margin-top:14px}
+.caps{font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:500}
 .serif{font-family:var(--serif);font-weight:400}
-/* fine film grain over the whole page, for a printed, tactile feel */
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.narrow{max-width:760px;margin:0 auto;padding:0 28px}
+.wide{max-width:1200px;margin:0 auto;padding:0 28px}
 
-/* top bar */
-.bar{position:sticky;top:0;z-index:30;background:rgba(245,241,234,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:58px}
-.bar a{text-decoration:none}
-.bar .back{font-size:13px;letter-spacing:.06em}
-.bar nav{display:flex;gap:26px}
-.bar nav a{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);position:relative;transition:color .2s}
-.bar nav a:hover,.bar nav a.on{color:var(--ink)}
-.bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:-21px;height:1px;background:var(--wine);transform:scaleX(0);transition:transform .25s ease}
-.bar nav a.on::after{transform:scaleX(1)}
-@media(max-width:900px){.bar nav{display:none}}
+/* ---------- journey bar: the nav is her path ---------- */
+.bar{position:sticky;top:0;z-index:40;background:rgba(245,241,234,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .in{max-width:1200px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:28px}
+.bar .back{font-size:14px;text-decoration:none;white-space:nowrap}
+.path{flex:1;position:relative;display:flex;justify-content:space-between;align-items:center;max-width:760px;margin-left:auto}
+.path::before,.path .fill{content:"";position:absolute;left:6px;right:6px;top:50%;height:1px;background:var(--line);transform:translateY(-50%)}
+.path .fill{right:auto;width:0;background:var(--wine-3);transition:width .2s linear}
+.path a{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;padding-top:18px}
+.path a i{position:absolute;top:0;width:12px;height:12px;border-radius:50%;background:var(--ivory);border:1px solid var(--muted);transition:background .25s,border-color .25s,transform .25s}
+.path a span{font-size:11.5px;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.path a.done i{background:var(--wine-3);border-color:var(--wine-3)}
+.path a.on i{background:var(--gold);border-color:var(--wine-3);transform:scale(1.35)}
+.path a.on span{color:var(--ink)}
+@media(max-width:900px){.path a span{display:none}.path a{padding-top:0}.path a i{position:static}}
 
-/* ---------- cover: wine panel + portrait ---------- */
-.cover{display:grid;grid-template-columns:1.05fr 1fr;min-height:clamp(560px,calc(100svh - 58px),860px);background:var(--wine);color:var(--on-wine)}
-.cover .txt{padding:clamp(48px,8vh,96px) clamp(28px,5vw,72px) clamp(40px,6vh,64px);display:flex;flex-direction:column}
+/* ---------- cover ---------- */
+.cover{position:relative;height:min(88svh,820px);min-height:520px;overflow:hidden;background:var(--wine)}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:62% 28%}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(32,8,14,.86) 0%,rgba(32,8,14,.55) 42%,rgba(32,8,14,0) 72%)}
+.cover .txt{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(24px,6vw,96px) clamp(40px,8vh,84px);max-width:780px;color:var(--on-wine)}
 .cover .caps{color:var(--gold)}
-.cover h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6.2vw,88px);line-height:1;letter-spacing:-.01em;margin:26px 0 28px}
-.cover h1 em{font-style:italic;color:var(--gold-soft)}
-.cover .intro{font-size:clamp(17px,1.6vw,19px);line-height:1.7;color:var(--on-wine-2);max-width:520px}
-.cover dl{margin-top:auto;padding-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px 28px;border-top:1px solid rgba(198,162,107,.35)}
-.cover dt{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:22px 0 4px}
-.cover dd{font-size:15px;color:var(--on-wine)}
-.cover .pic{position:relative;overflow:hidden}
-.cover .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%;transform:scale(1.04);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
-.cover.ready .pic img{transform:scale(1)}
-.cover .pic figcaption{position:absolute;left:24px;bottom:20px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.85);text-shadow:0 1px 8px rgba(0,0,0,.5)}
-@media(max-width:860px){.cover{grid-template-columns:1fr}.cover .pic{min-height:70vw}}
+.cover h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.6vw,80px);line-height:1.02;margin:18px 0 18px}
+.cover h1 em{color:var(--gold-soft)}
+.cover p{font-size:clamp(17px,1.6vw,20px);color:var(--on-wine-2);max-width:520px}
+@media(max-width:760px){.cover::after{background:linear-gradient(180deg,rgba(32,8,14,0) 25%,rgba(32,8,14,.9) 75%)}}
+.credit{font-size:12.5px;color:var(--muted);padding:10px 28px 0;max-width:1200px;margin:0 auto}
 
-/* summary strip */
-.tldr{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
-.tldr div{padding:34px 30px 36px 0}
-.tldr div + div{padding-left:30px;border-left:1px solid var(--line)}
-.tldr h3{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:400;color:var(--wine-3);margin-bottom:12px}
-.tldr p{font-size:16px;line-height:1.65}
-@media(max-width:760px){.tldr{grid-template-columns:1fr}.tldr div,.tldr div + div{padding:24px 0;border-left:0}.tldr div + div{border-top:1px solid var(--line)}}
+/* ---------- opening ---------- */
+.opening{padding:72px 28px 24px;text-align:center}
+.opening .lede{font-family:var(--serif);font-size:clamp(22px,2.4vw,28px);line-height:1.45}
+.opening .lede em{color:var(--wine-3)}
+.opening .role{margin-top:22px;font-size:16px;color:var(--ink-2)}
+.ribbon{display:grid;grid-template-columns:repeat(4,1fr);margin-top:44px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left}
+.ribbon div{padding:18px 20px}
+.ribbon div + div{border-left:1px solid var(--line)}
+.ribbon dt{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.ribbon dd{font-size:15px;margin-top:4px}
+@media(max-width:760px){.ribbon{grid-template-columns:1fr 1fr}.ribbon div:nth-child(3){border-left:0}.ribbon div:nth-child(n+3){border-top:1px solid var(--line)}}
+.howto{margin-top:34px;font-size:15px;color:var(--muted)}
 
-/* sections: shared grid */
-.grid{display:grid;grid-template-columns:200px 1fr;gap:48px}
-.label .n{font-family:var(--serif);font-style:italic;font-size:44px;line-height:1;color:var(--wine-3)}
-.label .t{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:10px}
-.sticky{position:sticky;top:110px;align-self:start}
-@media(max-width:860px){.grid{grid-template-columns:1fr;gap:16px}.sticky{position:static}.label{display:flex;gap:14px;align-items:baseline}.label .n{font-size:32px}.label .t{margin-top:0}}
-.sec{padding-top:128px;scroll-margin-top:72px}
-.sec h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.12;margin-bottom:20px}
-.sec h2 em{font-style:italic;color:var(--wine-3)}
-.lead{font-size:18px;color:var(--ink-2);max-width:680px}
-.sub{font-family:var(--serif);font-weight:400;font-size:24px;margin:64px 0 10px}
-@media(max-width:860px){.sec{padding-top:96px}}
+/* ---------- a moment = one lookbook spread ---------- */
+.moment{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;margin-top:120px;scroll-margin-top:64px}
+.moment .pic{position:relative;min-height:620px}
+.moment .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.moment .pic figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 20px;font-size:12.5px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+.moment.flip .pic{order:2}
+.moment .txt{padding:64px clamp(28px,5vw,80px);display:flex;flex-direction:column;justify-content:center;background:var(--paper)}
+.step{display:flex;align-items:baseline;gap:14px}
+.step .no{font-family:var(--serif);font-style:italic;font-size:52px;line-height:1;color:var(--wine-3)}
+.step .caps{color:var(--muted)}
+.moment h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.4vw,48px);line-height:1.1;margin:18px 0 14px}
+.scene{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.55;color:var(--ink-2);border-left:2px solid var(--gold);padding-left:18px}
+.planned{margin-top:30px}
+.planned > .caps{color:var(--wine-3);display:block;margin-bottom:12px}
+.decided{margin-top:24px;padding:16px 18px;background:var(--ivory-2);font-size:15.5px}
+.decided b{color:var(--wine-3)}
+@media(max-width:900px){.moment{grid-template-columns:1fr;margin-top:88px}.moment .pic{min-height:0;aspect-ratio:4/5}.moment.flip .pic{order:0}.moment .txt{padding:40px 28px}}
 
-/* ---------- STP: interactive steps ---------- */
-.stp-tabs{display:flex;gap:0;margin-top:36px;border-bottom:1px solid var(--line)}
-.stp-tabs button{background:none;border:0;padding:14px 22px 14px 0;margin-right:22px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);position:relative}
-.stp-tabs button span{font-family:var(--serif);font-style:italic;font-size:18px;letter-spacing:0;text-transform:none;margin-right:10px;color:var(--gold)}
-.stp-tabs button[aria-selected="true"]{color:var(--ink)}
-.stp-tabs button[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--wine)}
-.no-js .stp-tabs{display:none}
-.panel{padding-top:30px}
-.js .panel[hidden]{display:none}
-.no-js .panel{border-top:1px solid var(--line);margin-top:24px}
+/* segments */
+.segs{display:flex;flex-direction:column;gap:10px}
+.seg{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.seg:last-child{border-bottom:1px solid var(--line)}
+.seg .tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.seg.core .tag{color:var(--wine-3);font-weight:500}
+.seg h3{font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.25}
+.seg p{font-size:15px;color:var(--ink-2);margin-top:2px}
+.persona-note{font-size:13px;color:var(--muted);margin-top:12px}
 
-.segs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.seg{border:1px solid var(--line);padding:26px 26px 24px;background:rgba(255,255,255,.35)}
-.seg .caps{color:var(--muted)}
-.seg h4{font-family:var(--serif);font-weight:400;font-size:24px;margin:10px 0 8px}
-.seg p{font-size:15px;color:var(--ink-2)}
-.seg.pick{border-color:var(--wine-3);background:#fff}
-.seg.pick .caps{color:var(--wine-3)}
-@media(max-width:700px){.segs{grid-template-columns:1fr}}
+/* doubts + positioning */
+.bubbles{display:flex;flex-direction:column;gap:10px;align-items:flex-start;margin-bottom:24px}
+.bubble{background:#fff;border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 16px;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.35;box-shadow:0 10px 22px -18px rgba(58,15,25,.55)}
+.bubble:nth-child(2){margin-left:24px}.bubble:nth-child(3){margin-left:48px}
+.pos{background:var(--wine);color:var(--on-wine);padding:24px 26px}
+.pos .caps{color:var(--gold)}
+.pos p{font-family:var(--serif);font-size:20px;line-height:1.45;margin-top:10px}
+.pos em{color:var(--gold-soft)}
 
-.persona{display:grid;grid-template-columns:300px 1fr;gap:34px;align-items:center}
-.persona .photo{position:relative}
-.persona .photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%}
-.persona .photo figcaption{font-size:11.5px;color:var(--muted);margin-top:10px}
-.persona h4{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.2}
-.persona .who{font-size:15.5px;color:var(--ink-2);margin:12px 0 22px}
-.thoughts{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.thought{position:relative;background:#fff;border:1px solid var(--line);padding:12px 18px;border-radius:18px 18px 18px 4px;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.35;box-shadow:0 10px 24px -18px rgba(58,15,25,.5)}
-.thought:nth-child(2){margin-left:28px}
-.thought:nth-child(3){margin-left:56px}
-@media(max-width:760px){.persona{grid-template-columns:1fr}.persona .photo{max-width:320px}.thought:nth-child(n){margin-left:0}}
+/* competitive spectrum */
+.spectrum-band{margin-top:0;background:var(--paper);border-top:1px solid var(--line);padding:48px 0 52px}
+.spectrum{position:relative;margin-top:64px}
+.spectrum .rail{height:2px;background:linear-gradient(90deg,var(--line),var(--wine-3),var(--line))}
+.spectrum .ends{display:flex;justify-content:space-between;margin-top:14px;gap:24px}
+.spectrum .ends div{max-width:280px;font-size:14.5px;color:var(--ink-2)}
+.spectrum .ends div:last-child{text-align:right}
+.spectrum .ends b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;color:var(--ink)}
+.spectrum .vera{position:absolute;left:50%;top:-44px;transform:translateX(-50%);text-align:center;width:min(300px,70%)}
+.spectrum .vera i{display:block;width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--wine);margin:6px auto 0}
+.spectrum .vera .caps{color:var(--wine-3)}
+.spectrum .vera p{font-size:14px;color:var(--ink-2);margin-top:22px}
+@media(max-width:700px){.spectrum .ends{flex-direction:column}.spectrum .ends div:last-child{text-align:left}.spectrum .vera{position:static;transform:none;width:auto;text-align:left;margin-bottom:18px}.spectrum .vera i{margin:6px 0 0}.spectrum .vera p{margin-top:6px}}
+.src-note{font-size:13px;color:var(--muted);margin-top:22px}
 
-.position{background:var(--wine);color:var(--on-wine);padding:40px 42px;position:relative}
-.position .caps{color:var(--gold)}
-.position p{font-family:var(--serif);font-size:clamp(21px,2.4vw,28px);line-height:1.45;margin-top:14px}
-.position p em{color:var(--gold-soft)}
-.pods{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:28px;border-top:1px solid rgba(198,162,107,.35)}
-.pods div{padding:18px 18px 0 0;font-size:14.5px;color:var(--on-wine-2)}
-.pods div + div{padding-left:18px;border-left:1px solid rgba(198,162,107,.25)}
-.pods b{display:block;color:var(--on-wine);font-weight:400;font-family:var(--serif);font-size:18px;margin-bottom:2px}
-@media(max-width:700px){.position{padding:30px 24px}.pods{grid-template-columns:1fr}.pods div,.pods div + div{padding:14px 0 0;border-left:0}}
+/* dark band for the feed */
+.band{background:var(--wine);color:var(--on-wine);padding:72px 0 80px}
+.band .caps{color:var(--gold)}
+.band h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);line-height:1.2;margin-top:8px;color:#fff}
+.band p.sub{color:var(--on-wine-2);max-width:640px;margin-top:10px}
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px;align-items:start}
+.phone{background:#0E0B0B;border-radius:34px;padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8);max-width:310px;margin:0 auto;width:100%}
+.screen{background:#fff;border-radius:24px;overflow:hidden;color:#111}
+.ig-head{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:12.5px}
+.ig-head .av{width:24px;height:24px;border-radius:50%;background:var(--wine);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-size:12px}
+.ig-head small{display:block;font-size:11px;color:#666}
+.ig-act{display:flex;gap:12px;padding:10px 12px 4px}
+.ig-act i{width:18px;height:18px;border:1.6px solid #222;border-radius:50%}
+.ig-act i:nth-child(2){border-radius:4px}
+.ig-cap{padding:2px 12px 14px;font-size:12px;line-height:1.45;color:#222}
+.screen.story{background:#000}
+.screen.story img{aspect-ratio:9/16;object-fit:cover;width:100%}
+.phone figcaption{text-align:center;font-size:14px;color:var(--on-wine-2);margin-top:14px}
+.phone figcaption b{color:var(--on-wine);font-weight:500;display:block}
+@media(max-width:900px){.phones{grid-template-columns:1fr 1fr}.phones .phone:last-child{grid-column:1/-1;max-width:260px}}
+@media(max-width:560px){.phones{grid-template-columns:1fr}.phones .phone:last-child{grid-column:auto}}
+.creator{margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;border-top:1px solid rgba(198,162,107,.3);padding-top:32px}
+.creator .looks{display:flex;gap:8px}
+.creator .looks span{width:96px;height:72px;border:1px solid var(--gold);display:grid;place-items:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);text-align:center;line-height:1.2;padding:4px}
+.creator p{color:var(--on-wine-2);font-size:15.5px}
+.creator p b{color:#fff;font-weight:500}
+@media(max-width:640px){.creator{grid-template-columns:1fr}}
 
-/* ---------- marketing mix: image cards that open on hover/focus ---------- */
-.mix{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
-.p{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--wine);color:#fff;border:0;text-align:left;padding:0}
-.p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
-.p::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,8,12,.05) 30%,rgba(26,8,12,.82) 100%);transition:background .5s}
-.p .in{position:absolute;left:0;right:0;bottom:0;padding:22px 20px;z-index:2}
-.p .letter{font-family:var(--serif);font-style:italic;font-size:56px;line-height:.9;color:var(--gold-soft);transition:opacity .3s,max-height .4s;max-height:60px;overflow:hidden}
-.p:hover .letter,.p:focus-within .letter,.p.open .letter{opacity:0;max-height:0}
-.p h4{font-family:var(--serif);font-weight:400;font-size:22px;margin-top:6px}
-.p .more{font-size:14px;line-height:1.55;color:rgba(255,255,255,.88);max-height:0;opacity:0;overflow:hidden;transition:max-height .6s ease,opacity .4s ease,margin .4s;margin-top:0}
-.p:hover img,.p:focus-within img,.p.open img{transform:scale(1.06);filter:saturate(.8)}
-.p:hover::after,.p:focus-within::after,.p.open::after{background:linear-gradient(180deg,rgba(26,8,12,.35) 0%,rgba(26,8,12,.92) 60%)}
-.p:hover .more,.p:focus-within .more,.p.open .more{max-height:260px;opacity:1;margin-top:10px}
-.mix-hint{font-size:12.5px;color:var(--muted);margin-top:12px}
-@media(max-width:900px){.mix{grid-template-columns:1fr 1fr}}
-@media(hover:none){.p .more{max-height:none;opacity:1;margin-top:10px}.p::after{background:linear-gradient(180deg,rgba(26,8,12,.3) 0%,rgba(26,8,12,.9) 55%)}.mix-hint{display:none}}
-@media(max-width:520px){.mix{grid-template-columns:1fr}.p{aspect-ratio:4/5}}
-@media(max-width:900px){.p .more{max-height:none;opacity:1;margin-top:10px}.p .letter{display:none}.p::after{background:linear-gradient(180deg,rgba(26,8,12,.2) 0%,rgba(26,8,12,.9) 55%)}.mix-hint{display:none}}
+/* doubt -> answer pairs */
+.pairs{margin-top:40px;display:flex;flex-direction:column;gap:20px}
+.pair{display:grid;grid-template-columns:1fr 60px 300px;align-items:center;gap:20px;padding:20px 0;border-top:1px solid var(--line)}
+.pair .bubble{justify-self:start}
+.pair .arrow{font-family:var(--serif);font-size:28px;color:var(--wine-3);text-align:center}
+.pair .why{font-size:14.5px;color:var(--ink-2);margin-top:12px;max-width:420px}
+.pair img{background:#1b0a0f}
+@media(max-width:760px){.pair{grid-template-columns:1fr}.pair .arrow{transform:rotate(90deg);justify-self:start}.pair figure{max-width:320px}}
 
-/* ---------- funnel: interactive stages on wine ---------- */
-.funnel-band{background:var(--wine);color:var(--on-wine);margin-top:56px;padding:72px 0 80px}
-.funnel-wrap{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:start}
-.levels{display:flex;flex-direction:column;align-items:center;gap:6px;position:sticky;top:110px}
-.level{display:block;background:none;border:0;padding:0;width:100%;text-align:center;color:var(--on-wine)}
-.level .shape{display:flex;flex-direction:column;justify-content:center;height:86px;margin:0 auto;background:var(--wine-2);border:1px solid rgba(198,162,107,.25);clip-path:polygon(0 0,100% 0,88% 100%,12% 100%);transition:background .3s,border-color .3s}
-.level:nth-child(1) .shape{width:100%}
-.level:nth-child(2) .shape{width:76%}
-.level:nth-child(3) .shape{width:52%;clip-path:polygon(0 0,100% 0,80% 100%,20% 100%)}
-.level .caps{font-size:9.5px;color:var(--gold)}
-.level b{font-family:var(--serif);font-weight:400;font-size:18px;display:block;margin-top:2px}
-.level[aria-selected="true"] .shape{background:var(--gold);}
-.level[aria-selected="true"] .caps,.level[aria-selected="true"] b{color:var(--wine)}
-.level:hover .shape{background:var(--wine-3)}
-.level[aria-selected="true"]:hover .shape{background:var(--gold)}
-.levels .hint{font-size:12px;color:var(--on-wine-2);margin-top:14px;text-align:center}
-.stage h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.2;color:#fff}
-.stage .who{font-size:15px;color:var(--on-wine-2);margin-top:8px;max-width:520px}
-.ads{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
-.ads img{aspect-ratio:4/5;object-fit:contain;background:#2B0B12}
-.ads figcaption{font-size:12.5px;color:var(--on-wine-2);margin-top:10px;line-height:1.5}
-.ads figcaption b{display:block;color:var(--on-wine);font-weight:400}
-.js .stage[hidden]{display:none}
-.no-js .stage + .stage{margin-top:56px}
-.no-js .levels{display:none}
-.stage.enter{animation:rise .5s cubic-bezier(.2,.7,.2,1)}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.funnel-note{font-size:12.5px;color:var(--on-wine-2);margin-top:30px}
-@media(max-width:900px){.funnel-wrap{grid-template-columns:1fr;gap:32px}.levels{position:static;max-width:360px;margin:0 auto;width:100%}}
-@media(max-width:600px){.ads{grid-template-columns:1fr 1fr}.ads figure:last-child{grid-column:1/-1;max-width:50%}}
-@media (prefers-reduced-motion:reduce){.stage.enter{animation:none}.p img,.cover .pic img{transition:none}}
+/* pricing architecture */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:end;margin-top:6px}
+.tier{background:var(--ivory-2);padding:14px 14px 16px;border-top:3px solid var(--wine-3)}
+.tier:nth-child(1){height:120px}.tier:nth-child(2){height:156px}.tier:nth-child(3){height:196px;background:var(--wine);color:var(--on-wine);border-top-color:var(--gold)}
+.tier b{display:block;font-family:var(--serif);font-weight:400;font-size:19px}
+.tier span{font-size:13.5px;line-height:1.45;display:block;margin-top:4px;color:inherit;opacity:.85}
+.rules{list-style:none;margin-top:18px}
+.rules li{padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.rules li::before{content:"";position:absolute;left:0;top:18px;width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+.channels{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
+.channels span{font-size:14px;padding:6px 12px;border:1px solid var(--line);background:#fff}
+.channels em{font-style:normal;color:var(--wine-3)}
 
-/* concept strip */
-.concepts{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:14px;margin-top:30px;align-items:end}
-.concepts img{width:100%;object-fit:cover}
-.concepts figure:nth-child(1) img{aspect-ratio:4/5}
-.concepts figure:nth-child(2) img{aspect-ratio:3/5}
-.concepts figure:nth-child(3) img{aspect-ratio:1/1}
-@media(max-width:700px){.concepts{grid-template-columns:1fr 1fr}.concepts figure:nth-child(1){grid-column:1/-1}}
-.cap{font-size:12.5px;color:var(--muted);margin-top:12px}
+/* assortment */
+.mixbar{display:flex;height:46px;margin-top:6px}
+.mixbar div{display:flex;align-items:center;padding:0 12px;font-size:13px;color:#fff}
+.mixbar div:nth-child(1){flex:5;background:var(--wine)}
+.mixbar div:nth-child(2){flex:3;background:var(--wine-3)}
+.mixbar div:nth-child(3){flex:2;background:#9A7A5A}
+.mix-note{font-size:13px;color:var(--muted);margin-top:8px}
 
-/* ---------- roadmap: clickable timeline ---------- */
-.road{margin-top:40px}
-.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
-.track::before{content:"";position:absolute;left:0;right:0;top:15px;height:1px;background:var(--line)}
-.track .fill{position:absolute;left:0;top:15px;height:1px;background:var(--wine-3);width:0;transition:width .6s cubic-bezier(.2,.7,.2,1)}
-.node{position:relative;background:none;border:0;padding:0 12px 0 0;text-align:left}
-.node .dot{display:block;width:31px;height:31px;border-radius:50%;background:var(--ivory);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted);transition:all .3s;position:relative;z-index:1}
-.node .when{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:16px}
-.node b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.25;margin-top:4px}
-.node[aria-selected="true"] .dot,.node.done .dot{background:var(--wine-3);border-color:var(--wine-3);color:var(--gold-soft)}
-.road-panel{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
-.road-panel > div{padding:24px 28px 26px 0}
-.road-panel > div + div{padding-left:28px;border-left:1px solid var(--line)}
-.road-panel .caps{color:var(--wine-3)}
-.road-panel p{font-size:15.5px;color:var(--ink-2);margin-top:8px}
-.js .rp[hidden]{display:none}
-.no-js .rp + .rp{margin-top:16px}
-.no-js .track{display:none}
-@media(max-width:760px){.track{grid-template-columns:1fr 1fr;row-gap:26px}.track::before,.track .fill{display:none}.road-panel{grid-template-columns:1fr}.road-panel > div,.road-panel > div + div{padding:20px 0;border-left:0}.road-panel > div + div{border-top:1px solid var(--line)}}
+/* wide visuals row */
+.shots{display:grid;grid-template-columns:1fr 1fr 0.8fr;gap:18px;margin-top:40px;align-items:start}
+.shots figcaption{font-size:13.5px;color:var(--muted);margin-top:10px}
+@media(max-width:760px){.shots{grid-template-columns:1fr}}
 
-.principle{margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;padding:28px 30px;background:var(--ivory-2)}
-.principle .q{font-family:var(--serif);font-size:72px;line-height:.5;color:var(--wine-3);padding-top:18px}
-.principle p{font-family:var(--serif);font-size:clamp(19px,2vw,23px);line-height:1.45}
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;position:relative}
+.road::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--wine-3)}
+.ph{padding-right:22px;position:relative}
+.ph i{display:block;width:19px;height:19px;border-radius:50%;background:var(--ivory);border:1px solid var(--wine-3);position:relative;z-index:1}
+.ph:first-child i{background:var(--gold)}
+.ph .when{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:16px}
+.ph h3{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2;margin-top:4px}
+.ph p{font-size:15px;color:var(--ink-2);margin-top:8px}
+.ph .gate{margin-top:12px;font-size:14px;padding-top:10px;border-top:1px solid var(--line)}
+.ph .gate b{color:var(--wine-3);font-weight:500;display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+@media(max-width:900px){.road{grid-template-columns:1fr 1fr;row-gap:36px}.road::before{display:none}}
+@media(max-width:560px){.road{grid-template-columns:1fr}}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.kpis span{border:1px solid var(--wine-3);color:var(--wine-3);padding:8px 14px;font-size:14px;background:#fff}
 
-/* reflection */
-.lessons{list-style:none;margin-top:34px;border-top:1px solid var(--ink)}
-.lessons li{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:24px 0;border-bottom:1px solid var(--line)}
-.lessons .i{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--wine-3);line-height:1}
+/* key decisions */
+.decisions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.dec{background:var(--paper);border:1px solid var(--line);padding:26px 24px}
+.dec .no{font-family:var(--serif);font-style:italic;font-size:34px;color:var(--wine-3);line-height:1}
+.dec dl{margin-top:14px}
+.dec dt{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.dec dd{font-size:15.5px;margin-top:2px}
+.dec dd.choice{font-family:var(--serif);font-size:20px;line-height:1.3;color:var(--ink)}
+@media(max-width:900px){.decisions{grid-template-columns:1fr}}
+
+.sec-title{text-align:center;padding-top:120px;scroll-margin-top:64px}
+.sec-title .caps{color:var(--wine-3)}
+.sec-title h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,3.6vw,50px);line-height:1.1;margin-top:12px}
+.sec-title p{color:var(--ink-2);max-width:620px;margin:14px auto 0}
+
+.lessons{list-style:none;margin-top:36px;border-top:1px solid var(--ink)}
+.lessons li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:22px 0;border-bottom:1px solid var(--line)}
+.lessons .i{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--wine-3);line-height:1}
 .lessons b{font-family:var(--serif);font-weight:400;font-size:21px;display:block;line-height:1.3}
 .lessons p{font-size:15.5px;color:var(--ink-2);margin-top:4px}
 
-/* closing */
-.closing{margin-top:128px;background:var(--wine);color:var(--on-wine);padding:96px 0 100px;text-align:center}
+.closing{margin-top:120px;background:var(--wine);color:var(--on-wine);padding:96px 0 100px;text-align:center}
 .closing .caps{color:var(--gold)}
-.closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,56px);line-height:1.1;margin:18px 0 14px}
-.closing h2 em{font-style:italic;color:var(--gold-soft)}
-.closing p{color:var(--on-wine-2);max-width:520px;margin:0 auto 32px}
-.btn{display:inline-block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;padding:16px 28px;border:1px solid var(--gold);color:var(--on-wine);transition:background .25s,color .25s}
+.closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.2vw,54px);line-height:1.1;margin:16px 0 14px}
+.closing h2 em{color:var(--gold-soft)}
+.closing p{color:var(--on-wine-2);max-width:520px;margin:0 auto 30px}
+.btn{display:inline-block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:16px 28px;border:1px solid var(--gold);color:var(--on-wine);transition:background .25s,color .25s}
 .btn.solid{background:var(--gold);color:var(--wine)}
 .btn:hover{background:var(--gold-soft);color:var(--wine)}
 .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-footer{background:var(--wine);color:var(--on-wine-2);border-top:1px solid rgba(198,162,107,.25);padding:22px 0;font-size:12px;letter-spacing:.06em}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sources{background:var(--wine);color:var(--on-wine-2);border-top:1px solid rgba(198,162,107,.25);padding:34px 0 40px;font-size:13px}
+.sources .caps{color:var(--gold);display:block;margin-bottom:10px}
+.sources ol{padding-left:18px;columns:2;column-gap:40px}
+.sources li{margin-bottom:6px;break-inside:avoid}
+.sources a{color:var(--on-wine)}
+@media(max-width:700px){.sources ol{columns:1}}
+footer{background:var(--wine);color:var(--on-wine-2);border-top:1px solid rgba(198,162,107,.25);padding:20px 0;font-size:12.5px}
+footer .wide{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+sup a{color:var(--wine-3);text-decoration:none;font-size:11px;margin-left:1px}
+.band sup a{color:var(--gold)}
 
 /* image viewer */
 .zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
@@ -251,233 +256,297 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .lightbox{position:fixed;inset:0;background:rgba(20,6,10,.95);display:none;align-items:center;justify-content:center;z-index:70;padding:28px}
 .lightbox.open{display:flex}
 .lightbox img{max-width:min(94vw,1200px);max-height:86vh}
-.lightbox button{position:absolute;top:18px;right:22px;background:none;color:#fff;border:1px solid var(--gold);padding:9px 16px;font:400 11px var(--sans);letter-spacing:.22em;text-transform:uppercase}
+.lightbox button{position:absolute;top:18px;right:22px;background:none;color:#fff;border:1px solid var(--gold);padding:9px 16px;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-<script>document.documentElement.className='js'</script>
 </head>
 <body>
 
-<div class="bar"><div class="wrap">
+<div class="bar"><div class="in">
   <a class="back" href="../index.html" id="back">&larr; Nitin Raina</a>
-  <nav aria-label="Sections"><a href="#brief">Brief</a><a href="#customer">Customer</a><a href="#mix">Marketing mix</a><a href="#funnel">Funnel</a><a href="#roadmap">Roadmap</a><a href="#reflection">Reflection</a></nav>
+  <nav class="path" aria-label="Her journey">
+    <span class="fill" id="fill" aria-hidden="true"></span>
+    <a href="#m1"><i></i><span>Who she is</span></a>
+    <a href="#m2"><i></i><span>Belief</span></a>
+    <a href="#m3"><i></i><span>Notice</span></a>
+    <a href="#m4"><i></i><span>Doubt</span></a>
+    <a href="#m5"><i></i><span>Buy</span></a>
+    <a href="#m6"><i></i><span>Arrive</span></a>
+    <a href="#m7"><i></i><span>Learn</span></a>
+  </nav>
 </div></div>
 
-<header class="cover" id="cover">
+<header class="cover">
+  <img src="vera/concept-corridor.jpg" alt="Concept image: a woman in a blush saree carrying a crystal pouch through a marble corridor">
   <div class="txt">
-    <div class="caps">Product marketing &middot; Case study</div>
-    <h1>A go-to-market plan for <em>VERA</em></h1>
-    <p class="intro">VERA by Kamakshi curates luxury bags from around the world. I built the plan for its online launch: who to sell to, how to position it, how to price and promote it, and how to launch without wasting the budget.</p>
-    <dl>
-      <div><dt>Role</dt><dd>Marketing Intern</dd></div>
-      <div><dt>Brand</dt><dd>VERA by Kamakshi</dd></div>
-      <div><dt>When</dt><dd>Aug to Sep 2026</dd></div>
-      <div><dt>Outcome</dt><dd>Plan approved by the CEO</dd></div>
-    </dl>
+    <div class="caps">Go-to-market case study &middot; VERA by Kamakshi</div>
+    <h1>Launching VERA through the eyes of <em>one customer</em></h1>
+    <p>A go-to-market plan for a new luxury bag label with no sales, no reviews and no data yet.</p>
   </div>
-  <figure class="pic">
-    <img src="vera/concept-corridor.jpg" alt="Concept image: a woman in a blush saree carrying a crystal pouch through a marble corridor">
-    <figcaption>Creative direction, made with AI</figcaption>
-  </figure>
 </header>
+<p class="credit">All people shown on this page are concept visuals I made with AI.</p>
 
-<div class="wrap">
-  <div class="tldr" aria-label="Summary">
-    <div><h3>The challenge</h3><p>Launch a new luxury brand online with a growing catalogue and no sales history to guide the spend.</p></div>
-    <div><h3>My approach</h3><p>Define the customer and positioning, set the marketing mix, map ads to the funnel, then test before scaling.</p></div>
-    <div><h3>The outcome</h3><p>The CEO approved the plan. My internship ended before launch, so there are no results yet.</p></div>
-  </div>
-</div>
+<section class="opening narrow">
+  <p class="lede">The CEO asked me for a go-to-market plan. Instead of starting with channels and ads, I started with <em>the woman who would buy</em>, and planned every decision around the moments of her journey.</p>
+  <p class="role">The CEO shared the product photos and an early version of the website. I did the research, strategy, creative direction and launch plan, using AI tools for drafts and visuals.</p>
+  <dl class="ribbon">
+    <div><dt>Role</dt><dd>Marketing Intern</dd></div>
+    <div><dt>Brand</dt><dd>VERA by Kamakshi</dd></div>
+    <div><dt>When</dt><dd>Aug to Sep 2026</dd></div>
+    <div><dt>Outcome</dt><dd>Plan approved by the CEO</dd></div>
+  </dl>
+  <p class="howto">Follow her journey in seven moments. Each one shows what I planned for that moment.</p>
+</section>
 
 <main>
-  <!-- 01 BRIEF -->
-  <section class="sec" id="brief"><div class="wrap grid">
-    <div class="label sticky"><div class="n">i</div><div class="t">The brief</div></div>
-    <div>
-      <h2>A new brand, a growing catalogue, <em>no data yet</em></h2>
-      <p class="lead">VERA sells evening bags and clutches that it hand-picks from suppliers abroad. The CEO asked me for a go-to-market plan for its online store, using the product photos and a working version of the website he shared.</p>
-      <p class="lead">Two things shaped the plan. The catalogue was growing towards about 90 products, and with no sales history, nobody knew yet which of them people would actually buy.</p>
-    </div>
-  </div></section>
 
-  <!-- 02 CUSTOMER: STP -->
-  <section class="sec" id="customer"><div class="wrap grid">
-    <div class="label sticky"><div class="n">ii</div><div class="t">The customer</div></div>
-    <div>
-      <h2>Segment, target, <em>position</em></h2>
-      <p class="lead">Before any ad, I worked out who VERA is for and why she should choose it.</p>
-
-      <div class="stp-tabs" role="tablist" aria-label="Segmentation, targeting and positioning">
-        <button role="tab" id="t-seg" aria-controls="p-seg" aria-selected="true"><span>1</span>Segment</button>
-        <button role="tab" id="t-tar" aria-controls="p-tar" aria-selected="false" tabindex="-1"><span>2</span>Target</button>
-        <button role="tab" id="t-pos" aria-controls="p-pos" aria-selected="false" tabindex="-1"><span>3</span>Position</button>
-      </div>
-
-      <div class="panel" role="tabpanel" id="p-seg" aria-labelledby="t-seg">
+  <!-- 1 WHO SHE IS -->
+  <section class="moment" id="m1">
+    <figure class="pic"><img src="vera/concept-portrait.jpg" alt="Concept portrait: a young Indian woman in festive jewellery holding a crystal pouch"></figure>
+    <div class="txt">
+      <div class="step"><span class="no">01</span><span class="caps">Segmentation &amp; targeting</span></div>
+      <h2>Who she is</h2>
+      <p class="scene">She has three weddings, a sangeet and Diwali in the next few months, and she wants to look different at each one.</p>
+      <div class="planned">
+        <span class="caps">What I planned</span>
         <div class="segs">
-          <div class="seg pick"><div class="caps">Primary segment</div><h4>The occasion shopper</h4><p>Buys for weddings, festivals and celebrations. She wants to look elevated at events, several times a year, and the bag has to work with Indian and western outfits.</p></div>
-          <div class="seg"><div class="caps">Secondary segment</div><h4>The everyday indulger</h4><p>Buys one elegant piece for daily use as a personal treat, not tied to an occasion. Worth growing into as the catalogue widens.</p></div>
+          <div class="seg core"><div class="tag">Core</div><div><h3>The occasion shopper</h3><p>Dressing up for weddings, festivals and parties. VERA's brand line "Where Tradition Meets Luxury" and its first statement pieces were made for her, and India's wedding season alone drives around &#8377;6.5 lakh crore in trade.<sup><a href="#s1">1</a></sup></p></div></div>
+          <div class="seg"><div class="tag">Second</div><div><h3>The gift buyer</h3><p>Buying for a sister, a friend or a bridesmaid. A beautiful bag is a safe, special gift.</p></div></div>
+          <div class="seg"><div class="tag">Later</div><div><h3>The everyday self-purchaser</h3><p>Women increasingly buy luxury for themselves.<sup><a href="#s2">2</a></sup> She becomes a target as the everyday range grows.</p></div></div>
         </div>
-      </div>
-
-      <div class="panel" role="tabpanel" id="p-tar" aria-labelledby="t-tar" hidden>
-        <div class="persona">
-          <figure class="photo"><img src="vera/concept-portrait.jpg" alt="Concept portrait: a young Indian woman in festive jewellery holding a crystal pouch"><figcaption>Persona visual, made with AI</figcaption></figure>
-          <div>
-            <h4>The festive shopper</h4>
-            <p class="who">22 to 32, urban India, Instagram-native. She attends several weddings and celebrations a year and wants to look elegant without paying luxury-label prices. Three doubts stand between her and checkout:</p>
-            <div class="thoughts">
-              <div class="thought">"Will it go with my outfit?"</div>
-              <div class="thought">"Is it worth the money?"</div>
-              <div class="thought">"Can I trust a brand I've never heard of?"</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel" role="tabpanel" id="p-pos" aria-labelledby="t-pos" hidden>
-        <div class="position">
-          <span class="caps">Positioning statement</span>
-          <p>For young Indian women who want to look effortlessly elegant at weddings and celebrations, VERA is the <em>accessible-luxury</em> bag label whose every piece is <em>hand-picked from around the world</em>, so they get international design without luxury-label prices.</p>
-          <div class="pods">
-            <div><b>Curated</b>Selected from global suppliers, not mass-listed</div>
-            <div><b>Accessible luxury</b>Premium look, priced for real life</div>
-            <div><b>Occasion-ready</b>Made for the moments she dresses up for</div>
-          </div>
-        </div>
+        <p class="persona-note">She is a working persona built from market research, not from customer interviews.</p>
       </div>
     </div>
-  </div></section>
+  </section>
 
-  <!-- 03 MARKETING MIX -->
-  <section class="sec" id="mix"><div class="wrap grid">
-    <div class="label sticky"><div class="n">iii</div><div class="t">Marketing mix</div></div>
-    <div>
-      <h2>The four Ps, <em>built for luxury</em></h2>
-      <p class="lead">Each part of the mix had to support one idea: a premium brand that feels worth buying from, even though it's new.</p>
-      <div class="mix">
-        <div class="p" tabindex="0"><img src="vera/still-life.jpg" alt=""><div class="in"><div class="letter">P</div><h4>Product</h4><p class="more">A curated catalogue of about 90 pieces, shown with one consistent image style so the store looks like one brand. Unboxing is treated as part of the product: considered packaging and a handwritten note.</p></div></div>
-        <div class="p" tabindex="0"><img src="vera/concept-macro.jpg" alt=""><div class="in"><div class="letter">P</div><h4>Price</h4><p class="more">Accessible luxury: premium, but within reach for her occasions. No discount codes, because a coupon tells a luxury buyer the price was never real. Value comes from free shipping, gift wrap and a care kit instead.</p></div></div>
-        <div class="p" tabindex="0"><img src="vera/concept-gift.jpg" alt=""><div class="in"><div class="letter">P</div><h4>Place</h4><p class="more">Direct to consumer, through VERA's own website. Shoppers arrive from Meta and Google, and an email and WhatsApp list is built from day one so VERA isn't fully dependent on paid traffic.</p></div></div>
-        <div class="p" tabindex="0"><img src="vera/concept-festive.jpg" alt=""><div class="in"><div class="letter">P</div><h4>Promotion</h4><p class="more">Paid ads mapped to each stage of the funnel, organic Instagram, the founder's own network, and later a press kit and a few well-matched micro-influencers.</p></div></div>
+  <!-- 2 BELIEF -->
+  <section class="moment flip" id="m2">
+    <figure class="pic"><img src="vera/concept-festive.jpg" alt="Concept image: a woman in a green lehenga with a clutch at a festive night event"></figure>
+    <div class="txt">
+      <div class="step"><span class="no">02</span><span class="caps">Positioning</span></div>
+      <h2>What she needs to believe</h2>
+      <p class="scene">She's never heard of VERA. Before she buys, three questions run through her mind.</p>
+      <div class="planned">
+        <span class="caps">Her three doubts</span>
+        <div class="bubbles">
+          <div class="bubble">"Will it go with my outfit?"</div>
+          <div class="bubble">"Is it worth the money?"</div>
+          <div class="bubble">"Can I trust a brand I've never heard of?"</div>
+        </div>
+        <div class="pos"><span class="caps">Positioning statement</span><p>For women dressing up for weddings, festivals and celebrations, VERA offers <em>hand-picked statement bags from around the world</em>, without designer-label pricing.</p></div>
       </div>
-      <p class="mix-hint">Hover over a card to read it.</p>
     </div>
-  </div></section>
+  </section>
 
-  <!-- 04 FUNNEL -->
-  <section class="sec" id="funnel"><div class="wrap grid">
-    <div class="label sticky"><div class="n">iv</div><div class="t">The funnel</div></div>
-    <div>
-      <h2>A different reason <em>at every stage</em></h2>
-      <p class="lead">Someone seeing VERA for the first time needs a reason to notice it. Someone ready to buy needs a reason to act now. I designed twelve ads and mapped each one to a stage of the funnel.</p>
-    </div>
-  </div>
-
-  <div class="funnel-band">
-    <div class="wrap funnel-wrap">
-      <div class="levels" role="tablist" aria-label="Funnel stages">
-        <button class="level" role="tab" id="f-1" aria-controls="s-1" aria-selected="true"><span class="shape"><span class="caps">Awareness</span><b>Get noticed</b></span></button>
-        <button class="level" role="tab" id="f-2" aria-controls="s-2" aria-selected="false" tabindex="-1"><span class="shape"><span class="caps">Consideration</span><b>Answer doubts</b></span></button>
-        <button class="level" role="tab" id="f-3" aria-controls="s-3" aria-selected="false" tabindex="-1"><span class="shape"><span class="caps">Conversion</span><b>Act now</b></span></button>
-        <p class="hint">Tap a stage to see its ads</p>
-      </div>
-      <div>
-        <div class="stage" role="tabpanel" id="s-1" aria-labelledby="f-1">
-          <h3>Get noticed</h3>
-          <p class="who">For people who've never heard of VERA. Brand and mood first, with a soft call to action.</p>
-          <div class="ads">
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-main.jpg" alt="Ad: We don't make luxury. We find it."></button><figcaption><b>The promise</b>Square</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-tofsplit.jpg" alt="Ad: Where tradition meets luxury"></button><figcaption><b>Tradition meets luxury</b>Square</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-tofstory.jpg" alt="Ad: Every wedding season needs one great bag"></button><figcaption><b>The occasion</b>Story</figcaption></figure>
-          </div>
+  <div class="spectrum-band">
+    <div class="wide">
+      <span class="caps" style="color:var(--wine-3)">Where VERA sits</span>
+      <div class="spectrum">
+        <div class="vera"><span class="caps">VERA</span><i></i><p>Hand-picked statement pieces that look special, at an accessible price</p></div>
+        <div class="rail"></div>
+        <div class="ends">
+          <div><b>Mass bag brands</b>Zouk, Caprese and similar.<sup><a href="#s3">3</a></sup> Affordable and everyday, with one house style many people carry.</div>
+          <div><b>Designer-label clutches</b>Anekaant, Peora and NR by Nidhi Rathi, around &#8377;2,700 to &#8377;3,400 on Nykaa Fashion.<sup><a href="#s4">4</a></sup> Special, but a known label's price.</div>
         </div>
-        <div class="stage" role="tabpanel" id="s-2" aria-labelledby="f-2" hidden>
-          <h3>Answer one doubt each</h3>
-          <p class="who">For people who know VERA but aren't sure yet. Each ad answers one of the festive shopper's three doubts.</p>
-          <div class="ads">
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofsquare.jpg" alt="Ad: One clutch. Every festive fit."></button><figcaption><b>"Will it go with my outfit?"</b>Square</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofportrait.jpg" alt="Ad: Every piece, personally selected"></button><figcaption><b>"Is it worth the money?"</b>Portrait</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofgoogle.jpg" alt="Ad: New to VERA? Shop risk-free."></button><figcaption><b>"Can I trust a new brand?"</b>Google</figcaption></figure>
-          </div>
-        </div>
-        <div class="stage" role="tabpanel" id="s-3" aria-labelledby="f-3" hidden>
-          <h3>Give a reason to act now</h3>
-          <p class="who">For people ready to buy, and for those who visited and left without buying.</p>
-          <div class="ads">
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-bofportrait.jpg" alt="Ad: Your festive bag, settled"></button><figcaption><b>The occasion close</b>Portrait</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-bofstory.jpg" alt="Ad: Once they're gone, they don't come back"></button><figcaption><b>Limited stock</b>Story</figcaption></figure>
-            <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-bofretarget.jpg" alt="Ad: Still thinking it over?"></button><figcaption><b>Come back and buy</b>Retargeting</figcaption></figure>
-          </div>
-        </div>
-        <p class="funnel-note">Nine of the twelve ads shown, across square, portrait, story and Google sizes. Prices in the ads are placeholders.</p>
       </div>
     </div>
   </div>
 
-  <div class="wrap grid">
-    <div></div>
-    <div>
-      <h3 class="sub">Creative direction for a future shoot</h3>
-      <p class="lead" style="font-size:16px">Real lifestyle photography was the missing piece. I made concept visuals with AI to show the look a proper shoot should aim for: Indian festive styling, heritage settings and a warm, golden mood.</p>
-      <div class="concepts">
-        <figure><button class="zoom" type="button" aria-label="Enlarge concept"><img src="vera/concept-seated.jpg" alt="Concept: a woman in an ivory outfit seated with a crystal pouch"></button></figure>
-        <figure><button class="zoom" type="button" aria-label="Enlarge concept"><img src="vera/concept-velvet.jpg" alt="Concept: a woman in a blush saree with a velvet clutch"></button></figure>
-        <figure><button class="zoom" type="button" aria-label="Enlarge concept"><img src="vera/concept-blush.jpg" alt="Concept: a woman in a peach saree holding a pearl clutch"></button></figure>
+  <!-- 3 NOTICE -->
+  <section class="sec-title" id="m3">
+    <div class="step" style="justify-content:center"><span class="no">03</span><span class="caps">Awareness &amp; promotion</span></div>
+    <h2>She scrolls past</h2>
+    <p>Most Indian shoppers now discover new products on social media, and almost all of that discovery happens on Instagram and Facebook.<sup><a href="#s5">5</a></sup> So VERA had to win her attention in the feed.</p>
+  </section>
+  <div class="band" style="margin-top:40px">
+    <div class="wide">
+      <span class="caps">What I planned</span>
+      <h3>Brand-first ads, made for her feed</h3>
+      <p class="sub">At this stage she doesn't know VERA, so the ads lead with the brand and the occasion, with a soft call to action. Prices shown in the ads were placeholders.</p>
+      <div class="phones">
+        <figure>
+          <div class="phone"><div class="screen">
+            <div class="ig-head"><span class="av">V</span><div>vera.by.kamakshi<small>Sponsored</small></div></div>
+            <button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-main.jpg" alt="Ad: We don't make luxury. We find it."></button>
+            <div class="ig-act"><i></i><i></i><i></i></div>
+            <div class="ig-cap"><b>vera.by.kamakshi</b> Hand-picked from around the world.</div>
+          </div></div>
+          <figcaption class="phone-cap" style="text-align:center;font-size:14px;color:var(--on-wine-2);margin-top:14px"><b style="color:var(--on-wine);font-weight:500;display:block">The promise</b>Feed post</figcaption>
+        </figure>
+        <figure>
+          <div class="phone"><div class="screen">
+            <div class="ig-head"><span class="av">V</span><div>vera.by.kamakshi<small>Sponsored</small></div></div>
+            <button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-tofsplit.jpg" alt="Ad: Where tradition meets luxury"></button>
+            <div class="ig-act"><i></i><i></i><i></i></div>
+            <div class="ig-cap"><b>vera.by.kamakshi</b> Global design, made for your celebrations.</div>
+          </div></div>
+          <figcaption style="text-align:center;font-size:14px;color:var(--on-wine-2);margin-top:14px"><b style="color:var(--on-wine);font-weight:500;display:block">Tradition meets luxury</b>Feed post</figcaption>
+        </figure>
+        <figure>
+          <div class="phone"><div class="screen story">
+            <button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-tofstory.jpg" alt="Ad: Every wedding season needs one great bag"></button>
+          </div></div>
+          <figcaption style="text-align:center;font-size:14px;color:var(--on-wine-2);margin-top:14px"><b style="color:var(--on-wine);font-weight:500;display:block">The occasion</b>Story</figcaption>
+        </figure>
       </div>
-      <p class="cap">Concept visuals for creative direction, made with AI and never published.</p>
+      <div class="creator">
+        <div class="looks" aria-hidden="true"><span>Mehendi</span><span>Sangeet</span><span>Reception</span></div>
+        <p><b>Creators, not celebrities.</b> Micro-creators style one VERA bag across three looks, paid in product. It's a model other Indian bag brands have used to reach new buyers,<sup><a href="#s6">6</a></sup> and it answers her first doubt before she even has it.</p>
+      </div>
     </div>
-  </div></section>
+  </div>
 
-  <!-- 05 ROADMAP -->
-  <section class="sec" id="roadmap"><div class="wrap grid">
-    <div class="label sticky"><div class="n">v</div><div class="t">The roadmap</div></div>
-    <div>
-      <h2>Test, learn, <em>then scale</em></h2>
-      <p class="lead">With about 90 products and no sales history, picking a "hero" product upfront would have been a guess. So the plan lets real customer data choose the winners, and only then puts serious money behind them.</p>
+  <!-- 4 DOUBT -->
+  <section class="sec-title" id="m4">
+    <div class="step" style="justify-content:center"><span class="no">04</span><span class="caps">Consideration</span></div>
+    <h2>She hesitates</h2>
+    <p>She visits, but she isn't sure. I gave each of her doubts its own ad, so every ad has one job.</p>
+  </section>
+  <div class="wide">
+    <div class="pairs">
+      <div class="pair">
+        <div><div class="bubble">"Will it go with my outfit?"</div><p class="why">Show one bag across Indian and western looks, so she pictures it with her own outfits.</p></div>
+        <div class="arrow" aria-hidden="true">&rarr;</div>
+        <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofsquare.jpg" alt="Ad: One clutch. Every festive fit."></button></figure>
+      </div>
+      <div class="pair">
+        <div><div class="bubble">"Is it worth the money?"</div><p class="why">Explain the curation: every piece is selected, not mass-listed.</p></div>
+        <div class="arrow" aria-hidden="true">&rarr;</div>
+        <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofportrait.jpg" alt="Ad: Every piece, personally selected"></button></figure>
+      </div>
+      <div class="pair">
+        <div><div class="bubble">"Can I trust a brand I've never heard of?"</div><p class="why">Lead with a confident brand promise, and back it with the first genuine reviews as soon as they come in.</p></div>
+        <div class="arrow" aria-hidden="true">&rarr;</div>
+        <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofminimal.jpg" alt="Ad: We don't stock everything. We stock the best."></button></figure>
+      </div>
+    </div>
+  </div>
 
-      <div class="road">
-        <div class="track" role="tablist" aria-label="Launch phases">
-          <span class="fill" id="fill"></span>
-          <button class="node" role="tab" id="r-0" aria-controls="rp-0" aria-selected="true"><span class="dot">0</span><span class="when">Week 1</span><b>Measure first</b></button>
-          <button class="node" role="tab" id="r-1" aria-controls="rp-1" aria-selected="false" tabindex="-1"><span class="dot">1</span><span class="when">Weeks 2 to 3</span><b>Test the catalogue</b></button>
-          <button class="node" role="tab" id="r-2" aria-controls="rp-2" aria-selected="false" tabindex="-1"><span class="dot">2</span><span class="when">Weeks 4 to 5</span><b>Back the winners</b></button>
-          <button class="node" role="tab" id="r-3" aria-controls="rp-3" aria-selected="false" tabindex="-1"><span class="dot">3</span><span class="when">Week 6 onward</span><b>Scale for the season</b></button>
+  <!-- 5 BUY -->
+  <section class="moment" id="m5">
+    <figure class="pic"><img src="vera/concept-gift.jpg" alt="Concept image: a crystal pouch bag in an open wine-coloured gift box"></figure>
+    <div class="txt">
+      <div class="step"><span class="no">05</span><span class="caps">Conversion &middot; Price &middot; Place</span></div>
+      <h2>She's ready to buy, or buying for someone else</h2>
+      <p class="scene">She's decided. Now the price has to feel fair and the checkout has to feel safe.</p>
+      <div class="planned">
+        <span class="caps">A pricing structure, not a price tag</span>
+        <div class="tiers" aria-label="Three price tiers, rising">
+          <div class="tier"><b>Entry</b><span>Gifts and first purchases</span></div>
+          <div class="tier"><b>Core</b><span>The occasion clutch</span></div>
+          <div class="tier"><b>Statement</b><span>Bridal and hero pieces</span></div>
         </div>
-        <div class="road-panel rp" role="tabpanel" id="rp-0" aria-labelledby="r-0"><div><span class="caps">What happens</span><p>Set up sales tracking and the product feed, so every rupee spent later can be measured. No ad spend in this phase.</p></div><div><span class="caps">Ready to move on when</span><p>Tracking is verified end to end and the catalogue is approved for Google Shopping.</p></div></div>
-        <div class="road-panel rp" role="tabpanel" id="rp-1" aria-labelledby="r-1" hidden><div><span class="caps">What happens</span><p>Meta and Google catalogue ads show the whole range with a small budget, while organic Instagram and the founder's network run alongside.</p></div><div><span class="caps">Ready to move on when</span><p>There's enough traffic to learn from, a baseline cost per customer, and the first genuine reviews.</p></div></div>
-        <div class="road-panel rp" role="tabpanel" id="rp-2" aria-labelledby="r-2" hidden><div><span class="caps">What happens</span><p>Read the data, shortlist the three to five products people actually buy, and invest in premium content and retargeting for those only.</p></div><div><span class="caps">Ready to move on when</span><p>The winning products return more than they cost in ads, and real reviews are building up.</p></div></div>
-        <div class="road-panel rp" role="tabpanel" id="rp-3" aria-labelledby="r-3" hidden><div><span class="caps">What happens</span><p>Move most of the budget to the proven winners for the festive season, add a simple loyalty perk and post-purchase emails, and reach out to press and micro-influencers.</p></div><div><span class="caps">Ready to move on when</span><p>Customers come back to buy again, and festive revenue grows at a cost per customer VERA can sustain.</p></div></div>
+        <ul class="rules">
+          <li>Honest everyday prices, with no permanent "% off" on every product</li>
+          <li>Offers saved for planned moments, such as Diwali</li>
+          <li>Value through bridesmaid bundles, gift packaging and free shipping</li>
+        </ul>
       </div>
-
-      <div class="principle"><div class="q">&ldquo;</div><p>No revenue target before tracking exists. Each phase earns the next with one measurable test.</p></div>
+      <div class="planned">
+        <span class="caps">Where she buys</span>
+        <div class="channels"><span>VERA's own website</span><em>+</em><span>Instagram &amp; WhatsApp</span><em>&rarr;</em><span>Pune pop-ups in wedding season</span><em>&rarr;</em><span>A marketplace, later</span></div>
+      </div>
     </div>
-  </div></section>
-
-  <!-- 06 REFLECTION -->
-  <section class="sec" id="reflection"><div class="wrap grid">
-    <div class="label sticky"><div class="n">vi</div><div class="t">Reflection</div></div>
-    <div>
-      <h2>What I'd take <em>forward</em></h2>
-      <p class="lead">I presented the plan to the CEO, who liked it. My internship ended before launch, and I don't know whether it has been put into action, so there are no results to share. These are the lessons I'm keeping.</p>
-      <ol class="lessons">
-        <li><span class="i">i</span><div><b>Let data pick the winners</b><p>With a large catalogue and no history, testing before investing is cheaper and more reliable than backing one product on instinct.</p></div></li>
-        <li><span class="i">ii</span><div><b>Every part of the mix tells the brand story</b><p>In luxury, a discount code or a careless unboxing can undo what the ads build. Price and packaging are marketing too.</p></div></li>
-        <li><span class="i">iii</span><div><b>Measure before you spend</b><p>Clear exit tests for each phase made the plan easy to approve, because the CEO could see exactly when money would be committed and why.</p></div></li>
-      </ol>
+  </section>
+  <div class="wide">
+    <div class="shots">
+      <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-tofgoogle.jpg" alt="Google ad: The world's best bags, one curated edit"></button><figcaption>Search and shopping ad, for when she's actively looking</figcaption></figure>
+      <figure><button class="zoom" type="button" aria-label="Enlarge ad"><img src="vera/ad-mofgoogle.jpg" alt="Google ad: New to VERA? Shop risk-free."></button><figcaption>Removing the last risk: secure checkout, free shipping, easy returns</figcaption></figure>
+      <figure><button class="zoom" type="button" aria-label="Enlarge image"><img src="vera/concept-blush.jpg" alt="Concept image: a woman in a peach saree holding a pearl clutch"></button><figcaption>Gift-led creative direction for festive gifting</figcaption></figure>
     </div>
-  </div></section>
+  </div>
+
+  <!-- 6 ARRIVE -->
+  <section class="moment flip" id="m6">
+    <figure class="pic"><img src="vera/still-life.jpg" alt="Concept image: a crystal mesh pouch on ivory silk beside a brass lamp"></figure>
+    <div class="txt">
+      <div class="step"><span class="no">06</span><span class="caps">Product &amp; retention</span></div>
+      <h2>The bag arrives</h2>
+      <p class="scene">The moment she opens the box decides whether she comes back, and whether she tells her friends.</p>
+      <div class="planned">
+        <span class="caps">The launch range</span>
+        <div class="mixbar" aria-label="Launch range: mostly occasion pieces, then a gift edit, then a small everyday range"><div>Occasion pieces</div><div>Gift edit</div><div>Everyday</div></div>
+        <p class="mix-note">Lead with occasion pieces, then a gift-ready edit and a small everyday range to grow into.</p>
+      </div>
+      <div class="planned">
+        <span class="caps">After the purchase</span>
+        <ul class="rules">
+          <li>Unboxing as part of the product: considered packaging and a handwritten note</li>
+          <li>A simple request for a review, to build the trust a new brand lacks</li>
+          <li>Early access to new pieces through email and WhatsApp</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 LEARN -->
+  <section class="sec-title" id="m7">
+    <div class="step" style="justify-content:center"><span class="no">07</span><span class="caps">Launch roadmap</span></div>
+    <h2>How VERA learns from her</h2>
+    <p>With about 90 planned pieces and no sales history, picking a "hero" product upfront would have been a guess. So the plan lets real customers show which pieces work, then backs them.</p>
+  </section>
+  <div class="wide">
+    <div class="road">
+      <div class="ph"><i></i><div class="when">Week 1</div><h3>Measure and earn trust</h3><p>Set up sales tracking, and gather the first genuine reviews through pop-ups and early buyers.</p><div class="gate"><b>Move on when</b>Tracking works end to end and the first reviews are live.</div></div>
+      <div class="ph"><i></i><div class="when">Weeks 2 to 3</div><h3>Test the catalogue</h3><p>Catalogue ads on Meta and Google show the whole range on a small budget, alongside organic Instagram.</p><div class="gate"><b>Move on when</b>There's enough data to see a baseline cost per customer.</div></div>
+      <div class="ph"><i></i><div class="when">Weeks 4 to 5</div><h3>Back the best sellers</h3><p>Shortlist the pieces people actually buy, and invest in creators and better content for those.</p><div class="gate"><b>Move on when</b>The best sellers return more than they cost in ads.</div></div>
+      <div class="ph"><i></i><div class="when">Week 6 onward</div><h3>Scale for the season</h3><p>Move the budget to proven pieces for the wedding and festive season, and build repeat buyers.</p><div class="gate"><b>Move on when</b>Customers come back, at a cost VERA can sustain.</div></div>
+    </div>
+    <div style="margin-top:44px">
+      <span class="caps" style="color:var(--wine-3)">How I'd measure success</span>
+      <div class="kpis"><span>Cost per customer</span><span>Return on ad spend</span><span>Average order value</span><span>Repeat purchase rate</span><span>Email &amp; WhatsApp list growth</span><span>Sales per creator</span></div>
+    </div>
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <section class="sec-title" id="decisions">
+    <span class="caps">The thinking behind it</span>
+    <h2>Three key decisions</h2>
+  </section>
+  <div class="wide">
+    <div class="decisions">
+      <div class="dec"><div class="no">i</div><dl><dt>Instead of</dt><dd>Picking one hero bag to promote</dd><dt>I chose</dt><dd class="choice">Test the whole range first</dd><dt>Because</dt><dd>With no sales data, any pick is a guess. Let customers choose, then invest.</dd></dl></div>
+      <div class="dec"><div class="no">ii</div><dl><dt>Instead of</dt><dd>Targeting every woman who buys bags</dd><dt>I chose</dt><dd class="choice">Lead with the occasion shopper</dd><dt>Because</dt><dd>The brand story and the first pieces were made for celebrations. Everyday comes later.</dd></dl></div>
+      <div class="dec"><div class="no">iii</div><dl><dt>Instead of</dt><dd>Permanent markdowns to drive sales</dd><dt>I chose</dt><dd class="choice">Honest prices, planned offers</dd><dt>Because</dt><dd>Constant "% off" makes a luxury label look cheap. Value comes from service and gifting.</dd></dl></div>
+    </div>
+  </div>
+
+  <!-- REFLECTION -->
+  <section class="narrow" id="reflection" style="padding-top:120px">
+    <span class="caps" style="color:var(--wine-3)">Reflection</span>
+    <h2 class="serif" style="font-size:clamp(32px,3.6vw,48px);line-height:1.1;margin-top:12px">What I'd take forward</h2>
+    <p style="margin-top:16px;color:var(--ink-2)">I presented the plan to the CEO, who approved it. My internship ended before launch, and I don't know whether it has been put into action, so I have no results to share. After the internship, I went back to the plan, researched the market properly and rebuilt it. This page shows that rebuilt version.</p>
+    <ol class="lessons">
+      <li><span class="i">i</span><div><b>Start with the customer, not the channel</b><p>Planning around her moments made every choice, from pricing to packaging, easier to justify.</p></div></li>
+      <li><span class="i">ii</span><div><b>Let data pick the winners</b><p>With a large range and no history, testing before investing is cheaper and more reliable than backing one piece on instinct.</p></div></li>
+      <li><span class="i">iii</span><div><b>Trust comes before scale</b><p>A new brand with no reviews struggles to convert, so earning the first genuine reviews belongs in week one.</p></div></li>
+    </ol>
+  </section>
 
   <section class="closing">
-    <div class="wrap">
+    <div class="wide">
       <div class="caps">Thank you for reading</div>
       <h2>Let's talk <em>go-to-market</em></h2>
-      <p>Happy to walk you through the plan, the customer thinking and the creative work in more detail.</p>
+      <p>Happy to walk you through the customer thinking, the plan and the creative work in more detail.</p>
       <div class="actions"><a class="btn solid" href="mailto:nitraina2000@gmail.com">Get in touch</a><a class="btn" href="../index.html#work">See more work</a></div>
     </div>
   </section>
 </main>
 
-<footer><div class="wrap"><span>Nitin Raina &middot; Brand &amp; Product Marketing</span><span>Visuals made with AI tools</span></div></footer>
+<section class="sources" aria-label="Sources">
+  <div class="wide">
+    <span class="caps">Sources</span>
+    <ol>
+      <li id="s1"><a href="https://www.angelone.in/news/market-updates/indias-wedding-season-to-driveover-rs-6-lakh-crore-trade-says-cait">CAIT wedding season estimate, via Angel One</a></li>
+      <li id="s2"><a href="https://www.indianjeweller.in/Indian-Jewellery-News/16016/self-purchase-by-women-is-reshaping-jewellery-retail">Self-purchase by women, Indian Jeweller</a></li>
+      <li id="s3"><a href="https://www.grabon.in/indulge/shopping-tips/best-handbag-brands-in-india/">Handbag brands by price band, GrabOn</a></li>
+      <li id="s4"><a href="https://www.nykaafashion.com/women/bags/clutches/c/90">Clutch listings, Nykaa Fashion</a></li>
+      <li id="s5"><a href="https://www.campaignindia.in/article/80-indian-shoppers-discover-new-products-through-social-media-study/503037">Meta study on social discovery, Campaign India</a></li>
+      <li id="s6"><a href="https://www.grynow.in/influencer-marketing-campaigns/miraggio-barter-influencer-marketing-campaign.html">Miraggio creator campaign, Gry Now</a></li>
+    </ol>
+  </div>
+</section>
+<footer><div class="wide"><span>Nitin Raina &middot; Brand &amp; Product Marketing</span><span>Concept visuals made with AI</span></div></footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
   <button type="button" id="lb-close">Close</button>
@@ -486,48 +555,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <script>
 (function(){
-  var cover=document.getElementById('cover'); requestAnimationFrame(function(){cover.classList.add('ready');});
   var back=document.getElementById('back');
   back.addEventListener('click',function(e){
     try{ if(document.referrer && new URL(document.referrer).origin===location.origin && history.length>1){e.preventDefault();history.back();} }catch(err){}
   });
-
-  // generic accessible tabs (STP, funnel, roadmap)
-  function tabs(list,onChange){
-    var btns=[].slice.call(list.querySelectorAll('[role=tab]'));
-    function select(i,focus){
-      btns.forEach(function(b,j){
-        var on=i===j, p=document.getElementById(b.getAttribute('aria-controls'));
-        b.setAttribute('aria-selected',on); b.tabIndex=on?0:-1;
-        if(p){ p.hidden=!on; if(on){p.classList.remove('enter'); void p.offsetWidth; p.classList.add('enter');} }
-      });
-      if(focus) btns[i].focus();
-      if(onChange) onChange(i,btns);
-    }
-    btns.forEach(function(b,i){
-      b.addEventListener('click',function(){select(i);});
-      b.addEventListener('keydown',function(e){
-        var k=e.key, n=btns.length;
-        if(k==='ArrowRight'||k==='ArrowDown'){e.preventDefault();select((i+1)%n,true);}
-        if(k==='ArrowLeft'||k==='ArrowUp'){e.preventDefault();select((i-1+n)%n,true);}
-      });
-    });
-    select(0);
+  // journey bar: dots fill as she moves through the moments
+  var links=[].slice.call(document.querySelectorAll('.path a')), fill=document.getElementById('fill');
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function spy(){
+    var cur=-1, line=innerHeight*0.4;
+    secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<=line) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); a.classList.toggle('done',i<cur); if(i===cur) a.setAttribute('aria-current','step'); else a.removeAttribute('aria-current'); });
+    var n=links.length-1, p=cur<0?0:cur/n;
+    if(cur>=0 && cur<n){ var a=secs[cur].getBoundingClientRect().top, b=secs[cur+1].getBoundingClientRect().top; var t=Math.min(1,Math.max(0,(line-a)/((b-a)||1))); p=(cur+t)/n; }
+    fill.style.width='calc((100% - 12px) * '+p+')';
   }
-  tabs(document.querySelector('.stp-tabs'));
-  tabs(document.querySelector('.levels'));
-  var fill=document.getElementById('fill');
-  tabs(document.querySelector('.track'),function(i,btns){
-    btns.forEach(function(b,j){b.classList.toggle('done',j<i);});
-    fill.style.width=(i/(btns.length-1)*100*0.75)+'%';
-  });
-
-  // marketing mix cards: tap to open on touch screens
-  document.querySelectorAll('.p').forEach(function(c){
-    c.addEventListener('click',function(){ c.classList.toggle('open'); });
-    c.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();c.classList.toggle('open');} });
-  });
-
+  addEventListener('scroll',spy,{passive:true}); addEventListener('resize',spy); spy();
   // image viewer
   var lb=document.getElementById('lightbox'), big=document.getElementById('lightbox-img'), close=document.getElementById('lb-close'), last=null;
   function shut(){ lb.classList.remove('open'); if(last) last.focus(); }
@@ -537,19 +580,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   close.addEventListener('click',shut);
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target===big) shut(); });
   addEventListener('keydown',function(e){ if(e.key==='Escape' && lb.classList.contains('open')) shut(); });
-
-  // nav: highlight the section in view
-  var links=[].slice.call(document.querySelectorAll('.bar nav a'));
-  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
-  function spy(){
-    var cur=-1, line=innerHeight*0.35;
-    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=line) cur=i; });
-    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4) cur=secs.length-1;
-    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); if(i===cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
-  }
-  addEventListener('scroll',spy,{passive:true}); addEventListener('resize',spy); spy();
 })();
 </script>
-<noscript><style>.panel[hidden],.stage[hidden],.rp[hidden]{display:block}.stp-tabs,.levels,.track,.mix-hint{display:none}.stage + .stage,.rp + .rp{margin-top:40px}</style></noscript>
 </body>
 </html>
