@@ -240,6 +240,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .logos figure{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center}
   .logos figcaption{margin-top:0}
 }
+
+/* ============ consistency pass: one line style, one spacing scale ============
+   lines: every rule is 1px var(--line); the only accent line is the 2px
+   blue edge on the quote. spacing: 128 between sections, 72 between
+   sub-sections, 32 between a block and the text above it. */
+.rows,.lessons,.numbers,table.ba thead th{border-color:var(--line)}
+.rows,.lessons,.numbers{border-top:1px solid var(--line)}
+.ba th{border-bottom:1px solid var(--line)}
+.step{border-top:1px solid var(--line);padding-top:18px}
+.statement{border-left:2px solid var(--accent);padding:4px 0 4px 24px}
+.aside{border-left:0;background:var(--soft);border-radius:6px;padding:20px 24px;max-width:none;margin-top:32px}
+.why{padding:22px 24px}
+.meta{margin-top:48px;padding-top:28px}
+.tldr{margin-top:48px}
+.ba-hero{margin-top:64px;gap:24px}
+.ba-hero figure img{aspect-ratio:3/2;object-fit:cover;border:0;border-radius:6px}
+.ba-hero .old img{border:1px solid var(--line)}
+.ba-hero .tagline{margin-bottom:12px}
+.sec{padding-top:128px}
+.break{margin-top:128px}
+.sec .lead{margin-bottom:0}
+.sec h3.sub{margin-top:72px;margin-bottom:8px}
+.rows,.steps,.why,.statement,table.ba,.pages,.logos,.numbers,.fans,.lessons{margin-top:32px}
+.series-label{margin:32px 0 12px}
+.ads{margin-top:0}
+.ads + .series-label{margin-top:24px}
+.note{margin-top:24px}
+.pages,.logos{gap:20px}
+.closing{margin-top:128px;padding-top:80px}
+@media(max-width:860px){.sec{padding-top:88px}.break{margin-top:88px}.sec h3.sub{margin-top:56px}.closing{margin-top:96px}}
+
+/* one grid: header text sits in the same right-hand column as every section */
+.head-grid{display:grid;grid-template-columns:200px 1fr;gap:48px}
+.head-grid .sec-label{padding-top:4px}
+@media(max-width:860px){.head-grid{grid-template-columns:1fr;gap:14px}.head-grid .sec-label{display:none}}
 </style>
 </head>
 <body>
@@ -262,9 +297,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <header class="head">
   <div class="wrap">
-    <div class="eyebrow"><svg width="92" height="16" aria-hidden="true"><use href="#motif"/></svg>Brand case study &middot; XSAV Lab</div>
-    <h1>Rebuilding XSAV Lab's brand</h1>
-    <p class="summary">XSAV Lab is a Pune-based tech agency that offers cybersecurity, cloud engineering, AI agents and custom software. Its brand, though, only talked about security, and its old logo didn't match the rest of its look. During my internship, I rebuilt the brand: a clear message, a new logo, simple rules for how it looks and sounds, and the sales and social material to go with it.</p>
+    <div class="head-grid">
+      <div class="sec-label"><div class="n">XSAV Lab</div><div class="t">Case study &middot; 2026</div></div>
+      <div>
+      <div class="eyebrow"><svg width="92" height="16" aria-hidden="true"><use href="#motif"/></svg>Brand case study</div>
+      <h1>Rebuilding XSAV Lab's brand</h1>
+      <p class="summary">XSAV Lab is a Pune-based tech agency that offers cybersecurity, cloud engineering, AI agents and custom software. Its brand, though, only talked about security, and its old logo didn't match the rest of its look. During my internship, I rebuilt the brand: a clear message, a new logo, simple rules for how it looks and sounds, and the sales and social material to go with it.</p>
+      </div>
+    </div>
     <dl class="meta">
       <div><dt>Role</dt><dd>Marketing Intern</dd></div>
       <div><dt>Company</dt><dd>XSAV Lab, Pune</dd></div>

@@ -210,6 +210,7 @@
   @keyframes cue{0%{top:-2px;opacity:0}15%{opacity:1}75%{opacity:1}100%{top:36px;opacity:0}}
   .scroll-cue{transition:opacity .5s ease,transform .5s ease}
   .scroll-cue.gone{opacity:0!important;transform:translateY(8px);pointer-events:none}
+  .scroll-cue.pre{opacity:0}
   @keyframes cuePulse{0%,100%{opacity:1}50%{opacity:.55}}
   @media (prefers-reduced-motion:reduce){.scroll-cue{animation:none}}
 
@@ -1079,6 +1080,8 @@
 
   function startHero(){
     if (!hasGSAP){ document.getElementById('intro').style.display='none'; return; }
+    const cue = document.querySelector('.scroll-cue');
+    cue.classList.add('pre');
     const counter = { v: 0 };
     const tl = gsap.timeline();
     tl.to(counter, { v: 100, duration: 1.1, ease:'power2.inOut',
@@ -1090,7 +1093,7 @@
       .from(chars, { yPercent:120, rotateX:-70, opacity:0, duration:.9, stagger:.04, ease:'power4.out' }, '-=.4')
       .from('.hero .greeting span', { yPercent:110, duration:.6, ease:'power3.out' }, '-=.5')
       .from('#heroSub', { y:24, opacity:0, duration:.8, ease:'power3.out' }, '-=.4')
-      .from('.scroll-cue', { opacity:0, duration:.6 }, '-=.3');
+      .call(() => cue.classList.remove('pre'), null, '-=.3');
   }
   let heroStarted = false;
   function startHeroOnce(){ if (heroStarted) return; heroStarted = true; startHero(); }
