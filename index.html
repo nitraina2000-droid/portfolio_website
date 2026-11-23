@@ -202,10 +202,14 @@
      enough since the warm red glow can sit right under this text */
   .hero-sub{margin-top:8px;max-width:520px;font-size:clamp(16px,2vw,21px);color:var(--text-soft);line-height:1.5;overflow:hidden;text-shadow:0 2px 20px var(--shadow)}
   .hero-sub b{color:var(--text);font-weight:600}
-  .scroll-cue{position:absolute;bottom:30px;left:34px;font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:10px;text-shadow:0 2px 14px var(--shadow);animation:cuePulse 2s ease-in-out infinite}
-  .scroll-cue .bar{width:44px;height:2px;background:var(--line-strong);position:relative;overflow:hidden}
-  .scroll-cue .bar::after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);animation:cue 2s var(--ease) infinite}
-  @keyframes cue{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+  .scroll-cue{position:absolute;bottom:30px;left:34px;font:600 12px 'Space Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:10px;text-shadow:0 2px 14px var(--shadow)}
+  /* falling dot: a vertical track with a dot that drops down it, so the
+     motion points the same way the page scrolls (down), not sideways */
+  .scroll-cue .bar{width:2px;height:40px;background:var(--line-strong);position:relative;border-radius:2px;overflow:visible}
+  .scroll-cue .bar::after{content:"";position:absolute;left:50%;top:40%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:cue 2.2s cubic-bezier(.55,0,.45,1) infinite}
+  @keyframes cue{0%{top:-2px;opacity:0}15%{opacity:1}75%{opacity:1}100%{top:36px;opacity:0}}
+  .scroll-cue{transition:opacity .5s ease,transform .5s ease}
+  .scroll-cue.gone{opacity:0!important;transform:translateY(8px);pointer-events:none}
   @keyframes cuePulse{0%,100%{opacity:1}50%{opacity:.55}}
   @media (prefers-reduced-motion:reduce){.scroll-cue{animation:none}}
 
@@ -1594,6 +1598,12 @@
     }
   });
 })();
+</script>
+<script>
+/* fade the scroll cue out once the visitor starts scrolling */
+(function(){var c=document.querySelector('.scroll-cue');if(!c)return;
+function f(){c.classList.toggle('gone',window.scrollY>40);}
+addEventListener('scroll',f,{passive:true});f();})();
 </script>
 </body>
 </html>

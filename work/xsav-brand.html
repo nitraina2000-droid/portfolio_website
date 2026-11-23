@@ -218,6 +218,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .lightbox.open{display:flex}
 .lightbox img{max-width:min(94vw,1300px);max-height:86vh;border-radius:4px}
 .lightbox button{position:absolute;top:18px;right:22px;background:#fff;color:var(--ink);border:0;border-radius:4px;padding:8px 14px;font:500 14px var(--body);cursor:pointer}
+
+/* ---------- layout fixes: one grid for the whole page ---------- */
+.tldr{margin-top:36px}
+.ba-hero{margin-bottom:8px}
+.ba-hero .new img{border:1px solid #1e1e1e}
+.why{max-width:none}
+.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.logos img{border-radius:4px}
+.logos img.light{border:1px solid var(--line)}
+.logos figcaption{margin-top:12px;font-size:15px;color:var(--ink-2);line-height:1.55}
+.logos figcaption b{display:block;font-family:var(--head);font-weight:600;color:var(--ink);font-size:15.5px;margin-bottom:2px}
+.series-label{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.series-label + .ads{margin-top:0}
+@media(min-width:861px){
+  .break blockquote,.closing>*,.closing p{margin-left:248px}
+}
+@media(max-width:600px){
+  .eyebrow svg{display:none}
+  .logos{grid-template-columns:1fr;gap:14px}
+  .logos figure{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center}
+  .logos figcaption{margin-top:0}
+}
 </style>
 </head>
 <body>
@@ -318,11 +340,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
       <h3 class="sub">The logo</h3>
       <p class="subtext">The old logo felt disconnected from the rest of the brand, so I designed a simpler mark in its place: four identical triangles, all leaning the same way, like a team moving in step towards one goal.</p>
-      <button class="zoom logo-strip" type="button" aria-label="Enlarge: the three versions of the new logo"><img src="xsav/logo-new.jpg" alt="The new logo in three versions: white on dark, navy on white, and gold on dark"></button>
-      <div class="points">
-        <div><b>White</b>The main version, for dark backgrounds like the website.</div>
-        <div><b>Navy</b>For white pages, documents and print.</div>
-        <div><b>Gold</b>For special print, such as business cards.</div>
+      <div class="logos">
+        <figure><button class="zoom" type="button" aria-label="Enlarge: white logo"><img src="xsav/logo-white.jpg" alt="The new logo in white on a dark background"></button><figcaption><b>White</b>The main version, for dark backgrounds like the website.</figcaption></figure>
+        <figure><button class="zoom" type="button" aria-label="Enlarge: navy logo"><img src="xsav/logo-navy.jpg" alt="The new logo in navy on white" class="light"></button><figcaption><b>Navy</b>For white pages, documents and print.</figcaption></figure>
+        <figure><button class="zoom" type="button" aria-label="Enlarge: gold logo"><img src="xsav/logo-gold.jpg" alt="The new logo in gold on a dark background"></button><figcaption><b>Gold</b>For special print, such as business cards.</figcaption></figure>
       </div>
 
       <h3 class="sub">What changed</h3>
@@ -365,17 +386,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
       <h3 class="sub">Ad creatives</h3>
       <p class="subtext">Two series with one idea each: AI agents that work without a break, and security that sees everything.</p>
+      <div class="series-label">AI agents series</div>
       <div class="ads">
         <button class="zoom" type="button" aria-label="Enlarge ad: One hire. An entire shift."><img src="xsav/ad-ai-clone.jpg" alt="AI agents ad: One hire. An entire shift."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: Set it up once. Watch it run."><img src="xsav/ad-ai-domino.jpg" alt="AI agents ad: Set it up once. Watch it run."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: We never hang up."><img src="xsav/ad-ai-phone.jpg" alt="AI agents ad: We never hang up."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: It takes one step."><img src="xsav/ad-ai-stairs.jpg" alt="AI agents ad: It takes one step."></button>
+      </div>
+      <div class="series-label">Cybersecurity series</div>
+      <div class="ads">
         <button class="zoom" type="button" aria-label="Enlarge ad: Nothing gets through the wall."><img src="xsav/ad-cyber-firewall.jpg" alt="Cybersecurity ad: Nothing gets through the wall."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: Hardened at every layer."><img src="xsav/ad-cyber-shield.jpg" alt="Cybersecurity ad: Hardened at every layer."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: Every server. Watched, line by line."><img src="xsav/ad-cyber-server.jpg" alt="Cybersecurity ad: Every server. Watched, line by line."></button>
         <button class="zoom" type="button" aria-label="Enlarge ad: Consider it locked."><img src="xsav/ad-cyber-vault.jpg" alt="Cybersecurity ad: Consider it locked."></button>
       </div>
-      <div class="series"><span>Top row: AI agents series</span><span>Bottom row: cybersecurity series</span></div>
 
       <h3 class="sub">LinkedIn carousels</h3>
       <p class="subtext">Three carousels, each telling one story. Here are a few slides from each.</p>
