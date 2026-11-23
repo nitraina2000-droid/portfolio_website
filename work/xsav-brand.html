@@ -16,12 +16,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FFFFFF;
-  --soft:#F6F7F8;
+  --bg:#F7F7F5;
+  --soft:#EDEDEA;
   --ink:#111418;
   --ink-2:#3B424B;
   --muted:#656D77;
-  --line:#E6E8EB;
+  --line:#E2E2DE;
   --accent:#2445D6;
   --head:'Inter Tight','Inter',system-ui,sans-serif;
   --body:'Inter',system-ui,sans-serif;
@@ -38,7 +38,7 @@ p + p{margin-top:14px}
 figure{margin:0}
 
 /* top bar */
-.bar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:0;z-index:20;background:rgba(247,247,245,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px;font-size:14px}
 .bar a{color:var(--ink);text-decoration:none;font-weight:500}
 .bar nav{display:flex;gap:22px}
@@ -176,23 +176,23 @@ table.ba{width:100%;border-collapse:collapse;margin-top:22px;font-size:15.5px}
 .note{margin-top:14px;font-size:14.5px;color:var(--ink-2)}
 
 /* carousel fans: a few slides from each, fanned like a hand of cards */
-.fans{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px;width:calc(100% + 248px);margin-left:-248px}
-.fan{position:relative;height:265px}
-.fan .zoom{position:absolute;left:50%;bottom:10px;width:46%;margin-left:-23%;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.fans{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px}
+.fan{position:relative;aspect-ratio:10/7}
+.fan .zoom{position:absolute;left:50%;bottom:10px;width:50%;margin-left:-25%;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
 .fan .zoom img{border-radius:4px;box-shadow:0 14px 28px -14px rgba(17,20,24,.55);border:1px solid rgba(255,255,255,.08)}
-.fan .zoom:nth-child(1){transform:translateX(-50%) rotate(-11deg)}
-.fan .zoom:nth-child(2){transform:translateX(50%) rotate(11deg)}
+.fan .zoom:nth-child(1){transform:translateX(-40%) rotate(-10deg)}
+.fan .zoom:nth-child(2){transform:translateX(40%) rotate(10deg)}
 .fan .zoom:nth-child(3){transform:translateX(-24%) rotate(-5deg) translateY(-4px)}
 .fan .zoom:nth-child(4){transform:translateX(14%) rotate(3deg) translateY(-10px)}
-.fan-item:hover .zoom:nth-child(1){transform:translateX(-62%) rotate(-14deg)}
-.fan-item:hover .zoom:nth-child(2){transform:translateX(62%) rotate(14deg)}
+.fan-item:hover .zoom:nth-child(1){transform:translateX(-52%) rotate(-13deg)}
+.fan-item:hover .zoom:nth-child(2){transform:translateX(52%) rotate(13deg)}
 .fan-item:hover .zoom:nth-child(3){transform:translateX(-32%) rotate(-6deg) translateY(-8px)}
 .fan-item:hover .zoom:nth-child(4){transform:translateX(18%) rotate(3deg) translateY(-18px)}
 .fan-item figcaption{text-align:center;margin-top:14px}
 .fan-item figcaption b{display:block;font-family:var(--head);font-weight:600;font-size:16px}
 .fan-item figcaption span{display:block;font-size:14px;color:var(--ink-2);margin-top:2px}
 .fan-item figcaption small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px}
-@media(max-width:860px){.fans{grid-template-columns:1fr;gap:28px;width:100%;margin-left:0}.fan{height:250px}.fan .zoom{width:36%;margin-left:-18%}}
+@media(max-width:860px){.fans{grid-template-columns:1fr;gap:28px}.fan{aspect-ratio:16/9}.fan .zoom{width:36%;margin-left:-18%}}
 @media (prefers-reduced-motion:reduce){.fan .zoom{transition:none}}
 
 /* lessons */
