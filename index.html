@@ -184,16 +184,16 @@
   /* HERO — fixed top padding guarantees clearance under the fixed nav no
      matter the viewport height (previously the eyebrow could land right
      under/behind "Nitin." on shorter screens) */
-  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:130px 34px 80px;position:relative}
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(76px,13svh,130px) 34px clamp(88px,11svh,110px);position:relative}
   /* time-of-day greeting: a warm, lowercase aside between the name and
      the hero-sub — it opens the sentence that hero-sub continues, so it
      stays a separate element (not folded into the eyebrow text) and reads as
      its own small human touch rather than competing with the tagline */
-  .hero .greeting{font:400 16px 'Space Grotesk';font-style:italic;letter-spacing:normal;text-transform:none;color:var(--muted);margin:28px 0 10px;overflow:hidden;min-height:1em}
+  .hero .greeting{font:400 16px 'Space Grotesk';font-style:italic;letter-spacing:normal;text-transform:none;color:var(--muted);margin:clamp(14px,3svh,28px) 0 10px;overflow:hidden;min-height:1em}
   .hero .greeting span{display:inline-block}
-  .hero .eyebrow{font:500 13px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;overflow:hidden;text-shadow:0 2px 16px var(--shadow)}
+  .hero .eyebrow{font:500 13px 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(14px,3svh,26px);overflow:hidden;text-shadow:0 2px 16px var(--shadow)}
   .hero .eyebrow span{display:inline-block}
-  .hero-name{font-size:clamp(58px,15.5vw,260px);font-weight:800;perspective:800px}
+  .hero-name{font-size:clamp(58px,min(15.5vw,22svh),260px);font-weight:800;perspective:800px}
   .hero-name .line{display:block;overflow:hidden}
   .hero-name .char{display:inline-block;will-change:transform}
   .hero-name .accent{color:var(--accent)}

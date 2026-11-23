@@ -275,6 +275,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .head-grid{display:grid;grid-template-columns:200px 1fr;gap:48px}
 .head-grid .sec-label{padding-top:4px}
 @media(max-width:860px){.head-grid{grid-template-columns:1fr;gap:14px}.head-grid .sec-label{display:none}}
+
+/* nav: highlight the section being read */
+.bar nav a{position:relative;transition:color .2s}
+.bar nav a.on{color:var(--ink)}
+.bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .25s ease}
+.bar nav a.on::after{transform:scaleX(1)}
 </style>
 </head>
 <body>
@@ -292,7 +298,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <div class="bar"><div class="wrap">
   <a href="../index.html" id="back">&larr; Nitin Raina</a>
-  <nav aria-label="Sections"><a href="#problem">Problem</a><a href="#approach">Approach</a><a href="#outcome">The new brand</a><a href="#use">The work</a><a href="#reflection">Reflection</a></nav>
+  <nav aria-label="Sections"><a href="#problem">Problem</a><a href="#approach">Approach</a><a href="#outcome">Identity</a><a href="#use">Rollout</a><a href="#reflection">Reflection</a></nav>
 </div></div>
 
 <header class="head">
@@ -367,7 +373,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
   <!-- 03 THE NEW BRAND -->
   <section class="sec" id="outcome">
-    <div class="sec-label"><div class="n">03</div><div class="t">The new brand</div></div>
+    <div class="sec-label"><div class="n">03</div><div class="t">Identity</div></div>
     <div>
       <h2>A brand that holds together</h2>
       <p class="lead">Three pieces work together: what XSAV says, how it looks, and the rules that keep both consistent.</p>
@@ -413,7 +419,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
   <!-- 04 THE WORK -->
   <section class="sec" id="use">
-    <div class="sec-label"><div class="n">04</div><div class="t">The work</div></div>
+    <div class="sec-label"><div class="n">04</div><div class="t">Rollout</div></div>
     <div>
       <h2>Putting the brand to work</h2>
       <p class="lead">Once the CEO approved the brand, I used it across the material XSAV shares every day.</p>
@@ -524,6 +530,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   close.addEventListener('click',shut);
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target===big) shut(); });
   addEventListener('keydown',function(e){ if(e.key==='Escape' && lb.classList.contains('open')) shut(); });
+})();
+</script>
+<script>
+/* scrollspy: mark the nav link for the section in view */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.bar nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function spy(){
+    var cur=-1, line=innerHeight*0.35;
+    secs.forEach(function(sec,i){ if(sec && sec.getBoundingClientRect().top<=line) cur=i; });
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4) cur=secs.length-1;
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); if(i===cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+  }
+  addEventListener('scroll',spy,{passive:true}); addEventListener('resize',spy); spy();
 })();
 </script>
 </body>
