@@ -175,11 +175,25 @@ table.ba{width:100%;border-collapse:collapse;margin-top:22px;font-size:15.5px}
 .strip img{border-radius:3px}
 .note{margin-top:14px;font-size:14.5px;color:var(--ink-2)}
 
-/* sales material */
-.material{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
-.material .wide{grid-column:1/-1}
-.material .deck img{aspect-ratio:16/9;object-fit:contain;background:#0B1120}
-@media(max-width:600px){.material{grid-template-columns:1fr}}
+/* carousel fans: a few slides from each, fanned like a hand of cards */
+.fans{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px;width:calc(100% + 248px);margin-left:-248px}
+.fan{position:relative;height:265px}
+.fan .zoom{position:absolute;left:50%;bottom:10px;width:46%;margin-left:-23%;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.fan .zoom img{border-radius:4px;box-shadow:0 14px 28px -14px rgba(17,20,24,.55);border:1px solid rgba(255,255,255,.08)}
+.fan .zoom:nth-child(1){transform:translateX(-50%) rotate(-11deg)}
+.fan .zoom:nth-child(2){transform:translateX(50%) rotate(11deg)}
+.fan .zoom:nth-child(3){transform:translateX(-24%) rotate(-5deg) translateY(-4px)}
+.fan .zoom:nth-child(4){transform:translateX(14%) rotate(3deg) translateY(-10px)}
+.fan-item:hover .zoom:nth-child(1){transform:translateX(-62%) rotate(-14deg)}
+.fan-item:hover .zoom:nth-child(2){transform:translateX(62%) rotate(14deg)}
+.fan-item:hover .zoom:nth-child(3){transform:translateX(-32%) rotate(-6deg) translateY(-8px)}
+.fan-item:hover .zoom:nth-child(4){transform:translateX(18%) rotate(3deg) translateY(-18px)}
+.fan-item figcaption{text-align:center;margin-top:14px}
+.fan-item figcaption b{display:block;font-family:var(--head);font-weight:600;font-size:16px}
+.fan-item figcaption span{display:block;font-size:14px;color:var(--ink-2);margin-top:2px}
+.fan-item figcaption small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px}
+@media(max-width:860px){.fans{grid-template-columns:1fr;gap:28px;width:100%;margin-left:0}.fan{height:250px}.fan .zoom{width:36%;margin-left:-18%}}
+@media (prefers-reduced-motion:reduce){.fan .zoom{transition:none}}
 
 /* lessons */
 .lessons{margin-top:32px;border-top:1px solid var(--ink)}
@@ -364,52 +378,37 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="series"><span>Top row: AI agents series</span><span>Bottom row: cybersecurity series</span></div>
 
       <h3 class="sub">LinkedIn carousels</h3>
-      <p class="subtext">Scroll sideways through each one, just like on LinkedIn.</p>
-      <div class="carousel">
-        <div class="ttl"><b>An aviation client case study</b><span>7 slides</span></div>
-        <div class="strip">
-          <button class="zoom" type="button" aria-label="Enlarge slide 1"><img src="xsav/car-av-1.jpg" alt="Aviation carousel, slide 1: How do you catch failure before it happens?"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 2"><img src="xsav/car-av-2.jpg" alt="Aviation carousel, slide 2: Silent damage, between checks"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 3"><img src="xsav/car-av-3.jpg" alt="Aviation carousel, slide 3: Three layers, one live picture"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 4"><img src="xsav/car-av-4.jpg" alt="Aviation carousel, slide 4: Full-aircraft coverage"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 5"><img src="xsav/car-av-5.jpg" alt="Aviation carousel, slide 5: 6 months, start to production"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 6"><img src="xsav/car-av-6.jpg" alt="Aviation carousel, slide 6: The model travels beyond aviation"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 7"><img src="xsav/car-av-7.jpg" alt="Aviation carousel, slide 7: contact call to action"></button>
+      <p class="subtext">Three carousels, each telling one story. Here are a few slides from each.</p>
+      <div class="fans">
+      <figure class="fan-item">
+        <div class="fan">
+          <button class="zoom" type="button" aria-label="Enlarge: Aviation case study, slide 2"><img src="xsav/car-av-2.jpg" alt="Silent damage, between checks"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Aviation case study, slide 3"><img src="xsav/car-av-3.jpg" alt="Three layers, one live picture"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Aviation case study, slide 5"><img src="xsav/car-av-5.jpg" alt="6 months, start to production"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Aviation case study, slide 1"><img src="xsav/car-av-1.jpg" alt="How do you catch failure before it happens?"></button>
         </div>
-      </div>
-      <div class="carousel">
-        <div class="ttl"><b>XSAV's security services</b><span>8 slides</span></div>
-        <div class="strip">
-          <button class="zoom" type="button" aria-label="Enlarge slide 1"><img src="xsav/car-sec-1.jpg" alt="Security carousel, slide 1: Most breaches don't start with hackers"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 2"><img src="xsav/car-sec-2.jpg" alt="Security carousel, slide 2: Four pillars, one security posture"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 3"><img src="xsav/car-sec-3.jpg" alt="Security carousel, slide 3: VAPT and managed security"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 4"><img src="xsav/car-sec-4.jpg" alt="Security carousel, slide 4: Malware and threat detection"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 5"><img src="xsav/car-sec-5.jpg" alt="Security carousel, slide 5: OT and ICS security"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 6"><img src="xsav/car-sec-6.jpg" alt="Security carousel, slide 6: Compliance and risk"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 7"><img src="xsav/car-sec-7.jpg" alt="Security carousel, slide 7: Methodology"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 8"><img src="xsav/car-sec-8.jpg" alt="Security carousel, slide 8: call to action"></button>
+        <figcaption><b>Aviation case study</b><span>How XSAV helped catch aircraft faults before they happen.</span><small>7 slides</small></figcaption>
+      </figure>
+      <figure class="fan-item">
+        <div class="fan">
+          <button class="zoom" type="button" aria-label="Enlarge: Security services, slide 2"><img src="xsav/car-sec-2.jpg" alt="Four pillars, one security posture"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Security services, slide 3"><img src="xsav/car-sec-3.jpg" alt="VAPT and managed security"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Security services, slide 4"><img src="xsav/car-sec-4.jpg" alt="Malware and threat detection"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Security services, slide 1"><img src="xsav/car-sec-1.jpg" alt="Most breaches don't start with hackers"></button>
         </div>
-      </div>
-      <div class="carousel">
-        <div class="ttl"><b>Introducing WedHaven, an XSAV product</b><span>6 slides</span></div>
-        <div class="strip">
-          <button class="zoom" type="button" aria-label="Enlarge slide 1"><img src="xsav/car-wed-1.jpg" alt="WedHaven carousel, slide 1: Wedding planning shouldn't need 15 different tabs"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 2"><img src="xsav/car-wed-2.jpg" alt="WedHaven carousel, slide 2: One ecosystem, every moving part of a wedding"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 3"><img src="xsav/car-wed-3.jpg" alt="WedHaven carousel, slide 3: Discovery to booking"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 4"><img src="xsav/car-wed-4.jpg" alt="WedHaven carousel, slide 4: The parts nobody wants to do manually"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 5"><img src="xsav/car-wed-5.jpg" alt="WedHaven carousel, slide 5: We don't just advise, we ship and run our own"></button>
-          <button class="zoom" type="button" aria-label="Enlarge slide 6"><img src="xsav/car-wed-6.jpg" alt="WedHaven carousel, slide 6: call to action"></button>
+        <figcaption><b>Security services</b><span>XSAV's four security services, explained in plain words.</span><small>8 slides</small></figcaption>
+      </figure>
+      <figure class="fan-item">
+        <div class="fan">
+          <button class="zoom" type="button" aria-label="Enlarge: Introducing WedHaven, slide 2"><img src="xsav/car-wed-2.jpg" alt="One ecosystem, every moving part of a wedding"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Introducing WedHaven, slide 3"><img src="xsav/car-wed-3.jpg" alt="Discovery to booking"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Introducing WedHaven, slide 5"><img src="xsav/car-wed-5.jpg" alt="We don't just advise, we ship and run our own"></button>
+          <button class="zoom" type="button" aria-label="Enlarge: Introducing WedHaven, slide 1"><img src="xsav/car-wed-1.jpg" alt="Wedding planning shouldn't need 15 different tabs"></button>
         </div>
+        <figcaption><b>Introducing WedHaven</b><span>Launching XSAV's own wedding-planning product.</span><small>6 slides</small></figcaption>
+      </figure>
       </div>
       <p class="note">These carousels came after the brand colours were set, but they don't follow them strictly. That became lesson three below.</p>
-
-      <h3 class="sub">Sales and profile material</h3>
-      <div class="material">
-        <figure class="deck"><button class="zoom frame" type="button" aria-label="Enlarge: sales deck cover"><img src="xsav/deck-cover.jpg" alt="Sales deck cover with the new XSAV Lab logo and tagline"></button><p class="cap">Sales deck cover</p></figure>
-        <figure class="deck"><button class="zoom frame" type="button" aria-label="Enlarge: company overview slide"><img src="xsav/deck-practices.jpg" alt="Company overview slide showing XSAV's services as one partner"></button><p class="cap">Company overview: every service, one partner</p></figure>
-        <figure><button class="zoom frame" type="button" aria-label="Enlarge: portfolio cover"><img src="xsav/portfolio-cover.jpg" alt="XSAV Lab portfolio cover: Proof of Work"></button><p class="cap">Client portfolio cover</p></figure>
-        <figure><button class="zoom frame" type="button" aria-label="Enlarge: LinkedIn banner"><img src="xsav/linkedin-banner.jpg" alt="XSAV Lab LinkedIn banner"></button><p class="cap">LinkedIn banner</p></figure>
-      </div>
     </div>
   </section>
 
